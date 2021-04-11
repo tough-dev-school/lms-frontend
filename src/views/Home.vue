@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>Данные для диплома</h1>
     <form v-if="isUserFetched" @submit.prevent="submit">
       <UserDataField label="Имя" name="first_name" />
       <UserDataField label="Фамилия" name="last_name" />
