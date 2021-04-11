@@ -1,5 +1,5 @@
-import Vue from "vue";
 import axios from "@/api/backend.js";
+import jwtDecode from "jwt-decode";
 
 export default {
   namespaced: true,
@@ -7,7 +7,15 @@ export default {
     user: null,
     token: null,
   }),
-
+  getters: {
+    isAuthenticated: (state, getters) => {
+      return state.user !== null && state.token !== null && getters.isTokenValid;
+    },
+    isTokenValid: (state) => {
+      const { exp } = jwtDecode(state.token);
+      return exp > Math.ceil(Date.now() / 1000);
+    },
+  },
   actions: {
     async REQUEST_PASSWORDLESS_TOKEN(_, { email }) {
       return axios.get(`/api/v2/auth/passwordless-token/request/${email}/`);
@@ -26,10 +34,14 @@ export default {
   },
   mutations: {
     SET_USER(state, user) {
-      Vue.set(state, "user", user);
+      state.user = user;
     },
     SET_TOKEN(state, token) {
-      Vue.set(state, "token", token);
+      state.token = token;
+    },
+    RESET(state) {
+      state.user = null;
+      state.token = null;
     },
   },
 };
