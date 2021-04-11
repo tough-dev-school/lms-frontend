@@ -6,10 +6,12 @@ import * as Cookies from "js-cookie";
 Vue.use(Vuex);
 
 import auth from "./auth.js";
+import user from "./user.js";
 
 export default new Vuex.Store({
   modules: {
     auth,
+    user,
   },
   plugins: [
     createPersistedState({
