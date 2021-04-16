@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/lms/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://edu-app.borshev.com/api/:splat"
+  status = 200
