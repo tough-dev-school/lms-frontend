@@ -17,3 +17,8 @@
   from = "/lms/*"
   to = "/lms/index.html"
   status = 200
+
+[[redirects]]
+  from = "*"
+  to = "https://education.borshev.com/:splat"
+  status = 200
