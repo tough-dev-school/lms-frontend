@@ -1,15 +1,15 @@
 <template>
-  <span v-if="name" class="homework-author">{{ name }}</span>
+  <span v-if="name" class="user-name">{{ name }}</span>
 </template>
 
 <script>
 export default {
   props: {
-    author: { type: Object, required: true },
+    user: { type: Object, required: true },
   },
   computed: {
     name() {
-      const { first_name, last_name } = this.author;
+      const { first_name, last_name } = this.user;
 
       if (!first_name && !last_name) {
         return "";

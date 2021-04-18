@@ -1,6 +1,6 @@
 <template>
   <div class="answer">
-    <HomeworkAuthor class="answer__author" :author="answer.author" />
+    <AppUserName class="answer__author" :user="answer.author" />
     <AppDate :date="answer.created" />
     <div class="answer__text">
       <AppContent :html="answer.text" />
@@ -12,13 +12,13 @@
 import AppContent from "@/components/AppContent.vue";
 import AppDate from "@/components/AppDate.vue";
 
-import HomeworkAuthor from "@/components/Homework/HomeworkAuthor.vue";
+import AppUserName from "@/components/AppUserName.vue";
 
 export default {
   components: {
     AppContent,
     AppDate,
-    HomeworkAuthor,
+    AppUserName,
   },
   props: {
     answer: { type: Object, required: true },

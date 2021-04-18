@@ -51,7 +51,10 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (!to.meta?.public && !store.getters["auth/isAuthenticated"]) {
-    return next("/login");
+    return next({
+      name: "Login",
+      query: { next: to.fullPath },
+    });
   }
   next();
 });

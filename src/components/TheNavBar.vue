@@ -1,17 +1,31 @@
 <template>
   <nav class="navigation">
     <section class="container">
-      <a class="navigation-title" href="/">
-        <h1 class="title">Site Title</h1>
-      </a>
       <ul class="navigation-list float-right">
-        <li class="navigation-item"><a class="navigation-link" href="/list">Sites</a></li>
-        <li class="navigation-item"><a class="navigation-link" href="/login">Login</a></li>
+        <li class="navigation-item"><AppUserName :user="user" /> (<a class="navigation-link" @click.prevent="logout">Выйти</a>)</li>
       </ul>
     </section>
   </nav>
 </template>
+<script>
+import AppUserName from "@/components/AppUserName.vue";
 
+import { mapMutations, mapState } from "vuex";
+export default {
+  components: { AppUserName },
+  computed: mapState("auth", ["user"]),
+  methods: {
+    ...mapMutations("auth", ["RESET"]),
+    logout() {
+      this.RESET();
+      this.$router.push({
+        name: "Login",
+        query: { next: this.$route.fullPath },
+      });
+    },
+  },
+};
+</script>
 <style scoped>
 .wrapper {
   display: block;
