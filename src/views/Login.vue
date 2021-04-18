@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <form @submit.prevent="submit">
+    <form v-if="loginType == 'passwordless'" @submit.prevent="submitPasswordless">
       <label for="#email">Ссылка для входа придет на почту</label>
       <input id="email" v-model="email" type="text" placeholder="Почта" />
       <input type="submit" value="Отправить" />
@@ -17,6 +17,7 @@ export default {
     return {
       email: null,
       isSent: false,
+      loginType: "passwordless",
     };
   },
   created() {
@@ -26,7 +27,7 @@ export default {
     this.SET_REDIRECT_AFTER_LOGIN(next);
   },
   methods: {
-    async submit() {
+    async submitPasswordless() {
       this.isSent = false;
       const { email } = this;
       await this.REQUEST_PASSWORDLESS_TOKEN({ email });
