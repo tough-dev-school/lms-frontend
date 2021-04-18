@@ -28,6 +28,10 @@ export default {
 
       commit("SET_ANSWERS", response.data.results);
     },
+    async POST_ANSWER({ dispatch }, { question, answer }) {
+      await axios.post(`/api/v2/homework/questions/${question}/answers/`, answer);
+      dispatch("FETCH_ANSWERS", { question });
+    },
   },
   mutations: {
     SET_QUESTION(state, question) {

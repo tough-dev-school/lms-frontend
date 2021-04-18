@@ -8,6 +8,7 @@
       <h3>{{ answersTitle }}</h3>
       <Answer v-for="answer in answers" :key="answer.slug" :answer="answer" />
     </div>
+    <PostAnswer :question="question" />
   </div>
   <div v-else-if="error" class="question question__error">
     <h2>Упс, что-то пошло не так <AppHTTPError :exception="error" /></h2>
@@ -20,12 +21,14 @@ import AppContent from "@/components/AppContent.vue";
 import AppHTTPError from "@/components/AppHTTPError.vue";
 
 import Answer from "@/components/Homework/Answer.vue";
+import PostAnswer from "@/components/Homework/PostAnswer.vue";
 
 export default {
   components: {
     Answer,
     AppContent,
     AppHTTPError,
+    PostAnswer,
   },
   data() {
     return {
