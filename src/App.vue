@@ -21,6 +21,6 @@ export default {
 </script>
 <style scoped>
 .container {
-  padding-top: 10rem;
+  padding-top: 5rem;
 }
 </style>

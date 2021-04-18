@@ -6,11 +6,13 @@ import * as Cookies from "js-cookie";
 Vue.use(Vuex);
 
 import auth from "./auth.js";
+import homework from "./homework.js";
 import user from "./user.js";
 
 export default new Vuex.Store({
   modules: {
     auth,
+    homework,
     user,
   },
   plugins: [
