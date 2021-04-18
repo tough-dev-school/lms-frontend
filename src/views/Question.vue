@@ -20,18 +20,18 @@ export default {
       error: null,
     };
   },
-  computed: mapState("homework", ["question"]),
+  computed: mapState("question", ["question"]),
 
   async created() {
     const { id } = this.$route.params;
     this.error = null;
     try {
-      await this.FETCH_QUESTION({ id });
+      await Promise.all([this.FETCH_QUESTION({ id }), this.FETCH_ANSWERS({ question: id })]);
     } catch (e) {
       this.error = `${e.response?.status}: ${e.response?.statusText}`;
     }
     this.isLoaded = true;
   },
-  methods: mapActions("homework", ["FETCH_QUESTION"]),
+  methods: mapActions("question", ["FETCH_QUESTION", "FETCH_ANSWERS"]),
 };
 </script>
