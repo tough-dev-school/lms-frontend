@@ -6,6 +6,7 @@ export default {
   state: () => ({
     user: null,
     token: null,
+    redirectAfterLogin: null,
   }),
   getters: {
     isAuthenticated: (state, getters) => {
@@ -38,6 +39,9 @@ export default {
     },
     SET_TOKEN(state, token) {
       state.token = token;
+    },
+    SET_REDIRECT_AFTER_LOGIN(state, where) {
+      state.redirectAfterLogin = where;
     },
     RESET(state) {
       state.user = null;

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 
 export default {
   data() {
@@ -18,6 +18,12 @@ export default {
       email: null,
       isSent: false,
     };
+  },
+  created() {
+    let { next } = this.$route.query;
+    next = next ? next : null;
+
+    this.SET_REDIRECT_AFTER_LOGIN(next);
   },
   methods: {
     async submit() {
@@ -27,6 +33,7 @@ export default {
       this.isSent = true;
     },
     ...mapActions("auth", ["REQUEST_PASSWORDLESS_TOKEN"]),
+    ...mapMutations("auth", ["SET_REDIRECT_AFTER_LOGIN"]),
   },
 };
 </script>
