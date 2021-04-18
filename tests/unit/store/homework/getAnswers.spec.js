@@ -9,6 +9,11 @@ describe("question/getAnswers getter", () => {
     expect(store.getters["question/getAnswers"]()).toHaveLength(3);
   });
 
+  it("Does not die when answers are empty", () => {
+    store.commit("question/SET_ANSWERS", null);
+    expect(store.getters["question/getAnswers"]()).toEqual([]);
+  });
+
   it("Returns answer objects", () => {
     const answer = store.getters["question/getAnswers"]()[1];
 

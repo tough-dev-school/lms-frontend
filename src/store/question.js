@@ -9,6 +9,9 @@ export default {
   getters: {
     getAnswers: (state) => (query) => {
       const parent = query && "parent" in query ? query.parent : null;
+      if (!state.answers || !state.answers.length) {
+        return [];
+      }
       return state.answers.filter((answer) => {
         return parent ? answer.parent === parent : !("parent" in answer);
       });
@@ -23,7 +26,7 @@ export default {
     async FETCH_ANSWERS({ commit }, { question }) {
       const response = await axios.get(`/api/v2/homework/questions/${question}/answers/?page_size=203`);
 
-      commit("SET_ANSWERS", response.data);
+      commit("SET_ANSWERS", response.data.results);
     },
   },
   mutations: {
