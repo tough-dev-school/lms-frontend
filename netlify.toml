@@ -19,6 +19,11 @@
   status = 200
 
 [[redirects]]
+  from = "/robots.txt"
+  to = "/lms/robots.txt"
+  status = 200
+
+[[redirects]]
   from = "*"
-  to = "https://education.borshev.com/:splat"
+  to = "https://project1749814.tilda.ws/:splat"
   status = 200
