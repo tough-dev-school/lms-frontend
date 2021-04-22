@@ -24,6 +24,13 @@ export default {
   },
   props: {
     question: { type: Object, required: true },
+    parent: {
+      required: false,
+      default: null,
+      validator: (prop) => {
+        return typeof prop === "object" || prop === null;
+      },
+    },
   },
   data() {
     return {
@@ -41,12 +48,14 @@ export default {
     async submit() {
       this.isLoading = true;
       const { text } = this;
+      const parent = this.parent ? this.parent.slug : null;
       await this.POST_ANSWER({
         question: this.question.slug,
-        answer: { text },
+        answer: { text, parent },
       });
       this.isLoading = false;
       this.$refs.input.clear();
+      this.$emit("submitted");
     },
   },
 };

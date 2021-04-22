@@ -6,7 +6,7 @@
     </div>
     <div v-if="answers.length" class="question__answer-list">
       <h3>{{ answersTitle }}</h3>
-      <Answer v-for="answer in answers" :key="answer.slug" :answer="answer" />
+      <AnswerList :question="question" />
     </div>
     <PostAnswer :question="question" />
   </div>
@@ -20,13 +20,13 @@ import { mapActions, mapGetters, mapState } from "vuex";
 import AppContent from "@/components/AppContent.vue";
 import AppHTTPError from "@/components/AppHTTPError.vue";
 
-import Answer from "@/components/Homework/Answer.vue";
+import AnswerList from "@/components/Homework/AnswerList.vue";
 import PostAnswer from "@/components/Homework/PostAnswer.vue";
 
 export default {
   components: {
-    Answer,
     AppContent,
+    AnswerList,
     AppHTTPError,
     PostAnswer,
   },
@@ -40,7 +40,8 @@ export default {
     ...mapState("question", ["question"]),
     ...mapGetters("question", ["getAnswers"]),
     answers() {
-      return this.getAnswers();
+      const parent = this.parent ? this.parent.slug : null;
+      return this.getAnswers({ parent });
     },
     answersTitle() {
       return this.answers.length == 1 ? "Ваш ответ" : "Ответы";
