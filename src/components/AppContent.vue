@@ -10,3 +10,11 @@ export default {
   },
 };
 </script>
+
+<style>
+.app-content {
+  p:last-child {
+    margin-bottom: 15px;
+  }
+}
+</style>
