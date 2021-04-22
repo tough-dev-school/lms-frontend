@@ -7,7 +7,7 @@
     </div>
     <div class="answer__answer">
       <a href="#" @click.prevent="isAnswering = !isAnswering">Ответить</a>
-      <PostAnswer v-if="isAnswering" :parent="answer" :question="question" @submitted="isAnswering = false" />
+      <PostAnswer v-if="isAnswering" ref="postAnswer" :parent="answer" :question="question" @submitted="isAnswering = false" />
     </div>
     <div class="answer__children" :class="{ 'answer__children--first': !answer.parent }">
       <AnswerList :parent="answer" :question="question" />
@@ -38,6 +38,13 @@ export default {
     return {
       isAnswering: false,
     };
+  },
+  watch: {
+    isAnswering(isAnswering) {
+      if (isAnswering) {
+        this.$nextTick(() => this.$refs.postAnswer.focus());
+      }
+    },
   },
 };
 </script>

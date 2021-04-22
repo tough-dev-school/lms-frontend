@@ -51,6 +51,9 @@ export default {
     clear() {
       this.text = null;
     },
+    focus() {
+      this.$refs.textarea.focus();
+    },
   },
 };
 </script>

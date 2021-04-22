@@ -57,6 +57,9 @@ export default {
       this.$refs.input.clear();
       this.$emit("submitted");
     },
+    focus() {
+      this.$refs.input.focus();
+    },
   },
 };
 </script>
