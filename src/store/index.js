@@ -3,6 +3,9 @@ import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import * as Cookies from "js-cookie";
 
+import SecureLS from "secure-ls";
+const localStorage = new SecureLS({ isCompression: false });
+
 Vue.use(Vuex);
 
 import auth from "./auth.js";
@@ -19,11 +22,9 @@ export default new Vuex.Store({
     createPersistedState({
       paths: ["auth"],
       storage: {
-        getItem: (key) => {
-          return Cookies.get(key);
-        },
-        setItem: (key, value) => Cookies.set(key, value, { expires: 365, secure: false }),
-        removeItem: (key) => Cookies.remove(key),
+        getItem: (key) => localStorage.get(key) || Cookies.get(key),
+        setItem: (key, value) => localStorage.set(key, value),
+        removeItem: (key) => localStorage.remove(key),
       },
     }),
   ],

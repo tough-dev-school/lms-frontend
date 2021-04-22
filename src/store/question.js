@@ -5,6 +5,7 @@ export default {
   state: () => ({
     question: null,
     answers: [],
+    currentAnswer: null,
   }),
   getters: {
     getAnswers: (state) => (query) => {
