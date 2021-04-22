@@ -11,16 +11,18 @@ Vue.use(Vuex);
 import auth from "./auth.js";
 import question from "./question.js";
 import user from "./user.js";
+import userInput from "./userInput.js";
 
 export default new Vuex.Store({
   modules: {
     auth,
     question,
     user,
+    userInput,
   },
   plugins: [
     createPersistedState({
-      paths: ["auth"],
+      paths: ["auth", "userInput"],
       storage: {
         getItem: (key) => localStorage.get(key) || Cookies.get(key),
         setItem: (key, value) => localStorage.set(key, value),

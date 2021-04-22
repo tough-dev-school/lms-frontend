@@ -15,9 +15,18 @@ export default {
   },
   data() {
     return {
-      text: null,
       isLoading: false,
     };
+  },
+  computed: {
+    text: {
+      get() {
+        return this.$store.state.userInput.fields.answerText;
+      },
+      set(value) {
+        return this.$store.commit("userInput/SET_FIELD", { key: "answerText", value });
+      },
+    },
   },
   methods: {
     ...mapActions("question", ["POST_ANSWER"]),
