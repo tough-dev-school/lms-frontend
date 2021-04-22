@@ -12,7 +12,7 @@ export default {
       const { first_name, last_name } = this.user;
 
       if (!first_name && !last_name) {
-        return "";
+        return "Anonymous";
       }
 
       if (first_name && last_name) {

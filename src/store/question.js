@@ -5,6 +5,7 @@ export default {
   state: () => ({
     question: null,
     answers: [],
+    currentAnswer: null,
   }),
   getters: {
     getAnswers: (state) => (query) => {
@@ -30,7 +31,7 @@ export default {
     },
     async POST_ANSWER({ dispatch }, { question, answer }) {
       await axios.post(`/api/v2/homework/questions/${question}/answers/`, answer);
-      dispatch("FETCH_ANSWERS", { question });
+      await dispatch("FETCH_ANSWERS", { question });
     },
   },
   mutations: {
