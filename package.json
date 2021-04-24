@@ -19,6 +19,7 @@
     "secure-ls": "^1.2.6",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
+    "vue-scrollto": "^2.20.0",
     "vuex": "^3.4.0",
     "vuex-persistedstate": "^3.2.0"
   },

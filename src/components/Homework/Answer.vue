@@ -1,7 +1,7 @@
 <template>
-  <div class="answer">
+  <div :id="label" class="answer">
     <AppUserName class="answer__author" :user="answer.author" />
-    <AppDate :date="answer.created" />
+    <a :href="`#${label}`" class="answer__data"><AppDate :date="answer.created" /></a>
     <div class="answer__text">
       <AppContent :html="answer.text" />
     </div>
@@ -38,6 +38,11 @@ export default {
     return {
       isAnswering: false,
     };
+  },
+  computed: {
+    label() {
+      return `${this.answer.slug}`;
+    },
   },
   watch: {
     isAnswering(isAnswering) {
