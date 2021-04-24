@@ -26,6 +26,8 @@ export default {
           return state.answerSortingOrder === "asc" ? a - b : b - a;
         });
     },
+    filterAnswers: (state) => (query) =>
+      state.answers.filter((answer) => Object.entries(query).every(([key, value]) => answer[key] === value)),
   },
   actions: {
     async FETCH_QUESTION({ commit }, { id }) {
@@ -38,6 +40,10 @@ export default {
 
       commit("SET_ANSWERS", response.data.results);
     },
+    async FETCH_PARTICULAR_ANSWER({ commit }, { question, answer }) {
+      const response = await axios.get(`/api/v2/homework/questions/${question}/answers/${answer}/`);
+      commit("APPEND_ANSWER", response.data);
+    },
     async POST_ANSWER({ dispatch }, { question, answer }) {
       await axios.post(`/api/v2/homework/questions/${question}/answers/`, answer);
       await dispatch("FETCH_ANSWERS", { question });
@@ -49,6 +55,9 @@ export default {
     },
     SET_ANSWERS(state, answers) {
       state.answers = answers;
+    },
+    APPEND_ANSWER(state, answer) {
+      state.answers.push(answer);
     },
     SET_ANSWER_SORTING_ORDER(state, order) {
       if (!["asc", "desc"].includes(order)) {

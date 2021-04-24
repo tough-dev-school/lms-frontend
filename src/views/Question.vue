@@ -38,13 +38,22 @@ export default {
   },
   computed: {
     ...mapState("question", ["question"]),
-    ...mapGetters("question", ["getAnswers"]),
+    ...mapGetters("question", ["getAnswers", "filterAnswers"]),
     answers() {
       const parent = this.parent ? this.parent.slug : null;
       return this.getAnswers({ parent });
     },
     answersTitle() {
       return this.answers.length == 1 ? "Ваш ответ" : "Ответы";
+    },
+    particularAnswerId() {
+      // slug of the requested answer
+      const { hash } = this.$route;
+      return hash ? hash.split("#")[1] : null;
+    },
+    particularAnswerIsLoaded() {
+      const { particularAnswerId } = this;
+      return particularAnswerId && this.filterAnswers({ slug: particularAnswerId }).length == 1;
     },
   },
 
@@ -53,12 +62,24 @@ export default {
     this.error = null;
     try {
       await Promise.all([this.FETCH_QUESTION({ id }), this.FETCH_ANSWERS({ question: id })]);
+      this.scrollToLoadedAnswer();
     } catch (e) {
       this.error = e;
     }
     this.isLoaded = true;
   },
-  methods: mapActions("question", ["FETCH_QUESTION", "FETCH_ANSWERS"]),
+  methods: {
+    ...mapActions("question", ["FETCH_QUESTION", "FETCH_ANSWERS", "FETCH_PARTICULAR_ANSWER"]),
+    async scrollToLoadedAnswer() {
+      if (this.particularAnswerId) {
+        if (!this.particularAnswerIsLoaded) {
+          await this.FETCH_PARTICULAR_ANSWER({ question: this.question.slug, answer: this.particularAnswerId });
+        }
+        await this.$nextTick();
+        this.$scrollTo(document.getElementById(this.particularAnswerId));
+      }
+    },
+  },
 };
 </script>
 

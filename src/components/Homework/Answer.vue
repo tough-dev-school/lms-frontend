@@ -1,7 +1,7 @@
 <template>
-  <div class="answer" :id="label">
+  <div :id="label" class="answer">
     <AppUserName class="answer__author" :user="answer.author" />
-    <a :href="label" class="answer__data"><AppDate :date="answer.created" /></a>
+    <a :href="`#${label}`" class="answer__data"><AppDate :date="answer.created" /></a>
     <div class="answer__text">
       <AppContent :html="answer.text" />
     </div>
@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     label() {
-      return `#${this.answer.slug}`;
+      return `${this.answer.slug}`;
     },
   },
   watch: {
