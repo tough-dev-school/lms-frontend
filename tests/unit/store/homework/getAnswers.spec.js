@@ -38,3 +38,30 @@ describe("question/getAnswers getter", () => {
     expect(store.getters["question/getAnswers"]({ parent: "88b04599-b184-4620-a588-7447a525d2db" })).toHaveLength(0);
   });
 });
+
+describe("question/getAnswers getter sorting", () => {
+  beforeEach(() => {
+    store.commit("question/SET_ANSWERS", require("./.fixtures/answers"));
+  });
+
+  it("Answers are sorted by created time ASC by default", () => {
+    const answers = store.getters["question/getAnswers"]();
+
+    expect(answers[0].slug).toEqual("d957725b-e485-4d31-bb7a-1c3bee9b6327");
+  });
+
+  it("Answers are sorted by created time ASC if asked", () => {
+    store.commit("question/SET_ANSWER_SORTING_ORDER", "asc");
+    const answers = store.getters["question/getAnswers"]();
+
+    expect(answers[0].slug).toEqual("d957725b-e485-4d31-bb7a-1c3bee9b6327");
+  });
+
+  it("Answers are sorted by created time DESC if asked", () => {
+    store.commit("question/SET_ANSWER_SORTING_ORDER", "desc");
+
+    const answers = store.getters["question/getAnswers"]();
+
+    expect(answers[2].slug).toEqual("d957725b-e485-4d31-bb7a-1c3bee9b6327");
+  });
+});

@@ -1,4 +1,5 @@
 import axios from "@/api/backend.js";
+import dayjs from "dayjs";
 
 export default {
   namespaced: true,
@@ -6,6 +7,7 @@ export default {
     question: null,
     answers: [],
     currentAnswer: null,
+    answerSortingOrder: "asc",
   }),
   getters: {
     getAnswers: (state) => (query) => {
@@ -13,9 +15,16 @@ export default {
       if (!state.answers || !state.answers.length) {
         return [];
       }
-      return state.answers.filter((answer) => {
-        return parent ? answer.parent === parent : !("parent" in answer);
-      });
+      return state.answers
+        .filter((answer) => {
+          return parent ? answer.parent === parent : !("parent" in answer);
+        })
+        .sort((answerOne, answerTwo) => {
+          const a = dayjs(answerOne.created).unix();
+          const b = dayjs(answerTwo.created).unix();
+
+          return state.answerSortingOrder === "asc" ? a - b : b - a;
+        });
     },
   },
   actions: {
@@ -40,6 +49,13 @@ export default {
     },
     SET_ANSWERS(state, answers) {
       state.answers = answers;
+    },
+    SET_ANSWER_SORTING_ORDER(state, order) {
+      if (!["asc", "desc"].includes(order)) {
+        throw new Error("Order may be 'asc' or 'desc'");
+      } else {
+        state.answerSortingOrder = order;
+      }
     },
   },
 };
