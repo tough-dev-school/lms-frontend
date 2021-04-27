@@ -1,7 +1,7 @@
 <template>
   <form class="post-answer" @submit.prevent="submit">
     <label for="answer-text">Ваш ответ</label>
-    <AppTextInput
+    <AppEditor
       id="answer-text"
       ref="input"
       v-model="text"
@@ -16,11 +16,11 @@
 <script>
 import { mapActions } from "vuex";
 
-import AppTextInput from "@/components/AppTextInput.vue";
+import AppEditor from "@/components/AppEditor.vue";
 
 export default {
   components: {
-    AppTextInput,
+    AppEditor,
   },
   props: {
     question: { type: Object, required: true },
