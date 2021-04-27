@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     answerIdForSavingUserInput() {
-      return `answer-${this.question.slug}`;
+      return `answer-${this.question.slug}-${this.parent?.slug}`;
     },
   },
   methods: {
