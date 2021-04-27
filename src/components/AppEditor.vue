@@ -80,7 +80,7 @@ export default {
       this.simplemde.value("");
     },
     focus() {
-      this.$refs.textarea.focus();
+      this.simplemde.codemirror.focus();
     },
   },
 };

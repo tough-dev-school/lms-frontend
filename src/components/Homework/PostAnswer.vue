@@ -9,7 +9,7 @@
       :save-data-to="answerIdForSavingUserInput"
       @submit="submit"
     />
-    <input type="submit" value="Отправить" :disabled="isLoading" />
+    <input type="submit" value="Отправить" class="post-answer__submit" :disabled="isLoading" />
   </form>
 </template>
 
@@ -63,3 +63,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.post-answer {
+  &__submit {
+    margin-top: 1rem;
+  }
+}
+</style>
