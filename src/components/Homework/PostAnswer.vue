@@ -1,7 +1,7 @@
 <template>
   <form class="post-answer" @submit.prevent="submit">
     <label for="answer-text">Ваш ответ</label>
-    <AppTextInput
+    <AppEditor
       id="answer-text"
       ref="input"
       v-model="text"
@@ -9,18 +9,18 @@
       :save-data-to="answerIdForSavingUserInput"
       @submit="submit"
     />
-    <input type="submit" value="Отправить" :disabled="isLoading" />
+    <input type="submit" value="Отправить" class="post-answer__submit" :disabled="isLoading" />
   </form>
 </template>
 
 <script>
 import { mapActions } from "vuex";
 
-import AppTextInput from "@/components/AppTextInput.vue";
+import AppEditor from "@/components/AppEditor.vue";
 
 export default {
   components: {
-    AppTextInput,
+    AppEditor,
   },
   props: {
     question: { type: Object, required: true },
@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     answerIdForSavingUserInput() {
-      return `answer-${this.question.slug}`;
+      return `answer-${this.question.slug}-${this.parent?.slug}`;
     },
   },
   methods: {
@@ -63,3 +63,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.post-answer {
+  &__submit {
+    margin-top: 1rem;
+  }
+}
+</style>
