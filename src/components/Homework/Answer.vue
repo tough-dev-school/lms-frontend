@@ -65,5 +65,10 @@ export default {
       padding-left: 1rem;
     }
   }
+  &__text {
+    @media (--desktop) {
+      max-width: 80%;
+    }
+  }
 }
 </style>

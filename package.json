@@ -15,6 +15,7 @@
     "dayjs": "^1.10.4",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^3.1.2",
+    "postcss-custom-media": "^7.0.8",
     "postcss-nested": "^4.2.3",
     "secure-ls": "^1.2.6",
     "vue": "^2.6.11",
