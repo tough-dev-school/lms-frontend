@@ -40,8 +40,8 @@ export default {
 
       commit("SET_ANSWERS", response.data.results);
     },
-    async FETCH_PARTICULAR_ANSWER({ commit }, { question, answer }) {
-      const response = await axios.get(`/api/v2/homework/questions/${question}/answers/${answer}/`);
+    async FETCH_PARTICULAR_ANSWER({ commit }, { answer }) {
+      const response = await axios.get(`/api/v2/homework/answers/${answer}/`);
       commit("APPEND_ANSWER", response.data);
     },
     async POST_ANSWER({ dispatch }, { question, answer }) {

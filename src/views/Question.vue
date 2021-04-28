@@ -73,7 +73,7 @@ export default {
     async scrollToLoadedAnswer() {
       if (this.particularAnswerId) {
         if (!this.particularAnswerIsLoaded) {
-          await this.FETCH_PARTICULAR_ANSWER({ question: this.question.slug, answer: this.particularAnswerId });
+          await this.FETCH_PARTICULAR_ANSWER({ answer: this.particularAnswerId });
         }
         await this.$nextTick();
         this.$scrollTo(document.getElementById(this.particularAnswerId));
