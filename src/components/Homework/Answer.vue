@@ -62,11 +62,16 @@ export default {
   &__children {
     margin-top: 3rem;
     &--first {
-      padding-left: 1rem;
+      padding-left: 2rem;
     }
   }
-  &__text {
-    @media (--desktop) {
+}
+@media (--desktop) {
+  .answer {
+    &__children--first {
+      padding-left: 10rem;
+    }
+    &__text {
       max-width: 80%;
     }
   }
