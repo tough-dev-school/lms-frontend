@@ -35,7 +35,6 @@ export default {
   data() {
     return {
       text: null,
-      isLoading: false,
     };
   },
   computed: {
@@ -46,16 +45,14 @@ export default {
   methods: {
     ...mapActions("question", ["POST_ANSWER"]),
     async submit() {
-      this.isLoading = true;
-      const { text } = this;
       const parent = this.parent ? this.parent.slug : null;
-      await this.POST_ANSWER({
-        question: this.question.slug,
-        answer: { text, parent },
+      const question = this.question.slug;
+
+      this.$emit("submit", {
+        question,
+        answer: { parent, text: this.text },
       });
-      this.isLoading = false;
       this.$refs.input.clear();
-      this.$emit("submitted");
     },
     focus() {
       this.$refs.input.focus();

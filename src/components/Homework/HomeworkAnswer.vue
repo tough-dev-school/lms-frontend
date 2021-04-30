@@ -7,7 +7,7 @@
     </div>
     <div v-if="!readOnlyRoot" class="answer__answer">
       <a href="#" @click.prevent="isAnswering = !isAnswering">Ответить</a>
-      <PostAnswer v-if="isAnswering" ref="postAnswer" :parent="answer" :question="question" @submitted="isAnswering = false" />
+      <HomeworkPostAnswer v-if="isAnswering" ref="postAnswer" :parent="answer" :question="question" @submitted="isAnswering = false" />
     </div>
     <div class="answer__children" :class="{ 'answer__children--first': !answer.parent }">
       <HomeworkAnswerList :parent="answer" :question="question" />
@@ -20,7 +20,7 @@ import AppContent from "@/components/AppContent.vue";
 import AppDate from "@/components/AppDate.vue";
 
 import AppUserName from "@/components/AppUserName.vue";
-import PostAnswer from "@/components/Homework/PostAnswer.vue";
+import HomeworkPostAnswer from "@/components/Homework/HomeworkPostAnswer.vue";
 
 export default {
   components: {
@@ -28,7 +28,7 @@ export default {
     AppDate,
     AppUserName,
     HomeworkAnswerList: () => import("@/components/Homework/HomeworkAnswerList.vue"),
-    PostAnswer,
+    HomeworkPostAnswer,
   },
   props: {
     question: { type: Object, required: true },

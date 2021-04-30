@@ -8,7 +8,7 @@
       <h3>{{ answersTitle }}</h3>
       <HomeworkAnswerList :question="question" />
     </div>
-    <PostAnswer :question="question" />
+    <HomeworkPostAnswer :question="question" />
   </div>
   <div v-else-if="error" class="question question__error">
     <h2>Упс, что-то пошло не так <AppHTTPError :exception="error" /></h2>
@@ -21,14 +21,14 @@ import AppContent from "@/components/AppContent.vue";
 import AppHTTPError from "@/components/AppHTTPError.vue";
 
 import HomeworkAnswerList from "@/components/Homework/HomeworkAnswerList.vue";
-import PostAnswer from "@/components/Homework/PostAnswer.vue";
+import HomeworkPostAnswer from "@/components/Homework/HomeworkPostAnswer.vue";
 
 export default {
   components: {
     AppContent,
     HomeworkAnswerList,
     AppHTTPError,
-    PostAnswer,
+    HomeworkPostAnswer,
   },
   data() {
     return {

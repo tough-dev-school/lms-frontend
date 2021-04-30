@@ -18,6 +18,12 @@ export default {
 
       commit("SET_QUESTION", response.data);
     },
+    async POST_ANSWER({ dispatch, state }, { answer }) {
+      const question = state.question.slug;
+      answer.parent = state.answer.slug;
+      await axios.post(`/api/v2/homework/questions/${question}/answers/`, answer);
+      dispatch("FETCH_ANSWER");
+    },
   },
   mutations: {
     SET_ANSWER(state, answer) {
