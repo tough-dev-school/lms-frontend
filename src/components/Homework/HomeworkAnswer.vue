@@ -5,12 +5,12 @@
     <div class="answer__text">
       <AppContent :html="answer.text" />
     </div>
-    <div class="answer__answer">
+    <div v-if="!readOnlyRoot" class="answer__answer">
       <a href="#" @click.prevent="isAnswering = !isAnswering">Ответить</a>
       <PostAnswer v-if="isAnswering" ref="postAnswer" :parent="answer" :question="question" @submitted="isAnswering = false" />
     </div>
     <div class="answer__children" :class="{ 'answer__children--first': !answer.parent }">
-      <AnswerList :parent="answer" :question="question" />
+      <HomeworkAnswerList :parent="answer" :question="question" />
     </div>
   </div>
 </template>
@@ -27,12 +27,13 @@ export default {
     AppContent,
     AppDate,
     AppUserName,
-    AnswerList: () => import("@/components/Homework/AnswerList.vue"),
+    HomeworkAnswerList: () => import("@/components/Homework/HomeworkAnswerList.vue"),
     PostAnswer,
   },
   props: {
     question: { type: Object, required: true },
     answer: { type: Object, required: true },
+    readOnlyRoot: { type: Boolean, default: false },
   },
   data() {
     return {

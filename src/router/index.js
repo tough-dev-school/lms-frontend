@@ -15,7 +15,12 @@ const routes = [
   {
     path: "/homework/questions/:id",
     name: "Single question page",
-    component: () => import(/* webpackChunkName: "questions" */ "@/views/Question.vue"),
+    component: () => import(/* webpackChunkName: "question" */ "@/views/Question.vue"),
+  },
+  {
+    path: "/homework/answers/:id",
+    name: "Single answer page",
+    component: () => import(/* webpackChunkName: "answer" */ "@/views/Answer.vue"),
   },
   {
     path: "/about",

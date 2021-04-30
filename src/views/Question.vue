@@ -6,7 +6,7 @@
     </div>
     <div v-if="answers.length" class="question__answer-list">
       <h3>{{ answersTitle }}</h3>
-      <AnswerList :question="question" />
+      <HomeworkAnswerList :question="question" />
     </div>
     <PostAnswer :question="question" />
   </div>
@@ -20,13 +20,13 @@ import { mapActions, mapGetters, mapState } from "vuex";
 import AppContent from "@/components/AppContent.vue";
 import AppHTTPError from "@/components/AppHTTPError.vue";
 
-import AnswerList from "@/components/Homework/AnswerList.vue";
+import HomeworkAnswerList from "@/components/Homework/HomeworkAnswerList.vue";
 import PostAnswer from "@/components/Homework/PostAnswer.vue";
 
 export default {
   components: {
     AppContent,
-    AnswerList,
+    HomeworkAnswerList,
     AppHTTPError,
     PostAnswer,
   },
