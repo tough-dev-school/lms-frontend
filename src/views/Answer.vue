@@ -8,6 +8,7 @@
     </div>
     <AppAnswer :answer="answer" :question="question" class="answer__answer" />
     <AppAnswerEditor :parent="answer" :question="question" :disabled="isLoading" class="answer__answer-editor" @submit="submit" />
+    <AnswerDiscussion :answer="answer" :question="question" />
   </div>
   <div v-else-if="error" class="question question__error">
     <h2>Упс, что-то пошло не так <AppHTTPError :exception="error" /></h2>
@@ -22,6 +23,7 @@ import AppCollapsible from "@/components/AppCollapsible.vue";
 import AppUserName from "@/components/AppUserName.vue";
 import AppAnswer from "@/components/homework/AppAnswer.vue";
 import AppAnswerEditor from "@/components/homework/AppAnswerEditor.vue";
+import AnswerDiscussion from "@/components/Answer/AnswerDiscussion.vue";
 
 export default {
   components: {
@@ -31,6 +33,7 @@ export default {
     AppAnswer,
     AppAnswerEditor,
     AppUserName,
+    AnswerDiscussion,
   },
   data() {
     return {

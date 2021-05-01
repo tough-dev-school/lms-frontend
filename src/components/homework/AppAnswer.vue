@@ -2,7 +2,7 @@
   <div :id="label" class="answer">
     <AppUserName class="answer__author" :user="answer.author" />
     <a :href="`#${label}`" class="answer__date"><AppDate :date="answer.created" /></a>
-    <AppAnswerDeleteButton :answer="answer" class="answer__delete" />
+    <AppAnswerDeleteButton :answer="answer" class="answer__delete" @deleted="$emit('deleted')" />
     <div class="answer__text">
       <AppContent :html="answer.text" />
     </div>

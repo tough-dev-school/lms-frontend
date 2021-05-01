@@ -7,6 +7,10 @@ export default {
     answer: null,
   }),
   actions: {
+    RELOAD_CURRENT_ANSWER({ dispatch, state }) {
+      const id = state.answer.slug;
+      return dispatch("FETCH_ANSWER", { id });
+    },
     async FETCH_ANSWER({ dispatch, commit }, { id }) {
       const result = await axios.get(`/api/v2/homework/answers/${id}/`);
       const { question } = result.data;

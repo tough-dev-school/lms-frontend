@@ -21,3 +21,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.app-date {
+  white-space: nowrap;
+}
+</style>
