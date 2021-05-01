@@ -22,6 +22,9 @@ export default {
       await axios.post(`/api/v2/homework/answers/`, answer);
       dispatch("FETCH_ANSWER", { id: state.answer.slug });
     },
+    DELETE_ANSWER(_, { id }) {
+      return axios.delete(`/api/v2/homework/answers/${id}/`);
+    },
   },
   mutations: {
     SET_ANSWER(state, answer) {

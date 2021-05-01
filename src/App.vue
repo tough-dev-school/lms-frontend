@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 
 import TheNavBar from "@/components/TheNavBar.vue";
 
@@ -16,7 +16,17 @@ export default {
   components: {
     TheNavBar,
   },
-  computed: mapGetters("auth", ["isAuthenticated"]),
+  computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapState("auth", ["user"]),
+  },
+  created() {
+    // drop it after a week or two (f213)
+    if (!("uuid" in this.user)) {
+      this.FETCH_USER();
+    }
+  },
+  methods: mapActions("auth", ["FETCH_USER"]),
 };
 </script>
 <style scoped>
