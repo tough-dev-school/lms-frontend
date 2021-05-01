@@ -9,12 +9,14 @@ const localStorage = new SecureLS({ isCompression: false });
 Vue.use(Vuex);
 
 import auth from "./auth.js";
+import answer from "./answer.js";
 import question from "./question.js";
 import user from "./user.js";
 
 export default new Vuex.Store({
   modules: {
     auth,
+    answer,
     question,
     user,
   },

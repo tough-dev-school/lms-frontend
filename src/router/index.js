@@ -18,6 +18,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "questions" */ "@/views/Question.vue"),
   },
   {
+    path: "/homework/answers/:id",
+    name: "Single answer page",
+    component: () => import(/* webpackChunkName: "answers" */ "@/views/Answer.vue"),
+  },
+  {
     path: "/about",
     name: "About",
     // route level code-splitting
