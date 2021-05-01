@@ -39,6 +39,7 @@ export default {
 
       this.isLoading = false;
       this.$refs.editor.clear();
+      this.$emit("submitted");
     },
     focus() {
       this.$refs.editor.focus();

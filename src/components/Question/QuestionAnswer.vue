@@ -36,13 +36,6 @@ export default {
       return `${this.answer.slug}`;
     },
   },
-  watch: {
-    isAnswering(isAnswering) {
-      if (isAnswering) {
-        this.$nextTick(() => this.$refs.postAnswer.focus());
-      }
-    },
-  },
 };
 </script>
 <style scoped>

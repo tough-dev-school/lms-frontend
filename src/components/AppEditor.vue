@@ -3,8 +3,7 @@
 </template>
 
 <script>
-import SimpleMDE from "simplemde";
-import axios from "@/api/backend.js";
+import initSimpleMDE from "@/utils/initSimpleMDE.js";
 
 export default {
   props: {
@@ -34,42 +33,17 @@ export default {
     },
   },
   mounted() {
-    this.simplemde = new SimpleMDE({
-      element: this.$refs.textarea,
-      spellChecker: false,
-      autosave: {
-        enabled: true,
-        uniqueId: this.saveDataTo,
-        delay: 500,
-      },
-      status: false,
-      toolbar: [
-        "bold",
-        "italic",
-        "heading-1",
-        "heading-2",
-        "heading-3",
-        "|",
-        "quote",
-        "unordered-list",
-        "ordered-list",
-        "|",
-        "fullscreen",
-        "preview",
-      ],
-      previewRender: (markdown, preview) => {
-        // сука, как же я ненавижу свою жизнь
-        const formData = new FormData();
-        formData.append("content", markdown);
-        axios.post("/api/v2/markdownx/markdownify/", formData).then((result) => (preview.innerHTML = result.data));
+    this.simplemde = initSimpleMDE({
+      element: this.$refs.input,
+      uniqueId: this.saveDataTo,
+      onChange: () => (this.text = this.simplemde.value()),
+      onKeyDown: (_, { code, ctrlKey, metaKey }) => {
+        if (code === "Enter" && (ctrlKey || metaKey)) {
+          this.$emit("submit");
+        }
       },
     });
-    this.simplemde.codemirror.on("change", () => (this.text = this.simplemde.value()));
-    this.simplemde.codemirror.on("keydown", (_, { code, ctrlKey, metaKey }) => {
-      if (code === "Enter" && (ctrlKey || metaKey)) {
-        this.$emit("submit");
-      }
-    });
+    this.$emit("input", this.simplemde.value()); // emit input to make sure all stuf is updated after initial loading
   },
   methods: {
     submit() {
