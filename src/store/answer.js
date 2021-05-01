@@ -24,7 +24,7 @@ export default {
     },
     async POST_ANSWER({ dispatch, state }, answer) {
       await axios.post(`/api/v2/homework/answers/`, answer);
-      dispatch("FETCH_ANSWER", { id: state.answer.slug });
+      await dispatch("FETCH_ANSWER", { id: state.answer.slug });
     },
     DELETE_ANSWER(_, { id }) {
       return axios.delete(`/api/v2/homework/answers/${id}/`);

@@ -2,6 +2,7 @@
   <div v-if="answer.descendants.length" class="answer-discussion">
     <h2>{{ title }}</h2>
     <AnswerList :answers="answer.descendants" :question="question" />
+    <div ref="bottom"></div>
   </div>
 </template>
 
@@ -19,6 +20,11 @@ export default {
   computed: {
     title() {
       return this.answer.descendants.length > 1 ? "Обсуждение" : "Ваш ответ";
+    },
+  },
+  methods: {
+    scrollToBottom() {
+      this.$scrollTo(this.$refs.bottom);
     },
   },
 };

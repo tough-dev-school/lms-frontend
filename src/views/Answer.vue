@@ -7,8 +7,15 @@
       </AppCollapsible>
     </div>
     <AppAnswer :answer="answer" :question="question" class="answer__answer" />
-    <AppAnswerEditor :parent="answer" :question="question" :disabled="isLoading" class="answer__answer-editor" @submit="submit" />
-    <AnswerDiscussion :answer="answer" :question="question" />
+    <AppAnswerEditor
+      ref="editor"
+      :parent="answer"
+      :question="question"
+      :disabled="isLoading"
+      class="answer__answer-editor"
+      @submit="submit"
+    />
+    <AnswerDiscussion ref="discussion" :answer="answer" :question="question" />
   </div>
   <div v-else-if="error" class="question question__error">
     <h2>Упс, что-то пошло не так <AppHTTPError :exception="error" /></h2>
@@ -62,6 +69,11 @@ export default {
       this.isLoading = true;
       await this.POST_ANSWER(answer);
       this.isLoading = false;
+      this.afterSubmit();
+    },
+    afterSubmit() {
+      this.$refs.editor.clear();
+      this.$refs.discussion.scrollToBottom();
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <div class="answer-list">
-    <AnswerSingleAnswer v-for="answer in answers" :key="answer.slug" :answer="answer" :question="question" />
+    <AnswerSingleAnswer v-for="answer in answers" :key="answer.slug" :answer="answer" :question="question" class="answer-list__answer" />
   </div>
 </template>
 <script>
@@ -16,3 +16,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+.answer-list {
+  &__answer {
+    margin-bottom: 3rem;
+  }
+}
+</style>
