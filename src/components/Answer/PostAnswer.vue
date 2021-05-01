@@ -1,15 +1,8 @@
 <template>
   <form class="post-answer" @submit.prevent="submit">
     <label for="answer-text">Ваш ответ</label>
-    <AppEditor
-      id="answer-text"
-      ref="input"
-      v-model="text"
-      :disabled="isLoading"
-      :save-data-to="answerIdForSavingUserInput"
-      @submit="submit"
-    />
-    <input type="submit" value="Отправить" class="post-answer__submit" :disabled="isLoading" />
+    <AppEditor id="answer-text" ref="input" v-model="text" :save-data-to="answerIdForSavingUserInput" @submit="submit" />
+    <input type="submit" value="Отправить" class="post-answer__submit" />
   </form>
 </template>
 

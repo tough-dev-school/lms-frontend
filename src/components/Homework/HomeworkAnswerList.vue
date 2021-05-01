@@ -1,7 +1,7 @@
 <template>
-  <div v-if="parent.descendants" class="answer-list">
-    <HomeworkAnswer
-      v-for="answer in parent.descendants"
+  <div v-if="answers" class="answer-list">
+    <Answer
+      v-for="answer in answers"
       :key="answer.slug"
       :answer="answer"
       :question="question"
@@ -11,12 +11,13 @@
 </template>
 
 <script>
-import HomeworkAnswer from "@/components/Homework/HomeworkAnswer.vue";
+import { mapGetters } from "vuex";
+import Answer from "@/components/Homework/HomeworkAnswer.vue";
 
 export default {
-  name: "AnswerList",
+  name: "HomeworkAnswerList",
   components: {
-    HomeworkAnswer,
+    Answer,
   },
   props: {
     question: { type: Object, required: true },
@@ -26,6 +27,13 @@ export default {
       validator: (prop) => {
         return typeof prop === "object" || prop === null;
       },
+    },
+  },
+  computed: {
+    ...mapGetters("question", ["getAnswers"]),
+    answers() {
+      const parent = this.parent ? this.parent.slug : null;
+      return this.getAnswers({ parent });
     },
   },
 };

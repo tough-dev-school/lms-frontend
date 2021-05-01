@@ -22,7 +22,7 @@ export default {
       const question = state.question.slug;
       answer.parent = state.answer.slug;
       await axios.post(`/api/v2/homework/questions/${question}/answers/`, answer);
-      dispatch("FETCH_ANSWER");
+      dispatch("FETCH_ANSWER", { id: state.answer.slug });
     },
   },
   mutations: {
