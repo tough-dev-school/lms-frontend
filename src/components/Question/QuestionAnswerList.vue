@@ -1,6 +1,6 @@
 <template>
   <div v-if="answers" class="answer-list">
-    <Answer
+    <QuestionAnswer
       v-for="answer in answers"
       :key="answer.slug"
       :answer="answer"
@@ -13,12 +13,12 @@
 <script>
 import { mapGetters } from "vuex";
 
-import Answer from "@/components/Homework/Answer.vue";
+import QuestionAnswer from "@/components/Question/QuestionAnswer.vue";
 
 export default {
-  name: "AnswerList",
+  name: "QuestionAnswerList",
   components: {
-    Answer,
+    QuestionAnswer,
   },
   props: {
     question: { type: Object, required: true },

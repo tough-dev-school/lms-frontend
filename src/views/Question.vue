@@ -6,9 +6,9 @@
     </div>
     <div v-if="answers.length" class="question__answer-list">
       <h3>{{ answersTitle }}</h3>
-      <AnswerList :question="question" />
+      <QuestionAnswerList :question="question" />
     </div>
-    <PostAnswer :question="question" />
+    <QuestionPostAnswer :question="question" />
   </div>
   <div v-else-if="error" class="question question__error">
     <h2>Упс, что-то пошло не так <AppHTTPError :exception="error" /></h2>
@@ -20,15 +20,15 @@ import { mapActions, mapGetters, mapState } from "vuex";
 import AppContent from "@/components/AppContent.vue";
 import AppHTTPError from "@/components/AppHTTPError.vue";
 
-import AnswerList from "@/components/Homework/AnswerList.vue";
-import PostAnswer from "@/components/Homework/PostAnswer.vue";
+import QuestionAnswerList from "@/components/Question/QuestionAnswerList.vue";
+import QuestionPostAnswer from "@/components/Question/QuestionPostAnswer.vue";
 
 export default {
   components: {
     AppContent,
-    AnswerList,
     AppHTTPError,
-    PostAnswer,
+    QuestionAnswerList,
+    QuestionPostAnswer,
   },
   data() {
     return {

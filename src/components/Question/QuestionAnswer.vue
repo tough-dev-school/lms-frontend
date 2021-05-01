@@ -7,10 +7,10 @@
     </div>
     <div class="answer__answer">
       <a href="#" @click.prevent="isAnswering = !isAnswering">Ответить</a>
-      <PostAnswer v-if="isAnswering" ref="postAnswer" :parent="answer" :question="question" @submitted="isAnswering = false" />
+      <QuestionPostAnswer v-if="isAnswering" ref="postAnswer" :parent="answer" :question="question" @submitted="isAnswering = false" />
     </div>
     <div class="answer__children" :class="{ 'answer__children--first': !answer.parent }">
-      <AnswerList :parent="answer" :question="question" />
+      <QuestionAnswerList :parent="answer" :question="question" />
     </div>
   </div>
 </template>
@@ -20,15 +20,15 @@ import AppContent from "@/components/AppContent.vue";
 import AppDate from "@/components/AppDate.vue";
 
 import AppUserName from "@/components/AppUserName.vue";
-import PostAnswer from "@/components/Homework/PostAnswer.vue";
+import QuestionPostAnswer from "@/components/Question/QuestionPostAnswer.vue";
 
 export default {
   components: {
     AppContent,
     AppDate,
     AppUserName,
-    AnswerList: () => import("@/components/Homework/AnswerList.vue"),
-    PostAnswer,
+    QuestionAnswerList: () => import("@/components/Question/QuestionAnswerList.vue"),
+    QuestionPostAnswer,
   },
   props: {
     question: { type: Object, required: true },
