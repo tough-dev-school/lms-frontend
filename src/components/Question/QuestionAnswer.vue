@@ -1,11 +1,7 @@
 <template>
   <div :id="label" class="answer">
-    <AppUserName class="answer__author" :user="answer.author" />
-    <a :href="`#${label}`" class="answer__data"><AppDate :date="answer.created" /></a>
-    <div class="answer__text">
-      <AppContent :html="answer.text" />
-    </div>
-    <div class="answer__answer">
+    <AppAnswer :answer="answer" />
+    <div class="answer__post-answer">
       <a href="#" @click.prevent="isAnswering = !isAnswering">Ответить</a>
       <QuestionPostAnswer v-if="isAnswering" ref="postAnswer" :parent="answer" :question="question" @submitted="isAnswering = false" />
     </div>
@@ -16,17 +12,13 @@
 </template>
 
 <script>
-import AppContent from "@/components/AppContent.vue";
-import AppDate from "@/components/AppDate.vue";
+import AppAnswer from "@/components/homework/AppAnswer.vue";
 
-import AppUserName from "@/components/AppUserName.vue";
 import QuestionPostAnswer from "@/components/Question/QuestionPostAnswer.vue";
 
 export default {
   components: {
-    AppContent,
-    AppDate,
-    AppUserName,
+    AppAnswer,
     QuestionAnswerList: () => import("@/components/Question/QuestionAnswerList.vue"),
     QuestionPostAnswer,
   },
@@ -55,10 +47,6 @@ export default {
 </script>
 <style scoped>
 .answer {
-  &__author {
-    font-weight: bold;
-    margin-right: 0.5rem;
-  }
   &__children {
     margin-top: 3rem;
     &--first {
@@ -70,9 +58,6 @@ export default {
   .answer {
     &__children--first {
       padding-left: 10rem;
-    }
-    &__text {
-      max-width: 80%;
     }
   }
 }
