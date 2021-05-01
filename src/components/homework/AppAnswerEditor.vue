@@ -1,41 +1,43 @@
 <template>
-  <form class="post-answer" @submit.prevent="submit">
+  <form class="answer-editor" @submit.prevent="submit">
     <label for="answer-text">Ваш ответ</label>
     <AppEditor
       id="answer-text"
-      ref="input"
+      ref="editor"
       v-model="text"
-      :disabled="isLoading"
+      :disabled="disabled"
       :save-data-to="answerIdForSavingUserInput"
       @submit="submit"
     />
-    <input type="submit" value="Отправить" class="post-answer__submit" :disabled="isLoading" />
+    <input type="submit" value="Отправить" class="answer-editor__submit" :disabled="disabled" />
   </form>
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 import AppEditor from "@/components/AppEditor.vue";
+
+import objectOrNullValidator from "@/utils/objectOrNullValidator.js";
 
 export default {
   components: {
     AppEditor,
   },
   props: {
-    question: { type: Object, required: true },
+    disabled: { type: Boolean, default: false },
     parent: {
       required: false,
       default: null,
-      validator: (prop) => {
-        return typeof prop === "object" || prop === null;
-      },
+      validator: objectOrNullValidator,
+    },
+    question: {
+      required: false,
+      default: null,
+      validator: objectOrNullValidator,
     },
   },
   data() {
     return {
       text: null,
-      isLoading: false,
     };
   },
   computed: {
@@ -44,29 +46,24 @@ export default {
     },
   },
   methods: {
-    ...mapActions("question", ["POST_ANSWER", "FETCH_ANSWERS"]),
     async submit() {
-      this.isLoading = true;
       const { text } = this;
       const parent = this.parent ? this.parent.slug : null;
-      const question = this.question.slug;
-      await this.POST_ANSWER({
-        answer: { text, parent, question },
-      });
-      await this.FETCH_ANSWERS({ question });
-      this.isLoading = false;
-      this.$refs.input.clear();
-      this.$emit("submitted");
+
+      this.$emit("submit", { text, parent });
     },
     focus() {
-      this.$refs.input.focus();
+      this.$refs.editor.focus();
+    },
+    clear() {
+      this.$refs.editor.clear();
     },
   },
 };
 </script>
 
 <style scoped>
-.post-answer {
+.answer-editor {
   &__submit {
     margin-top: 1rem;
   }

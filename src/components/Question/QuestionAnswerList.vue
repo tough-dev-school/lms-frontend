@@ -1,6 +1,6 @@
 <template>
   <div v-if="answers" class="answer-list">
-    <Answer
+    <QuestionAnswer
       v-for="answer in answers"
       :key="answer.slug"
       :answer="answer"
@@ -13,21 +13,21 @@
 <script>
 import { mapGetters } from "vuex";
 
-import Answer from "@/components/Homework/Answer.vue";
+import QuestionAnswer from "@/components/Question/QuestionAnswer.vue";
+
+import objectOrNullValidator from "@/utils/objectOrNullValidator.js";
 
 export default {
-  name: "AnswerList",
+  name: "QuestionAnswerList",
   components: {
-    Answer,
+    QuestionAnswer,
   },
   props: {
     question: { type: Object, required: true },
     parent: {
       required: false,
       default: null,
-      validator: (prop) => {
-        return typeof prop === "object" || prop === null;
-      },
+      validator: objectOrNullValidator,
     },
   },
   computed: {
