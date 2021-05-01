@@ -44,15 +44,16 @@ export default {
     },
   },
   methods: {
-    ...mapActions("question", ["POST_ANSWER"]),
+    ...mapActions("question", ["POST_ANSWER", "FETCH_ANSWERS"]),
     async submit() {
       this.isLoading = true;
       const { text } = this;
       const parent = this.parent ? this.parent.slug : null;
+      const question = this.question.slug;
       await this.POST_ANSWER({
-        question: this.question.slug,
-        answer: { text, parent },
+        answer: { text, parent, question },
       });
+      await this.FETCH_ANSWERS({ question });
       this.isLoading = false;
       this.$refs.input.clear();
       this.$emit("submitted");

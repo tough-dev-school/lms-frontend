@@ -36,7 +36,10 @@ export default {
       commit("SET_QUESTION", response.data);
     },
     async FETCH_ANSWERS({ commit }, { question }) {
-      const response = await axios.get(`/api/v2/homework/questions/${question}/answers/?page_size=203`);
+      const response = await axios.get("/api/v2/homework/answers/", {
+        question,
+        page_size: 203,
+      });
 
       commit("SET_ANSWERS", response.data.results);
     },
@@ -44,9 +47,8 @@ export default {
       const response = await axios.get(`/api/v2/homework/answers/${answer}/`);
       commit("APPEND_ANSWER", response.data);
     },
-    async POST_ANSWER({ dispatch }, { question, answer }) {
-      await axios.post(`/api/v2/homework/questions/${question}/answers/`, answer);
-      await dispatch("FETCH_ANSWERS", { question });
+    async POST_ANSWER(_, { answer }) {
+      await axios.post(`/api/v2/homework/answers/`, answer);
     },
   },
   mutations: {
