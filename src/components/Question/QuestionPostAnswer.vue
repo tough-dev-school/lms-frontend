@@ -1,28 +1,17 @@
 <template>
-  <form class="post-answer" @submit.prevent="submit">
-    <label for="answer-text">Ваш ответ</label>
-    <AppEditor
-      id="answer-text"
-      ref="input"
-      v-model="text"
-      :disabled="isLoading"
-      :save-data-to="answerIdForSavingUserInput"
-      @submit="submit"
-    />
-    <input type="submit" value="Отправить" class="post-answer__submit" :disabled="isLoading" />
-  </form>
+  <AppAnswerEditor ref="editor" :parent="parent" :question="question" :disabled="isLoading" @submit="submit" />
 </template>
 
 <script>
 import { mapActions } from "vuex";
 
-import AppEditor from "@/components/AppEditor.vue";
+import AppAnswerEditor from "@/components/homework/AppAnswerEditor.vue";
 
 import objectOrNullValidator from "@/utils/objectOrNullValidator.js";
 
 export default {
   components: {
-    AppEditor,
+    AppAnswerEditor,
   },
   props: {
     question: { type: Object, required: true },
@@ -34,41 +23,26 @@ export default {
   },
   data() {
     return {
-      text: null,
       isLoading: false,
     };
   },
-  computed: {
-    answerIdForSavingUserInput() {
-      return `answer-${this.question.slug}-${this.parent?.slug}`;
-    },
-  },
   methods: {
     ...mapActions("question", ["POST_ANSWER", "FETCH_ANSWERS"]),
-    async submit() {
-      this.isLoading = true;
-      const { text } = this;
-      const parent = this.parent ? this.parent.slug : null;
+    async submit({ text, parent }) {
       const question = this.question.slug;
+
+      this.isLoading = true;
       await this.POST_ANSWER({
         answer: { text, parent, question },
       });
       await this.FETCH_ANSWERS({ question });
+
       this.isLoading = false;
-      this.$refs.input.clear();
-      this.$emit("submitted");
+      this.$refs.editor.clear();
     },
     focus() {
-      this.$refs.input.focus();
+      this.$refs.editor.focus();
     },
   },
 };
 </script>
-
-<style scoped>
-.post-answer {
-  &__submit {
-    margin-top: 1rem;
-  }
-}
-</style>
