@@ -18,6 +18,8 @@ import { mapActions } from "vuex";
 
 import AppEditor from "@/components/AppEditor.vue";
 
+import objectOrNullValidator from "@/utils/objectOrNullValidator.js";
+
 export default {
   components: {
     AppEditor,
@@ -27,9 +29,7 @@ export default {
     parent: {
       required: false,
       default: null,
-      validator: (prop) => {
-        return typeof prop === "object" || prop === null;
-      },
+      validator: objectOrNullValidator,
     },
   },
   data() {

@@ -15,6 +15,8 @@ import { mapGetters } from "vuex";
 
 import QuestionAnswer from "@/components/Question/QuestionAnswer.vue";
 
+import objectOrNullValidator from "@/utils/objectOrNullValidator.js";
+
 export default {
   name: "QuestionAnswerList",
   components: {
@@ -25,9 +27,7 @@ export default {
     parent: {
       required: false,
       default: null,
-      validator: (prop) => {
-        return typeof prop === "object" || prop === null;
-      },
+      validator: objectOrNullValidator,
     },
   },
   computed: {
