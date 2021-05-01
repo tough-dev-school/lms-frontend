@@ -36,6 +36,7 @@ export default {
 <style scoped>
 .answer {
   &__author {
+    display: inline-block;
     font-weight: bold;
     margin-right: 0.5rem;
   }
