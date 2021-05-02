@@ -22,7 +22,7 @@ export default {
   },
   created() {
     // drop it after a week or two (f213)
-    if (!("uuid" in this.user)) {
+    if (this.user && !("uuid" in this.user)) {
       this.FETCH_USER();
     }
   },
