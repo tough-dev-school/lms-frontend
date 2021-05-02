@@ -1,13 +1,17 @@
 <template>
-  <a v-if="isDeletable" href="#" class="app-answer-delete-button" @click.prevent="del">Удалить</a>
+  <a v-if="isDeletable" href="#" class="app-answer-delete-button" @click.prevent="del">
+    <Icon class="app-answer-delete-button__icon" name="trash-alt" />
+  </a>
 </template>
 <script>
 import dayjs from "dayjs";
 import { mapActions, mapState } from "vuex";
+import "vue-awesome/icons/trash-alt";
 
 export default {
   props: {
     answer: { type: Object, required: true },
+    title: { type: String, required: false, default: "удалить" },
   },
   computed: {
     ...mapState("auth", ["user"]),
@@ -25,6 +29,9 @@ export default {
   methods: {
     ...mapActions("answer", ["DELETE_ANSWER"]),
     async del() {
+      if (!confirm("Удаляем?")) {
+        return;
+      }
       const id = this.answer.slug;
       await this.DELETE_ANSWER({ id });
       this.$emit("deleted");
@@ -32,3 +39,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+.app-answer-delete-button {
+  &__icon {
+    opacity: 0.6;
+  }
+}
+</style>
