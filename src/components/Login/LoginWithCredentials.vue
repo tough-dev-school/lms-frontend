@@ -5,7 +5,7 @@
     <label for="password">Пароль</label>
     <input id="password" v-model="password" type="password" />
     <input type="submit" value="Залогиниться" :disabled="!username && !password" />
-    <button class="button button-clear" @click.prevent="$emit('ShowPasswordlessForm')">Войти по почте</button>
+    <button class="button button-clear" @click.prevent="$emit('showPasswordlessForm')">Войти по почте</button>
   </form>
 </template>
 <script>
