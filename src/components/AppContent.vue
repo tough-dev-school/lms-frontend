@@ -4,6 +4,7 @@
 </template>
 
 <script>
+/* eslint-disable no-irregular-whitespace */
 import richtypo from "@/utils/richtypo.js";
 
 export default {
@@ -20,7 +21,8 @@ export default {
 
 <style>
 .app-content {
-  p {
+  p,
+  li {
     line-height: 2.9rem;
     font-size: 17px;
   }
@@ -53,11 +55,22 @@ export default {
   h6 {
     font-size: 1.5rem;
   }
+
+  ul {
+    list-style: "— " outside;
+    padding-left: 2rem;
+  }
+
+  ol {
+    list-tyle: decimal outside;
+    padding-left: 2rem;
+  }
 }
 
 @media (--desktop) {
   .app-content {
-    p {
+    p,
+    li {
       line-height: 3.2rem;
       font-size: 18px;
     }
