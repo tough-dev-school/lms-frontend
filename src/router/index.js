@@ -41,10 +41,15 @@ const routes = [
   {
     path: "/auth/passwordless/:token",
     name: "Passwordless Login second step",
-    component: () => import(/* webpackChunkName: "loginSecondStep" */ "@/views/LoginSecondStep.vue"),
+    component: () => import(/* webpackChunkName: "login" */ "@/views/LoginSecondStep.vue"),
     meta: {
       public: true,
     },
+  },
+  {
+    path: "/auth/as/:id",
+    name: "LoginAs",
+    component: () => import(/* webpackChunkName: "loginAs" */ "@/views/LoginAs.vue"),
   },
 ];
 

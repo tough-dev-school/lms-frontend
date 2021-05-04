@@ -9,7 +9,7 @@ instance.interceptors.request.use(
   function (config) {
     const { url, headers } = config;
     const { token } = store.state.auth;
-    if (url.startsWith("/api/v2") && !url.startsWith("/api/v2/auth")) {
+    if (url.startsWith("/api/v2") && (!url.startsWith("/api/v2/auth") || url.startsWith("/api/v2/auth/as/"))) {
       headers["Authorization"] = `Bearer ${token} `;
     }
     return config;

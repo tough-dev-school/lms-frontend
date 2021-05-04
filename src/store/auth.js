@@ -27,6 +27,13 @@ export default {
       commit("SET_TOKEN", response.data.token);
       await dispatch("FETCH_USER");
     },
+    async LOGIN_WITH_USER_ID({ commit, dispatch }, { id }) {
+      // superuser only
+      const response = await axios.get(`/api/v2/auth/as/${id}/`);
+      commit("SET_TOKEN", response.data.token);
+
+      await dispatch("FETCH_USER");
+    },
     async LOGIN_WITH_CREDENTIALS({ commit, dispatch }, credentials) {
       const response = await axios.post("/api/v2/auth/token/", credentials);
 
