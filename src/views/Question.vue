@@ -6,7 +6,7 @@
     </div>
     <div v-if="answers.length" class="question__answer-list">
       <h3>{{ answersTitle }}</h3>
-      <QuestionAnswerList :question="question" />
+      <QuestionAnswerList :question="question" :answers="answers" />
     </div>
     <QuestionPostAnswer :question="question" />
   </div>
@@ -37,12 +37,8 @@ export default {
     };
   },
   computed: {
-    ...mapState("question", ["question"]),
+    ...mapState("question", ["question", "answers"]),
     ...mapGetters("question", ["getAnswers", "filterAnswers"]),
-    answers() {
-      const parent = this.parent ? this.parent.slug : null;
-      return this.getAnswers({ parent });
-    },
     answersTitle() {
       return this.answers.length == 1 ? "Ваш ответ" : "Ответы";
     },

@@ -6,7 +6,7 @@
       <QuestionPostAnswer v-if="isAnswering" ref="postAnswer" :parent="answer" :question="question" @submitted="isAnswering = false" />
     </div>
     <div class="answer__children" :class="{ 'answer__children--first': !answer.parent }">
-      <QuestionAnswerList :parent="answer" :question="question" />
+      <QuestionAnswerList v-if="answer.descendants.length" :answers="answer.descendants" :question="question" />
     </div>
   </div>
 </template>
