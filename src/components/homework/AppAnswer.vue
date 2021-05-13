@@ -35,6 +35,7 @@ export default {
 </script>
 <style scoped>
 .answer {
+  padding-left: 1rem;
   &__author {
     display: inline-block;
     font-weight: bold;
@@ -42,6 +43,18 @@ export default {
   }
   &__delete {
     margin-left: 1rem;
+  }
+  .answer--highlighted {
+    animation: highlighted-answer-fade 2s ease-out;
+  }
+}
+
+@keyframes highlighted-answer-fade {
+  from {
+    background-color: #ffcc66;
+  }
+  to {
+    background-color: white;
   }
 }
 

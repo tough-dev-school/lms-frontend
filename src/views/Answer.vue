@@ -51,6 +51,19 @@ export default {
   },
   computed: {
     ...mapState("answer", ["question", "answer"]),
+    requestedAnswerId() {
+      // slug of the requested answer
+      const { hash } = this.$route;
+      return hash ? hash.split("#")[1] : null;
+    },
+  },
+  watch: {
+    async isLoaded(isLoaded) {
+      if (isLoaded && this.requestedAnswerId) {
+        await this.$nextTick();
+        this.scrollToAnswer(this.requestedAnswerId);
+      }
+    },
   },
   async created() {
     const { id } = this.$route.params;
@@ -74,6 +87,11 @@ export default {
     afterSubmit() {
       this.$refs.editor.clear();
       this.$refs.discussion.scrollToBottom();
+    },
+    async scrollToAnswer(answerId) {
+      const element = document.getElementById(answerId);
+      this.$scrollTo(element, 100);
+      element.classList.add("answer--highlighted");
     },
   },
 };
