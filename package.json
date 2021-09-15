@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint --no-fix --max-warnings 0"
   },
   "dependencies": {
     "@sentry/tracing": "^6.3.5",
