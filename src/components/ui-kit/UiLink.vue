@@ -1,0 +1,41 @@
+<template>
+  <component
+    :is="component"
+    v-bind="{ ...$attrs, ...$props }"
+    :class="{ 'ui-link--disabled': isDisabled }"
+    class="ui-link"
+    v-on="$listeners"
+  >
+    <slot />
+  </component>
+</template>
+<script>
+export default {
+  name: "UiLink",
+  props: {
+    to: { type: [String, Object], default: "" },
+    isDisabled: { type: Boolean, default: false },
+  },
+  computed: {
+    component() {
+      return this.to ? "router-link" : "a";
+    },
+  },
+};
+</script>
+<style scoped>
+.ui-link {
+  @mixin robot-text-two;
+  color: var(--link);
+  text-decoration: none;
+
+  &:hover:not(:active) {
+    color: var(--link-hover);
+  }
+
+  &--disabled {
+    pointer-events: none;
+    color: var(--superlight);
+  }
+}
+</style>
