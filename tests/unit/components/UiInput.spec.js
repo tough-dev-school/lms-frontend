@@ -34,7 +34,7 @@ describe("UiInput", () => {
   it("Has autofocus after mount", () => {
     const wrapper = mount({ propsData, attachTo: document.body });
     const input = wrapper.find("input").element;
-    expect(document.activeElement === input).toBeTruthy();
+    expect(document.activeElement).toBe(input);
     document.activeElement.blur();
   });
 
@@ -42,6 +42,6 @@ describe("UiInput", () => {
     const newProps = { ...propsData, hasAutofocus: false };
     const wrapper = mount({ newProps, attachTo: document.body });
     const input = wrapper.find("input").element;
-    expect(document.activeElement === input).toBeFalsy();
+    expect(document.activeElement).not.toBe(input);
   });
 });
