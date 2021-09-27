@@ -2,7 +2,7 @@
   <component
     :is="component"
     v-bind="{ ...$attrs, ...$props }"
-    :class="[`ui-button--${size}`, `ui-button--${type}`, isFullWidth && 'ui-button--full-width']"
+    :class="[`ui-button--${size}`, `ui-button--${colorType}`, isFullWidth && 'ui-button--full-width']"
     class="ui-button"
     v-on="$listeners"
   >
@@ -14,8 +14,8 @@ const Size = {
   Big: "big",
   Small: "small",
 };
-const Type = {
-  Colored: "colored",
+const ColorType = {
+  Primary: "primary",
   White: "white",
 };
 
@@ -24,7 +24,7 @@ export default {
   props: {
     to: { type: [String, Object], default: "" },
     size: { type: String, required: true, validator: (val) => Object.values(Size).includes(val) },
-    type: { type: String, required: true, validator: (val) => Object.values(Type).includes(val) },
+    colorType: { type: String, required: true, validator: (val) => Object.values(ColorType).includes(val) },
     isFullWidth: { type: Boolean, default: false },
   },
   computed: {
@@ -58,9 +58,10 @@ export default {
     padding: 6px 10px 4px 10px;
   }
 
-  &--colored {
+  &--primary {
     background: var(--large);
 
+    &:focus:not(:active),
     &:hover:not(:active) {
       background: var(--large-hover);
     }
@@ -70,6 +71,7 @@ export default {
     background: var(--background);
     border: 1px solid var(--superlight);
 
+    &:focus:not(:active),
     &:hover:not(:active) {
       border: 1px solid var(--basic);
     }

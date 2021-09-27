@@ -9,7 +9,10 @@ module.exports = {
     require("postcss-custom-media")({
       importFrom: [
         {
-          customMedia: { "--desktop": "(min-width: 800px)" },
+          customMedia: {
+            "--after-mobile": "(min-width: 414px)",
+            "--desktop": "(min-width: 800px)",
+          },
         },
       ],
     }),

@@ -29,6 +29,7 @@ export default {
   color: var(--link);
   text-decoration: none;
 
+  &:focus:not(:active),
   &:hover:not(:active) {
     color: var(--link-hover);
   }

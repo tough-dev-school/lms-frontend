@@ -39,6 +39,14 @@ const routes = [
     },
   },
   {
+    path: "/mail-sent",
+    name: "LoginPasswordlessSuccess",
+    component: () => import(/* webpackChunkName: "loginPasswordlessSuccess" */ "@/views/LoginPasswordlessSuccess.vue"),
+    meta: {
+      public: true,
+    },
+  },
+  {
     path: "/auth/passwordless/:token",
     name: "Passwordless Login second step",
     component: () => import(/* webpackChunkName: "login" */ "@/views/LoginSecondStep.vue"),

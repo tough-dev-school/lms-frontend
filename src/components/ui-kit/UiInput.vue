@@ -52,7 +52,7 @@ export default {
 }
 
 .ui-input__label {
-  @mixin robot-text-three;
+  @mixin robot-text-two;
   color: var(--superlight);
   margin-bottom: 8px;
 }
