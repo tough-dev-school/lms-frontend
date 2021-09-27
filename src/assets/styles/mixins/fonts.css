@@ -1,0 +1,41 @@
+@define-mixin inter-title-default {
+  font-family: Inter;
+  font-weight: 800;
+  line-height: 1.4;
+}
+@define-mixin inter-title-one {
+  @mixin inter-title-default;
+  font-size: calc(42 / var(--default-font-size-px) * 1rem);
+  color: var(--basic);
+}
+@define-mixin inter-title-two {
+  @mixin inter-title-default;
+  font-size: calc(27 / var(--default-font-size-px) * 1rem);
+  color: var(--basic);
+}
+@define-mixin inter-title-three {
+  @mixin inter-title-default;
+  font-size: calc(16 / var(--default-font-size-px) * 1rem);
+  color: var(--basic);
+}
+
+@define-mixin robot-text-default {
+  font-family: PT Root UI;
+  font-weight: normal;
+  line-height: 1.4;
+}
+@define-mixin robot-text-one {
+  @mixin robot-text-default;
+  font-size: calc(20 / var(--default-font-size-px) * 1rem);
+  color: var(--basic);
+}
+@define-mixin robot-text-two {
+  @mixin robot-text-default;
+  font-size: calc(16 / var(--default-font-size-px) * 1rem);
+  color: var(--basic);
+}
+@define-mixin robot-text-three {
+  @mixin robot-text-default;
+  font-size: calc(13 / var(--default-font-size-px) * 1rem);
+  color: var(--basic);
+}
