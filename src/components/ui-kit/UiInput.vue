@@ -1,7 +1,7 @@
 <template>
   <div :class="{ 'ui-input--invalid': isInvalid, 'ui-input--disabled': isDisabled }" class="ui-input">
     <label class="ui-input__label" :for="labelFor">{{ label }}</label>
-    <input ref="uiInput" v-bind="nativeProps" class="ui-input__input" v-on="$listeners" />
+    <input :id="labelFor" ref="uiInput" v-bind="nativeProps" class="ui-input__input" v-on="$listeners" />
     <p class="ui-input__bottom-text">{{ bottomText }}</p>
   </div>
 </template>
@@ -17,7 +17,7 @@ export default {
   },
   computed: {
     labelFor() {
-      return this.nativeProps.id ?? this.nativeProps.name;
+      return this.nativeProps.id ?? `input-${Math.floor(Math.random() * 10 ** 10)}`;
     },
     isDisabled() {
       return !!this.nativeProps.disabled;
