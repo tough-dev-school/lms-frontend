@@ -5,6 +5,7 @@ services:
     image: ghcr.io/f213/education-backend
     environment:
       - DEBUG=Off
+      - AXES_ENABLED=Off
       - DATABASE_URL=postgres://postgres:secret@postgres/postgres
       - REDISCLOUD_URL=redis://redis
     ports:
