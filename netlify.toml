@@ -1,3 +1,11 @@
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = '''
+	  max-age=63072000;
+	  includeSubDomains;
+	  preload'''
+
 [[redirects]]
   from = "/api/*"
   to = "https://education-backend.herokuapp.com/api/:splat"
