@@ -1,23 +1,64 @@
 <template>
-  <form class="login" :class="{ 'login--error': isError }" @submit.prevent="submit">
-    <label for="login">Логин</label>
-    <input id="login" v-model="username" type="text" placeholder="zer0c00l" />
-    <label for="password">Пароль</label>
-    <input id="password" v-model="password" type="password" />
-    <input type="submit" value="Залогиниться" :disabled="!username && !password" />
-    <button class="button button-clear" @click.prevent="$emit('showPasswordlessForm')">Войти по почте</button>
+  <form class="login-form" @submit.prevent="submit">
+    <UiInput
+      :native-props="{
+        id: 'login',
+        value: username,
+        type: 'text',
+        autofocus: true,
+      }"
+      :is-invalid="isError"
+      has-autofocus
+      label="Логин"
+      class="login-form__input"
+      @input="handleLoginInput"
+    />
+    <UiInput
+      :native-props="{
+        id: 'password',
+        value: password,
+        type: 'password',
+      }"
+      :is-invalid="isError"
+      label="Пароль"
+      class="login-form__input"
+      @input="handlePasswordInput"
+    />
+    <ul class="login-form__nav-list">
+      <li>
+        <UiButton :disabled="isButtonSendDisabled" size="big" color-type="primary" class="login-form__button-enter">Войти</UiButton>
+      </li>
+      <li>
+        <UiLink class="login-form__link" href="#" @click.prevent="$emit('showPasswordlessForm')"> Войти по ссылке </UiLink>
+      </li>
+    </ul>
   </form>
 </template>
 <script>
 import { mapActions } from "vuex";
 
+import UiButton from "@/components/ui-kit/UiButton.vue";
+import UiInput from "@/components/ui-kit/UiInput.vue";
+import UiLink from "@/components/ui-kit/UiLink.vue";
+
 export default {
+  components: {
+    UiButton,
+    UiInput,
+    UiLink,
+  },
   data() {
     return {
       username: null,
       password: null,
       isError: false,
     };
+  },
+  computed: {
+    isButtonSendDisabled() {
+      const { isError, username, password } = this;
+      return isError || !username || !password;
+    },
   },
   watch: {
     username() {
@@ -29,6 +70,12 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["LOGIN_WITH_CREDENTIALS"]),
+    handleLoginInput({ target }) {
+      this.username = target.value;
+    },
+    handlePasswordInput({ target }) {
+      this.password = target.value;
+    },
     async submit() {
       const { username, password } = this;
 
@@ -46,10 +93,39 @@ export default {
 };
 </script>
 <style scoped>
-.login--error {
-  input[type="text"],
-  input[type="password"] {
-    border-color: red;
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+.login-form__input:last-of-type {
+  margin-bottom: 32px;
+}
+.login-form__nav-list {
+  li {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+}
+.login-form__button-enter {
+  width: 100%;
+}
+@media (--after-mobile) {
+  .login-form__nav-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    li {
+      margin-bottom: 0;
+
+      &:last-child {
+        flex-grow: 1;
+      }
+    }
+  }
+  .login-form__button-enter {
+    width: initial;
   }
 }
 </style>

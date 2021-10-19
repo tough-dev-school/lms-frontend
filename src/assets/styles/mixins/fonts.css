@@ -6,6 +6,7 @@
 @define-mixin inter-title-one {
   @mixin inter-title-default;
   font-size: calc(42 / var(--default-font-size-px) * 1rem);
+  line-height: 1.2;
   color: var(--basic);
 }
 @define-mixin inter-title-two {
