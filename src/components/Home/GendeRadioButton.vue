@@ -42,6 +42,7 @@ export default {
 }
 .user-gender__label {
   @mixin robot-text-one;
+  @mixin base-hover;
 
   &:first-child {
     margin-right: 16px;
