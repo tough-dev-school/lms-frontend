@@ -5,9 +5,9 @@
       <UserDataField label="Имя" name="first_name" />
       <UserDataField label="Фамилия" name="last_name" />
       <UserDataField label="Имя (на английском)" name="first_name_en" />
-      <UserDataField label="Фамилия(на английском)" name="last_name_en" />
+      <UserDataField label="Фамилия (на английском)" name="last_name_en" />
       <GendeRadioButton class="home__gender" />
-      <UiButton :disabled="isUpdating" size="big" color-type="primary">Обновить</UiButton>
+      <UiButton :disabled="isUpdating" class="home__submit-button" size="big" color-type="primary">Обновить</UiButton>
     </form>
   </div>
 </template>
@@ -52,5 +52,14 @@ export default {
 }
 .home__gender {
   margin-bottom: 24px;
+}
+/* TODO: check if all buttons fullwidth on mobule make one rule */
+.home__submit-button {
+  width: 100%;
+}
+@media (--after-mobile) {
+  .home__submit-button {
+    width: initial;
+  }
 }
 </style>
