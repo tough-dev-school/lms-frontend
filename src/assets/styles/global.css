@@ -1,0 +1,18 @@
+@import "colors.css";
+
+:root {
+  --default-font-size-px: 16;
+  /* temporary because milligram.css change default font size */
+  /* --default-font-size-px: calc(16 * 0.62); */
+}
+
+/* TODO: ask what about focus state */
+* {
+  outline: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

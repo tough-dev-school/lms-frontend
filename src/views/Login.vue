@@ -1,7 +1,7 @@
 <template>
   <div class="login">
-    <p v-if="error" class="login__error">{{ error }}</p>
-    <LoginPasswordless v-if="loginType == 'passwordless'" @showCredentialsForm="loginType = 'credentials'" />
+    <h1 class="login__title">Вход и регистрация</h1>
+    <LoginPasswordless v-if="loginType == 'passwordless'" :error="error" @showCredentialsForm="loginType = 'credentials'" />
     <LoginWithCredentials v-else @showPasswordlessForm="loginType = 'passwordless'" />
   </div>
 </template>
@@ -60,7 +60,19 @@ export default {
 </script>
 
 <style scoped>
-.login__error {
-  color: red;
+.login {
+  margin: 0 auto;
+}
+.login__title {
+  @mixin inter-title-one;
+  margin: 0;
+  margin-bottom: 64px;
+}
+@media (--after-mobile) {
+  .login {
+    width: 100%;
+    max-width: 576px;
+    margin-top: 10vh;
+  }
 }
 </style>
