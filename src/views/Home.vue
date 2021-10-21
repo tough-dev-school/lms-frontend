@@ -2,7 +2,7 @@
   <div class="home">
     <h1 class="home__title">Данные для диплома</h1>
     <form v-if="isUserFetched" @submit.prevent="submit">
-      <UserDataField label="Имя" name="first_name" />
+      <UserDataField has-autofocus label="Имя" name="first_name" />
       <UserDataField label="Фамилия" name="last_name" />
       <UserDataField label="Имя (на английском)" name="first_name_en" />
       <UserDataField label="Фамилия (на английском)" name="last_name_en" />

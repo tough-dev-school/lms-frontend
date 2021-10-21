@@ -4,10 +4,9 @@
     :native-props="{
       id: name,
       type: 'text',
-      autofocus: hasAutofocus,
     }"
     :label="label"
-    has-autofocus
+    :has-autofocus="hasAutofocus"
   />
 </template>
 <script>
