@@ -9,6 +9,7 @@ export default {
   },
   computed: {
     name() {
+      console.log("user", this.user);
       const { first_name, last_name } = this.user;
 
       if (!first_name && !last_name) {

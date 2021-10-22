@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <TheNavBar v-if="isAuthenticated" />
+    <AppHeader v-if="isAuthenticated" />
     <div class="container" :class="{ 'container--auth-pages': !isAuthenticated }">
       <router-view />
     </div>
@@ -10,11 +10,11 @@
 <script>
 import { mapActions, mapState, mapGetters } from "vuex";
 
-import TheNavBar from "@/components/TheNavBar.vue";
+import AppHeader from "@/components/AppHeader.vue";
 
 export default {
   components: {
-    TheNavBar,
+    AppHeader,
   },
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
