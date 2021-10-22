@@ -1,17 +1,17 @@
 <template>
-  <label for="user-gender">
-    Пол
-    <div id="user-gender" class="user-gender">
-      <label class="user-gender__label--first label-inline" for="male">
-        <input id="male" v-model="gender" type="radio" value="male" />
+  <div class="user-gender">
+    <p class="user-gender__title">Пол</p>
+    <div class="user-gender__buttons-container">
+      <label class="user-gender__label" for="male">
+        <input id="male" v-model="gender" class="user-gender__button" type="radio" value="male" />
         Мужской
       </label>
-      <label class="label-inline" for="female">
-        <input id="female" v-model="gender" type="radio" value="female" />
+      <label class="user-gender__label" for="female">
+        <input id="female" v-model="gender" class="user-gender__button" type="radio" value="female" />
         Женский
       </label>
     </div>
-  </label>
+  </div>
 </template>
 <script>
 import { mapState, mapMutations } from "vuex";
@@ -33,11 +33,19 @@ export default {
 </script>
 <style scoped>
 .user-gender {
-  &__label {
-    &--first {
-      margin-left: 0;
-      margin-right: 2rem;
-    }
+  display: flex;
+  flex-direction: column;
+}
+.user-gender__title {
+  @mixin inter-title-two;
+  margin: 0;
+}
+.user-gender__label {
+  @mixin robot-text-one;
+  @mixin base-hover;
+
+  &:first-child {
+    margin-right: 16px;
   }
 }
 </style>
