@@ -1,7 +1,9 @@
 <template>
   <div :id="label" class="answer">
-    <AppUserName class="answer__author" :user="answer.author" />
-    <a :href="`#${label}`" class="answer__date"><AppDate :date="answer.created" /></a>
+    <!-- <AppUserName class="answer__author" :user="answer.author" /> -->
+    <!-- TODO: change to new component -->
+    <AppHeaderUser :user="answer.author" />
+    <!-- <a :href="`#${label}`" class="answer__date"><AppDate :date="answer.created" /></a> -->
     <AppAnswerDeleteButton :answer="answer" class="answer__delete" @deleted="$emit('deleted')" />
     <div class="answer__text">
       <AppContent :html="answer.text" />
@@ -11,17 +13,17 @@
 
 <script>
 import AppContent from "@/components/AppContent.vue";
-import AppDate from "@/components/AppDate.vue";
-
-import AppUserName from "@/components/AppUserName.vue";
+// import AppDate from "@/components/AppDate.vue";
+import AppHeaderUser from "@/components/AppHeaderUser.vue";
+// import AppUserName from "@/components/AppUserName.vue";
 import AppAnswerDeleteButton from "@/components/homework/AppAnswerDeleteButton.vue";
 
 export default {
   components: {
     AppContent,
-    AppDate,
+    AppHeaderUser,
     AppAnswerDeleteButton,
-    AppUserName,
+    // AppUserName,
   },
   props: {
     answer: { type: Object, required: true },
@@ -35,7 +37,7 @@ export default {
 </script>
 <style scoped>
 .answer {
-  padding-left: 1rem;
+  /* padding-left: 1rem; */
   &__author {
     display: inline-block;
     font-weight: bold;

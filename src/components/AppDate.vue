@@ -25,5 +25,8 @@ export default {
 <style scoped>
 .app-date {
   white-space: nowrap;
+  @mixin robot-text-three;
+  margin: 0;
+  color: var(--superlight);
 }
 </style>

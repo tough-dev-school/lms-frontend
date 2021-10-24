@@ -1,14 +1,14 @@
 <template>
   <div v-if="isLoaded && !error" class="question">
-    <div class="question__question">
-      <h1 class="question__title">Домашняя работа: {{ question.name }}</h1>
-      <AppContent :html="question.text" />
-    </div>
+    <h1 class="question__title">Домашняя работа: {{ question.name }}</h1>
+    <p class="question__task-number">ЗАДАНИЕ 5</p>
+    <AppContent :html="question.text" />
+    <div v-if="answers.length" class="question__divider" />
     <div v-if="answers.length" class="question__answer-list">
-      <h3>{{ answersTitle }}</h3>
+      <h2 class="question__answer-title">{{ answersTitle }}</h2>
       <QuestionAnswerList :question="question" :answers="answers" />
     </div>
-    <QuestionPostAnswer :question="question" />
+    <QuestionPostAnswer :question="question" only-send-button />
   </div>
   <div v-else-if="error" class="question question__error">
     <h2>Упс, что-то пошло не так <AppHTTPError :exception="error" /></h2>
@@ -80,12 +80,26 @@ export default {
 </script>
 
 <style scoped>
-.question {
-  &__question {
-    margin-bottom: 5rem;
-  }
-  &__title {
-    margin-bottom: 3rem;
-  }
+.question__title {
+  @mixin inter-title-one;
+  margin-bottom: 8px;
+}
+.question__task-number {
+  @mixin robot-text-one;
+  margin-bottom: 60px;
+  padding: 4px 8px;
+  width: fit-content;
+  color: var(--background);
+  background: var(--basic);
+}
+.question__answer-title {
+  @mixin inter-title-two;
+}
+.question__divider {
+  width: 100%;
+  height: 1px;
+  margin-bottom: 40px;
+  background: var(--lightest);
+  opacity: 0.5;
 }
 </style>

@@ -21,39 +21,23 @@ export default {
 
 <style>
 .app-content {
-  p,
-  li {
-    line-height: 2.9rem;
-    font-size: 17px;
+  p {
+    @mixin robot-text-two;
   }
-  p:last-child {
-    margin-bottom: 15px;
-  }
+
   h1,
   h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin-bottom: 1.5rem;
+  h3 {
+    font-weight: bold;
   }
   h1 {
-    font-size: 3rem;
-    line-height: 1;
+    @mixin inter-title-one;
   }
-
   h2 {
-    font-size: 2.5rem;
+    @mixin inter-title-two;
   }
-
   h3 {
-    font-size: 2rem;
-  }
-
-  h4,
-  h5,
-  h6 {
-    font-size: 1.5rem;
+    @mixin inter-title-three;
   }
 
   ul {
@@ -65,15 +49,10 @@ export default {
     list-tyle: decimal outside;
     padding-left: 2rem;
   }
-}
 
-@media (--desktop) {
-  .app-content {
-    p,
-    li {
-      line-height: 3.2rem;
-      font-size: 18px;
-    }
+  /* TODO: ask how style blockqutes */
+  blockquote {
+    margin: 0;
   }
 }
 </style>
