@@ -26,7 +26,7 @@
     />
     <ul class="login-form__nav-list">
       <li>
-        <UiButton :disabled="isButtonSendDisabled" size="big" color-type="primary" class="login-form__button-enter">Войти</UiButton>
+        <UiButton :disabled="isButtonSendDisabled" size="big" color-type="primary" is-mobile-full-width>Войти</UiButton>
       </li>
       <li>
         <UiLink class="login-form__link" href="#" @click.prevent="$emit('showPasswordlessForm')"> Войти по ссылке </UiLink>
@@ -107,9 +107,6 @@ export default {
     margin-bottom: 24px;
   }
 }
-.login-form__button-enter {
-  width: 100%;
-}
 @media (--after-mobile) {
   .login-form__nav-list {
     display: flex;
@@ -123,9 +120,6 @@ export default {
         flex-grow: 1;
       }
     }
-  }
-  .login-form__button-enter {
-    width: initial;
   }
 }
 </style>

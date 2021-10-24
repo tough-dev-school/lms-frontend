@@ -5,7 +5,7 @@
     </p>
     <ul class="mail-sent__nav-list">
       <li>
-        <UiButton :disabled="isSending" size="big" color-type="white" class="mail-sent__button-resend">Отправить еще раз</UiButton>
+        <UiButton :disabled="isSending" size="big" color-type="white" is-mobile-full-width>Отправить еще раз</UiButton>
       </li>
       <li>
         <UiLink :to="{ name: 'Login' }" class="mail-sent__link">На другую почту</UiLink>
@@ -67,9 +67,6 @@ export default {
   color: var(--large);
   text-decoration: none;
 }
-.mail-sent__button-resend {
-  width: 100%;
-}
 .mail-sent__link {
 }
 .mail-sent__nav-list li {
@@ -83,9 +80,6 @@ export default {
     width: 100%;
     max-width: 800px;
     margin-top: 10vh;
-  }
-  .mail-sent__button-resend {
-    width: initial;
   }
 }
 </style>

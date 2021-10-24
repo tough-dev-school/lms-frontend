@@ -2,7 +2,7 @@
   <component
     :is="component"
     v-bind="{ ...$attrs, ...$props }"
-    :class="[`ui-button--${size}`, `ui-button--${colorType}`, isFullWidth && 'ui-button--full-width']"
+    :class="[`ui-button--${size}`, `ui-button--${colorType}`, isMobileFullWidth && 'ui-button--mobile-full-width']"
     class="ui-button"
     v-on="$listeners"
   >
@@ -26,6 +26,7 @@ export default {
     size: { type: String, required: true, validator: (val) => Object.values(Size).includes(val) },
     colorType: { type: String, required: true, validator: (val) => Object.values(ColorType).includes(val) },
     isFullWidth: { type: Boolean, default: false },
+    isMobileFullWidth: { type: Boolean, default: false },
   },
   computed: {
     component() {
@@ -77,13 +78,19 @@ export default {
     }
   }
 
-  &--full-width {
+  &--mobile-full-width {
     width: 100%;
   }
 
   &:disabled {
     opacity: 0.5;
     pointer-events: none;
+  }
+}
+
+@media (--after-mobile) {
+  ui-button--mobile-full-width {
+    width: initial;
   }
 }
 </style>
