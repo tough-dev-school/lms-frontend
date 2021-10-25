@@ -15,9 +15,7 @@
     />
     <ul class="login-passwordless__nav-list">
       <li>
-        <UiButton :disabled="isButtonSendDisabled" size="big" color-type="primary" class="login-passwordless__button-send">
-          Получить доступ
-        </UiButton>
+        <UiButton :disabled="isButtonSendDisabled" size="big" color-type="primary" is-mobile-full-width>Получить доступ</UiButton>
       </li>
       <li>
         <UiLink class="login-passwordless__password-link" href="#" @click.prevent="$emit('showCredentialsForm')">
@@ -100,9 +98,6 @@ export default {
     margin-bottom: 24px;
   }
 }
-.login-passwordless__button-send {
-  width: 100%;
-}
 @media (--after-mobile) {
   .login-passwordless__nav-list {
     display: flex;
@@ -116,9 +111,6 @@ export default {
         flex-grow: 1;
       }
     }
-  }
-  .login-passwordless__button-send {
-    width: initial;
   }
 }
 </style>
