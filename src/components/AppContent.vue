@@ -50,9 +50,10 @@ export default {
     padding-left: 2rem;
   }
 
-  /* TODO: ask how style blockqutes */
   blockquote {
     margin: 0;
+    border-left: 3px solid var(--lightest);
+    padding-left: 16px;
   }
 }
 </style>

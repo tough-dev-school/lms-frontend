@@ -1,6 +1,9 @@
 <template>
   <form class="answer-editor" @submit.prevent="submit">
-    <!-- <label for="answer-text">Ваш ответ</label> -->
+    <div class="answer-editor__author-wapper">
+      <AppUserAvatar :user="user" color="secondary" class="answer-editor__avatar" />
+      <AppUserName :user="user" color="secondary" font="inter" />
+    </div>
     <AppEditor
       id="answer-text"
       ref="editor"
@@ -11,26 +14,41 @@
     />
     <ul class="answer-editor__button-list">
       <li>
-        <UiButton :disabled="buttonSendDisabled" size="small" color-type="primary" class="login-form__button-enter">Отправить</UiButton>
+        <UiButton
+          :disabled="buttonSendDisabled"
+          :is-mobile-full-width="onlySendButton"
+          size="small"
+          color-type="primary"
+          class="login-form__button-enter"
+        >
+          Отправить
+        </UiButton>
       </li>
       <li v-if="!onlySendButton">
-        <UiButton :disabled="disabled" type="button" size="small" color-type="white" class="login-form__button-enter" @click="handleCancel"
-          >Отмена</UiButton
-        >
+        <UiButton :disabled="disabled" type="button" size="small" color-type="white" class="login-form__button-enter" @click="handleCancel">
+          Отмена
+        </UiButton>
       </li>
     </ul>
   </form>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import AppEditor from "@/components/AppEditor.vue";
 import UiButton from "@/components/ui-kit/UiButton.vue";
+import AppUserAvatar from "@/components/AppUserAvatar";
+import AppUserName from "@/components/AppUserName";
+
 import objectOrNullValidator from "@/utils/objectOrNullValidator.js";
 
 export default {
   components: {
     AppEditor,
     UiButton,
+    AppUserAvatar,
+    AppUserName,
   },
   props: {
     disabled: { type: Boolean, default: false },
@@ -52,6 +70,7 @@ export default {
     };
   },
   computed: {
+    ...mapState("auth", ["user"]),
     answerIdForSavingUserInput() {
       return `answer-${this.question.slug}-${this.parent?.slug}`;
     },
@@ -73,7 +92,6 @@ export default {
       this.$refs.editor.clear();
     },
     handleCancel() {
-      console.log("1");
       this.$emit("cancel");
     },
   },
@@ -81,21 +99,31 @@ export default {
 </script>
 
 <style scoped>
-/* .answer-editor {
-  &__submit {
-    margin-top: 1rem;
-  }
-} */
-/* .answer-editor__editor {
+.answer-editor__author-wapper {
+  display: flex;
+  align-items: center;
   margin-bottom: 16px;
-  background: red;
-} */
+}
+.answer-editor__avatar {
+  margin-right: 8px;
+}
 .answer-editor__button-list {
   display: flex;
   padding-top: 16px;
 
-  & li:not(:last-child) {
-    margin-right: 12px;
+  li {
+    width: 100%;
+  }
+}
+@media (--after-mobile) {
+  .answer-editor__button-list {
+    li {
+      width: initial;
+    }
+
+    li:not(:last-child) {
+      margin-right: 12px;
+    }
   }
 }
 </style>

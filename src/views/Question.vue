@@ -1,30 +1,32 @@
 <template>
-  <div v-if="isLoaded && !error" class="question">
-    <h1 class="question__title">Домашняя работа: {{ question.name }}</h1>
-    <p class="question__task-number">ЗАДАНИЕ 5</p>
-    <AppContent :html="question.text" />
-    <div v-if="answers.length" class="question__divider" />
-    <div v-if="answers.length" class="question__answer-list">
-      <h2 class="question__answer-title">{{ answersTitle }}</h2>
-      <QuestionAnswerList :question="question" :answers="answers" />
+  <AppContainer>
+    <div v-if="isLoaded && !error" class="question">
+      <h1 class="question__title">Домашняя работа: {{ question.name }}</h1>
+      <p class="question__task-number">ЗАДАНИЕ 5</p>
+      <AppContent :html="question.text" />
+      <div v-if="answers.length" class="question__divider" />
+      <div v-if="answers.length" class="question__answer-list">
+        <h2 class="question__subtitle">{{ answersTitle }}</h2>
+        <QuestionAnswerList :question="question" :answers="answers" />
+      </div>
+      <QuestionPostAnswer :question="question" only-send-button />
     </div>
-    <QuestionPostAnswer :question="question" only-send-button />
-  </div>
-  <div v-else-if="error" class="question question__error">
-    <h2>Упс, что-то пошло не так <AppHTTPError :exception="error" /></h2>
-  </div>
+
+    <h2 v-else-if="error" class="question__subtitle">Упс, что-то пошло не так <AppHTTPError :exception="error" /></h2>
+  </AppContainer>
 </template>
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
 
 import AppContent from "@/components/AppContent.vue";
 import AppHTTPError from "@/components/AppHTTPError.vue";
-
+import AppContainer from "@/components/AppContainer.vue";
 import QuestionAnswerList from "@/components/Question/QuestionAnswerList.vue";
 import QuestionPostAnswer from "@/components/Question/QuestionPostAnswer.vue";
 
 export default {
   components: {
+    AppContainer,
     AppContent,
     AppHTTPError,
     QuestionAnswerList,
@@ -92,7 +94,7 @@ export default {
   color: var(--background);
   background: var(--basic);
 }
-.question__answer-title {
+.question__subtitle {
   @mixin inter-title-two;
 }
 .question__divider {

@@ -1,12 +1,11 @@
 <template>
   <div :id="label" class="answer">
-    <AppAnswer :answer="answer" />
+    <AppAnswer :answer="answer" :is-child="isChild" />
     <div :class="{ 'answer__wrapper--answering': isAnswering }" class="answer__wrapper">
       <button :disabled="isAnswering" class="answer__button-answer" @click="isAnswering = !isAnswering">Ответить</button>
       <AppDate :date="answer.created" />
     </div>
 
-    <!-- <div class="answer__post-answer"> -->
     <QuestionPostAnswer
       v-if="isAnswering"
       ref="postAnswer"
@@ -16,13 +15,8 @@
       @cancel="isAnswering = false"
       @submitted="isAnswering = false"
     />
-    <!-- </div> -->
 
-    <!-- <div class="answer__children" :class="{ 'answer__children--first': !answer.parent }"> -->
-    <!-- :class="{ 'answer__children--first': !answer.parent }" -->
-    <!-- class="answer__children" -->
-    <QuestionAnswerList v-if="answer.descendants.length" is-child :answers="answer.descendants" :question="question" />
-    <!-- </div> -->
+    <QuestionAnswerList v-if="answer.descendants.length" :is-child="true" :answers="answer.descendants" :question="question" />
   </div>
 </template>
 
@@ -41,6 +35,7 @@ export default {
   props: {
     question: { type: Object, required: true },
     answer: { type: Object, required: true },
+    isChild: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -55,15 +50,6 @@ export default {
 };
 </script>
 <style scoped>
-.answer__children {
-  /* border: 1px solid black;
-  padding-left: 40px; */
-  /* margin-bottom: 30px;
-
-  &--first {
-    margin-bottom: 60px;
-  } */
-}
 .answer__wrapper {
   display: flex;
   margin-bottom: 32px;
@@ -97,19 +83,4 @@ export default {
 .answer__post-answer {
   margin-bottom: 32px;
 }
-/* .answer {
-  &__children {
-    margin-top: 3rem;
-    &--first {
-      padding-left: 2rem;
-    }
-  }
-}
-@media (--desktop) {
-  .answer {
-    &__children--first {
-      padding-left: 10rem;
-    }
-  }
-} */
 </style>

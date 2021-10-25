@@ -89,7 +89,7 @@ export default {
 }
 
 @media (--after-mobile) {
-  ui-button--mobile-full-width {
+  .ui-button--mobile-full-width {
     width: initial;
   }
 }
