@@ -3,7 +3,6 @@
     <UiInput
       :native-props="{
         id: 'login',
-        value: username,
         type: 'text',
         autofocus: true,
       }"
@@ -11,15 +10,16 @@
       has-autofocus
       label="Логин"
       class="login-form__input"
+      :value="username"
       @input="handleLoginInput"
     />
     <UiInput
       :native-props="{
         id: 'password',
-        value: password,
         type: 'password',
       }"
       :is-invalid="isError"
+      :value="password"
       label="Пароль"
       class="login-form__input"
       @input="handlePasswordInput"

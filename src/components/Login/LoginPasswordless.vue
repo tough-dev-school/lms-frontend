@@ -3,9 +3,9 @@
     <UiInput
       :native-props="{
         id: 'email',
-        value: email,
         type: 'text',
       }"
+      :value="email"
       :is-invalid="!!error"
       :bottom-text="inputButtonText"
       has-autofocus
