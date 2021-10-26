@@ -34,6 +34,8 @@
           <div class="answer__feedback-text">Здесь будет текст Здесь будет текст Здесь будет текст Здесь будет текст</div>
         </div>
       </div>
+      <PopupFeedbackDescr ref="popupFeedbackDescr" />
+      <UiMobileQuestionButton @click="openPopup" />
     </template>
 
     <h2 v-else-if="error" class="answer__error">Упс, что-то пошло не так <AppHTTPError :exception="error" /></h2>
@@ -52,6 +54,8 @@ import AppTaskNumberLabel from "@/components/AppTaskNumberLabel.vue";
 import AppAnswerEditor from "@/components/homework/AppAnswerEditor.vue";
 import AnswerDiscussion from "@/components/Answer/AnswerDiscussion.vue";
 import AppContainer from "@/components/AppContainer.vue";
+import PopupFeedbackDescr from "@/components/popup/PopupFeedbackDescr.vue";
+import UiMobileQuestionButton from "@/components/ui-kit/UiMobileQuestionButton.vue";
 
 const COLLAPSE_BUTTON_TITLE = {
   readTask: "Почитать задание",
@@ -69,6 +73,8 @@ export default {
     AppUserName,
     AnswerDiscussion,
     AppContainer,
+    PopupFeedbackDescr,
+    UiMobileQuestionButton,
   },
   data() {
     return {
@@ -127,6 +133,9 @@ export default {
     },
     handleClosed() {
       this.title = COLLAPSE_BUTTON_TITLE.readTask;
+    },
+    openPopup() {
+      this.$refs.popupFeedbackDescr.open();
     },
   },
 };
