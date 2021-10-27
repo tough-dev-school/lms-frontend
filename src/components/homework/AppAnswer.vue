@@ -1,7 +1,9 @@
 <template>
   <div :id="label" class="answer">
-    <AppUserName class="answer__author" :user="answer.author" />
-    <a :href="`#${label}`" class="answer__date"><AppDate :date="answer.created" /></a>
+    <div class="answer__author-wapper">
+      <AppUserAvatar v-if="!isChild" :user="answer.author" :color="currentColor" class="answer-editor__avatar" />
+      <AppUserName :user="answer.author" :color="currentColor" font="inter" />
+    </div>
     <AppAnswerDeleteButton :answer="answer" class="answer__delete" @deleted="$emit('deleted')" />
     <div class="answer__text">
       <AppContent :html="answer.text" />
@@ -10,59 +12,45 @@
 </template>
 
 <script>
-import AppContent from "@/components/AppContent.vue";
-import AppDate from "@/components/AppDate.vue";
+import { mapState } from "vuex";
 
-import AppUserName from "@/components/AppUserName.vue";
+import AppContent from "@/components/AppContent.vue";
 import AppAnswerDeleteButton from "@/components/homework/AppAnswerDeleteButton.vue";
+import AppUserAvatar from "@/components/AppUserAvatar";
+import AppUserName from "@/components/AppUserName";
 
 export default {
   components: {
     AppContent,
-    AppDate,
     AppAnswerDeleteButton,
+    AppUserAvatar,
     AppUserName,
   },
   props: {
     answer: { type: Object, required: true },
+    isChild: { type: Boolean, default: false },
   },
   computed: {
+    ...mapState("auth", ["user"]),
     label() {
       return `${this.answer.slug}`;
+    },
+    isUserComment() {
+      return this.user.uuid === this.answer.author.uuid;
+    },
+    currentColor() {
+      return this.isUserComment ? "secondary" : "primary";
     },
   },
 };
 </script>
 <style scoped>
-.answer {
-  padding-left: 1rem;
-  &__author {
-    display: inline-block;
-    font-weight: bold;
-    margin-right: 0.5rem;
-  }
-  &__delete {
-    margin-left: 1rem;
-  }
-  .answer--highlighted {
-    animation: highlighted-answer-fade 2s ease-out;
-  }
+.answer__author-wapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
 }
-
-@keyframes highlighted-answer-fade {
-  from {
-    background-color: #ffcc66;
-  }
-  to {
-    background-color: white;
-  }
-}
-
-@media (--desktop) {
-  .answer {
-    &__text {
-      max-width: 80%;
-    }
-  }
+.answer__delete {
+  margin-left: 1rem;
 }
 </style>

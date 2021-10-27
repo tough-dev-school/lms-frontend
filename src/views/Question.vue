@@ -1,30 +1,32 @@
 <template>
-  <div v-if="isLoaded && !error" class="question">
-    <div class="question__question">
+  <AppContainer>
+    <div v-if="isLoaded && !error" class="question">
       <h1 class="question__title">Домашняя работа: {{ question.name }}</h1>
+      <p class="question__task-number">ЗАДАНИЕ 5</p>
       <AppContent :html="question.text" />
+      <div v-if="answers.length" class="question__divider" />
+      <div v-if="answers.length" class="question__answer-list">
+        <h2 class="question__subtitle">{{ answersTitle }}</h2>
+        <QuestionAnswerList :question="question" :answers="answers" />
+      </div>
+      <QuestionPostAnswer :question="question" only-send-button />
     </div>
-    <div v-if="answers.length" class="question__answer-list">
-      <h3>{{ answersTitle }}</h3>
-      <QuestionAnswerList :question="question" :answers="answers" />
-    </div>
-    <QuestionPostAnswer :question="question" />
-  </div>
-  <div v-else-if="error" class="question question__error">
-    <h2>Упс, что-то пошло не так <AppHTTPError :exception="error" /></h2>
-  </div>
+
+    <h2 v-else-if="error" class="question__subtitle">Упс, что-то пошло не так <AppHTTPError :exception="error" /></h2>
+  </AppContainer>
 </template>
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
 
 import AppContent from "@/components/AppContent.vue";
 import AppHTTPError from "@/components/AppHTTPError.vue";
-
+import AppContainer from "@/components/AppContainer.vue";
 import QuestionAnswerList from "@/components/Question/QuestionAnswerList.vue";
 import QuestionPostAnswer from "@/components/Question/QuestionPostAnswer.vue";
 
 export default {
   components: {
+    AppContainer,
     AppContent,
     AppHTTPError,
     QuestionAnswerList,
@@ -80,12 +82,26 @@ export default {
 </script>
 
 <style scoped>
-.question {
-  &__question {
-    margin-bottom: 5rem;
-  }
-  &__title {
-    margin-bottom: 3rem;
-  }
+.question__title {
+  @mixin inter-title-one;
+  margin-bottom: 8px;
+}
+.question__task-number {
+  @mixin robot-text-one;
+  margin-bottom: 60px;
+  padding: 4px 8px;
+  width: fit-content;
+  color: var(--background);
+  background: var(--basic);
+}
+.question__subtitle {
+  @mixin inter-title-two;
+}
+.question__divider {
+  width: 100%;
+  height: 1px;
+  margin-bottom: 40px;
+  background: var(--lightest);
+  opacity: 0.5;
 }
 </style>

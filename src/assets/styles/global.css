@@ -9,6 +9,7 @@
 /* TODO: ask what about focus state */
 * {
   outline: none;
+  box-sizing: border-box;
 }
 
 ul {

@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <AppHeader v-if="isAuthenticated" />
-    <div class="container" :class="{ 'container--auth-pages': !isAuthenticated }">
+    <main class="container" :class="{ 'container--auth-pages': !isAuthenticated }">
       <router-view />
-    </div>
+    </main>
   </div>
 </template>
 
@@ -34,10 +34,17 @@ export default {
   display: flex;
   padding-left: 4%;
   padding-right: 4%;
-  padding-top: 5rem;
+  padding-top: 32px;
+  padding-bottom: 64px;
 
   &--auth-pages {
     padding-top: 8%;
+  }
+}
+
+@media (--after-mobile) {
+  .container {
+    padding-bottom: 32px;
   }
 }
 </style>

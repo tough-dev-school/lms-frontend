@@ -1,5 +1,13 @@
 <template>
-  <AppAnswerEditor ref="editor" :parent="parent" :question="question" :disabled="isLoading" @submit="submit" />
+  <AppAnswerEditor
+    ref="editor"
+    :parent="parent"
+    :question="question"
+    :disabled="isLoading"
+    :only-send-button="onlySendButton"
+    @submit="submit"
+    @cancel="handleCancel"
+  />
 </template>
 
 <script>
@@ -15,6 +23,7 @@ export default {
   },
   props: {
     question: { type: Object, required: true },
+    onlySendButton: { type: Boolean, default: false },
     parent: {
       required: false,
       default: null,
@@ -43,6 +52,9 @@ export default {
     },
     focus() {
       this.$refs.editor.focus();
+    },
+    handleCancel() {
+      this.$emit("cancel");
     },
   },
 };
