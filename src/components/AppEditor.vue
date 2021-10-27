@@ -50,7 +50,6 @@ export default {
       this.$emit("submit");
     },
     clear() {
-      console.log("clear");
       this.simplemde.clearAutosavedValue();
       this.simplemde.value("");
     },

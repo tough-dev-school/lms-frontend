@@ -19,8 +19,6 @@ import AppAnswerDeleteButton from "@/components/homework/AppAnswerDeleteButton.v
 import AppUserAvatar from "@/components/AppUserAvatar";
 import AppUserName from "@/components/AppUserName";
 
-import getUserName from "@/utils/getUserName";
-
 export default {
   components: {
     AppContent,
@@ -38,10 +36,7 @@ export default {
       return `${this.answer.slug}`;
     },
     isUserComment() {
-      // TODO: should be chaned to user id or something
-      const userName = getUserName(this.user);
-      const authorName = getUserName(this.answer.author);
-      return userName === authorName;
+      return this.user.uuid === this.answer.author.uuid;
     },
     currentColor() {
       return this.isUserComment ? "secondary" : "primary";
