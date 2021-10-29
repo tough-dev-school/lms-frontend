@@ -1,7 +1,9 @@
 <template>
-  <div class="answer-list">
-    <AnswerSingleAnswer v-for="answer in answers" :key="answer.slug" :answer="answer" :question="question" class="answer-list__answer" />
-  </div>
+  <ul class="answer-list">
+    <li class="answer-list__item">
+      <AnswerSingleAnswer v-for="answer in answers" :key="answer.slug" :answer="answer" :question="question" class="answer-list__answer" />
+    </li>
+  </ul>
 </template>
 <script>
 import AnswerSingleAnswer from "@/components/Answer/AnswerSingleAnswer.vue";
@@ -18,8 +20,10 @@ export default {
 </script>
 <style scoped>
 .answer-list {
-  &__answer {
-    margin-bottom: 3rem;
-  }
+  display: flex;
+  flex-direction: column;
+}
+.answer-list__item {
+  margin-bottom: 32px;
 }
 </style>
