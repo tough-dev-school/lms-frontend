@@ -2,9 +2,9 @@
   <div :id="label" class="answer">
     <div class="answer__author-wapper">
       <AppUserAvatar v-if="!isChild" :user="answer.author" :color="currentColor" class="answer-editor__avatar" />
-      <AppUserName :user="answer.author" :color="currentColor" font="inter" />
+      <AppUserName :user="answer.author" :color="currentColor" class="answer__user-name" font="inter" />
+      <AppAnswerDeleteButton :answer="answer" @deleted="$emit('deleted')" />
     </div>
-    <AppAnswerDeleteButton :answer="answer" class="answer__delete" @deleted="$emit('deleted')" />
     <div class="answer__text">
       <AppContent :html="answer.text" />
     </div>
@@ -47,10 +47,11 @@ export default {
 <style scoped>
 .answer__author-wapper {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   margin-bottom: 8px;
 }
-.answer__delete {
-  margin-left: 1rem;
+.answer__user-name {
+  margin-right: 16px;
 }
 </style>

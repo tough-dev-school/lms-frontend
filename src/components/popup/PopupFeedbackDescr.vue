@@ -1,6 +1,6 @@
 <template>
   <UiPopup ref="uiPopup">
-    <template scope="{ confirm, close }">
+    <template slot-scope="{ confirm, close }">
       <div class="feedback-popup__content">
         <AppHowToFeedbackText class="feedback-popup__text" />
         <ul class="feedback-popup__buttons">

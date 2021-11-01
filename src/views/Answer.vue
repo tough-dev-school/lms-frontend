@@ -28,10 +28,12 @@
             class="answer__answer-editor"
             @submit="submit"
           />
-          <AnswerDiscussion ref="discussion" class="anwer__subtitle" :answer="answer" :question="question" />
+          <AnswerDiscussion ref="discussion" :answer="answer" :question="question" />
         </div>
         <div class="answer__column answer__column--feedback">
-          <div class="answer__feedback-text">Здесь будет текст Здесь будет текст Здесь будет текст Здесь будет текст</div>
+          <div class="answer__feedback-text">
+            <AppHowToFeedbackText />
+          </div>
         </div>
       </div>
       <PopupFeedbackDescr ref="popupFeedbackDescr" />
@@ -56,6 +58,7 @@ import AnswerDiscussion from "@/components/Answer/AnswerDiscussion.vue";
 import AppContainer from "@/components/AppContainer.vue";
 import PopupFeedbackDescr from "@/components/popup/PopupFeedbackDescr.vue";
 import UiMobileQuestionButton from "@/components/ui-kit/UiMobileQuestionButton.vue";
+import AppHowToFeedbackText from "@/components/AppHowToFeedbackText.vue";
 
 const COLLAPSE_BUTTON_TITLE = {
   readTask: "Почитать задание",
@@ -64,6 +67,7 @@ const COLLAPSE_BUTTON_TITLE = {
 
 export default {
   components: {
+    AppHowToFeedbackText,
     AppTaskNumberLabel,
     AppContent,
     AppCollapsible,
@@ -164,9 +168,6 @@ export default {
 .answer__task-number {
   margin-bottom: 32px;
 }
-.answer__subtitle {
-  @mixin inter-title-two;
-}
 .answer__user-row {
   @mixin robot-text-two;
   display: flex;
@@ -190,6 +191,9 @@ export default {
   opacity: 0.5;
 }
 .answer__answer {
+  margin-bottom: 32px;
+}
+.answer__answer-editor {
   margin-bottom: 32px;
 }
 .answer__feedback-text {
