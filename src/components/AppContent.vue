@@ -21,6 +21,7 @@ export default {
 
 <style>
 .app-content {
+  li,
   p {
     @mixin robot-text-two;
   }

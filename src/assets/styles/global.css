@@ -17,3 +17,15 @@ ul {
   padding: 0;
   list-style: none;
 }
+
+body {
+  @mixin robot-text-two;
+  margin: 0;
+}
+
+body.popup-open {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}

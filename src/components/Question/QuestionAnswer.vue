@@ -2,7 +2,7 @@
   <div :id="label" class="answer">
     <AppAnswer :answer="answer" :is-child="isChild" />
     <div :class="{ 'answer__wrapper--answering': isAnswering }" class="answer__wrapper">
-      <button :disabled="isAnswering" class="answer__button-answer" @click="isAnswering = !isAnswering">Ответить</button>
+      <UiButtonAsText :disabled="isAnswering" class="answer__button-answer" @click="isAnswering = !isAnswering">Ответить</UiButtonAsText>
       <AppDate :date="answer.created" />
     </div>
 
@@ -23,6 +23,7 @@
 <script>
 import AppAnswer from "@/components/homework/AppAnswer.vue";
 import AppDate from "@/components/AppDate.vue";
+import UiButtonAsText from "@/components/ui-kit/UiButtonAsText.vue";
 import QuestionPostAnswer from "@/components/Question/QuestionPostAnswer.vue";
 
 export default {
@@ -31,6 +32,7 @@ export default {
     AppDate,
     QuestionAnswerList: () => import("@/components/Question/QuestionAnswerList.vue"),
     QuestionPostAnswer,
+    UiButtonAsText,
   },
   props: {
     question: { type: Object, required: true },
@@ -59,26 +61,7 @@ export default {
   }
 }
 .answer__button-answer {
-  @mixin robot-text-two;
-  display: inline;
-  padding: 0;
-  margin: 0;
-  margin-right: 16px;
-  color: var(--link);
-  line-height: 1;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-
-  &:focus:not(:active),
-  &:hover:not(:active) {
-    color: var(--link-hover);
-  }
-
-  &:disabled {
-    pointer-events: none;
-    color: var(--superlight);
-  }
+  margin-right: 16px !important;
 }
 .answer__post-answer {
   margin-bottom: 32px;

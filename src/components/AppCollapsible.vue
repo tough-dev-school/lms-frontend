@@ -1,13 +1,18 @@
 <template>
   <div class="app-collapsible">
-    <button type="button" class="app-collapsible__btn button button-clear" @click="isCollapsed = !isCollapsed">{{ title }}</button>
+    <UiButtonAsText class="app-collapsible__button" @click="isCollapsed = !isCollapsed">{{ title }}</UiButtonAsText>
     <div class="app-collapsible__content" :class="{ 'app-collapsible__content--collapsed': isCollapsed }">
       <slot />
     </div>
   </div>
 </template>
 <script>
+import UiButtonAsText from "@/components/ui-kit/UiButtonAsText.vue";
+
 export default {
+  components: {
+    UiButtonAsText,
+  },
   props: {
     title: { type: String, required: false, default: "Раскрыть" },
   },
@@ -16,19 +21,23 @@ export default {
       isCollapsed: true,
     };
   },
+  watch: {
+    isCollapsed(newValue) {
+      if (newValue) {
+        this.$emit("closed");
+      } else {
+        this.$emit("opened");
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
-.app-collapsible {
-  &__btn {
-    padding: 0;
-  }
-  &__content {
-    padding-left: 3rem;
-    &--collapsed {
-      display: none;
-    }
-  }
+.app-collapsible__button {
+  margin-bottom: 8px !important;
+}
+.app-collapsible__content--collapsed {
+  display: none;
 }
 </style>

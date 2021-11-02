@@ -2,7 +2,7 @@
   <AppContainer>
     <div v-if="isLoaded && !error" class="question">
       <h1 class="question__title">Домашняя работа: {{ question.name }}</h1>
-      <p class="question__task-number">ЗАДАНИЕ 5</p>
+      <AppTaskNumberLabel class="question__task-number" text="ЗАДАНИЕ 5" />
       <AppContent :html="question.text" />
       <div v-if="answers.length" class="question__divider" />
       <div v-if="answers.length" class="question__answer-list">
@@ -21,11 +21,13 @@ import { mapActions, mapGetters, mapState } from "vuex";
 import AppContent from "@/components/AppContent.vue";
 import AppHTTPError from "@/components/AppHTTPError.vue";
 import AppContainer from "@/components/AppContainer.vue";
+import AppTaskNumberLabel from "@/components/AppTaskNumberLabel.vue";
 import QuestionAnswerList from "@/components/Question/QuestionAnswerList.vue";
 import QuestionPostAnswer from "@/components/Question/QuestionPostAnswer.vue";
 
 export default {
   components: {
+    AppTaskNumberLabel,
     AppContainer,
     AppContent,
     AppHTTPError,
@@ -87,12 +89,7 @@ export default {
   margin-bottom: 8px;
 }
 .question__task-number {
-  @mixin robot-text-one;
   margin-bottom: 60px;
-  padding: 4px 8px;
-  width: fit-content;
-  color: var(--background);
-  background: var(--basic);
 }
 .question__subtitle {
   @mixin inter-title-two;

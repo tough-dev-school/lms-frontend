@@ -1,6 +1,6 @@
 <template>
   <div v-if="answer.descendants.length" class="answer-discussion">
-    <h2>{{ title }}</h2>
+    <h2 class="answer-discussion__title">{{ title }}</h2>
     <AnswerList :answers="answer.descendants" :question="question" />
     <div ref="bottom"></div>
   </div>
@@ -29,3 +29,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.answer-discussion__title {
+  @mixin inter-title-two;
+}
+</style>

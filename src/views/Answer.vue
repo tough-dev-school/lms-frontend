@@ -1,39 +1,74 @@
 <template>
-  <div v-if="isLoaded && !error" class="answer">
-    <div class="answer__quetion">
-      <h1 class="answer__question-title">{{ question.name }}, ответ пользователя <AppUserName :user="answer.author" /></h1>
-      <AppCollapsible title="Почитать задание">
-        <AppContent :html="question.text" />
-      </AppCollapsible>
-    </div>
-    <AppAnswer :answer="answer" :question="question" class="answer__answer" />
-    <AppAnswerEditor
-      ref="editor"
-      :parent="answer"
-      :question="question"
-      :disabled="isLoading"
-      class="answer__answer-editor"
-      @submit="submit"
-    />
-    <AnswerDiscussion ref="discussion" :answer="answer" :question="question" />
-  </div>
-  <div v-else-if="error" class="question question__error">
-    <h2>Упс, что-то пошло не так <AppHTTPError :exception="error" /></h2>
-  </div>
+  <AppContainer class="answer">
+    <template v-if="isLoaded && !error">
+      <div class="answer__row">
+        <div class="answer__column answer__column--content">
+          <h1 class="answer__title">{{ question.name }}</h1>
+          <AppTaskNumberLabel class="question__task-number" text="ЗАДАНИЕ 5" />
+          <div class="answer__user-row">
+            <p>ответ пользователя</p>
+            <AppUserName :user="answer.author" />
+          </div>
+          <AppCollapsible :title="title" @closed="handleClosed" @opened="handleOpened">
+            <AppContent :html="question.text" />
+          </AppCollapsible>
+        </div>
+        <div class="answer__column answer__column--feedback" />
+      </div>
+      <div class="answer__row">
+        <div class="answer__column answer__column--content">
+          <div class="answer__divider" />
+          <AppAnswer :answer="answer" :question="question" class="answer__answer" />
+          <AppAnswerEditor
+            ref="editor"
+            :parent="answer"
+            :question="question"
+            :disabled="isLoading"
+            only-send-button
+            class="answer__answer-editor"
+            @submit="submit"
+          />
+          <AnswerDiscussion ref="discussion" :answer="answer" :question="question" />
+        </div>
+        <div class="answer__column answer__column--feedback">
+          <div class="answer__feedback-text">
+            <AppHowToFeedbackText />
+          </div>
+        </div>
+      </div>
+      <PopupFeedbackDescr ref="popupFeedbackDescr" />
+      <UiMobileQuestionButton @click="openPopup" />
+    </template>
+
+    <h2 v-else-if="error" class="answer__error">Упс, что-то пошло не так <AppHTTPError :exception="error" /></h2>
+  </AppContainer>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
+
 import AppContent from "@/components/AppContent.vue";
 import AppHTTPError from "@/components/AppHTTPError.vue";
 import AppCollapsible from "@/components/AppCollapsible.vue";
 import AppUserName from "@/components/AppUserName.vue";
 import AppAnswer from "@/components/homework/AppAnswer.vue";
+import AppTaskNumberLabel from "@/components/AppTaskNumberLabel.vue";
 import AppAnswerEditor from "@/components/homework/AppAnswerEditor.vue";
 import AnswerDiscussion from "@/components/Answer/AnswerDiscussion.vue";
+import AppContainer from "@/components/AppContainer.vue";
+import PopupFeedbackDescr from "@/components/popup/PopupFeedbackDescr.vue";
+import UiMobileQuestionButton from "@/components/ui-kit/UiMobileQuestionButton.vue";
+import AppHowToFeedbackText from "@/components/AppHowToFeedbackText.vue";
+
+const COLLAPSE_BUTTON_TITLE = {
+  readTask: "Почитать задание",
+  hide: "Скрыть",
+};
 
 export default {
   components: {
+    AppHowToFeedbackText,
+    AppTaskNumberLabel,
     AppContent,
     AppCollapsible,
     AppHTTPError,
@@ -41,9 +76,13 @@ export default {
     AppAnswerEditor,
     AppUserName,
     AnswerDiscussion,
+    AppContainer,
+    PopupFeedbackDescr,
+    UiMobileQuestionButton,
   },
   data() {
     return {
+      title: COLLAPSE_BUTTON_TITLE.readTask,
       isLoaded: false,
       isLoading: false,
       error: null,
@@ -93,6 +132,85 @@ export default {
       this.$scrollTo(element, 100);
       element.classList.add("answer--highlighted");
     },
+    handleOpened() {
+      this.title = COLLAPSE_BUTTON_TITLE.hide;
+    },
+    handleClosed() {
+      this.title = COLLAPSE_BUTTON_TITLE.readTask;
+    },
+    openPopup() {
+      this.$refs.popupFeedbackDescr.open();
+    },
   },
 };
 </script>
+<style scoped>
+.answer__row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+.answer__column {
+  display: flex;
+  flex-direction: column;
+
+  &--content {
+    width: 100%;
+  }
+  &--feedback {
+    display: none;
+  }
+}
+.answer__title {
+  @mixin inter-title-one;
+  margin-bottom: 8px;
+}
+.answer__task-number {
+  margin-bottom: 32px;
+}
+.answer__user-row {
+  @mixin robot-text-two;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+
+  p:first-child {
+    margin: 0;
+    margin-right: 8px;
+    line-height: 1;
+  }
+}
+.answer__user-name {
+  display: flex;
+}
+.answer__divider {
+  width: 100%;
+  height: 1px;
+  margin-bottom: 40px;
+  background: var(--lightest);
+  opacity: 0.5;
+}
+.answer__answer {
+  margin-bottom: 32px;
+}
+.answer__answer-editor {
+  margin-bottom: 32px;
+}
+.answer__feedback-text {
+  padding: 24px 16px 32px 16px;
+  background-color: var(--feedback-bcg);
+}
+@media (--after-mobile) {
+  .answer__column {
+    &--content {
+      width: 60%;
+      margin-right: 32px;
+    }
+    &--feedback {
+      display: flex;
+      width: 40%;
+      max-width: 340px;
+    }
+  }
+}
+</style>
