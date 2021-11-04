@@ -5,16 +5,21 @@
       <AppUserName :user="user" />
       <p v-if="email" class="header-user__email">{{ email }}</p>
     </div>
+    <div class="header-user__menu">
+      <UiLink class="header-user__logout-link" href="#" @click.prevent="logout">Выйти</UiLink>
+    </div>
   </div>
 </template>
 <script>
 import AppUserAvatar from "@/components/AppUserAvatar";
 import AppUserName from "@/components/AppUserName";
+import UiLink from "@/components/ui-kit/UiLink.vue";
 
 export default {
   components: {
     AppUserAvatar,
     AppUserName,
+    UiLink,
   },
   props: {
     user: { type: Object, default: () => ({}) },
@@ -28,11 +33,34 @@ export default {
 </script>
 <style scoped>
 .header-user {
+  position: relative;
   display: flex;
   align-items: center;
+
+  &:hover {
+    .header-user__menu {
+      display: flex;
+    }
+  }
 }
 .header-user__container {
   display: none;
+}
+.header-user__menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  display: none;
+  width: 100%;
+  min-width: 100px;
+  padding: 12px;
+  padding-bottom: 16px;
+  background: var(--background);
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+}
+.header-user__logout-link {
+  margin: 0;
 }
 
 @media (--after-mobile) {
@@ -46,6 +74,9 @@ export default {
     margin: 0;
     color: var(--superlight);
     line-height: 1;
+  }
+  .header-user__menu {
+    left: 0;
   }
 }
 </style>

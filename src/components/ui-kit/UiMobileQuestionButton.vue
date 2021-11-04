@@ -24,7 +24,7 @@ export default {};
   border-radius: 999px;
   background: var(--large-hover);
 }
-@media (--after-mobile) {
+@media (--desktop) {
   .mobile-question-button {
     display: none;
   }

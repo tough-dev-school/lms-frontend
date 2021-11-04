@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <AppContainer>
     <h1 class="home__title">Данные для диплома</h1>
     <form v-if="isUserFetched" @submit.prevent="submit">
       <UserDataField has-autofocus label="Имя" name="first_name" />
@@ -9,7 +9,7 @@
       <GendeRadioButton class="home__gender" />
       <UiButton :disabled="isUpdating" is-mobile-full-width size="big" color-type="primary">Обновить</UiButton>
     </form>
-  </div>
+  </AppContainer>
 </template>
 
 <script>
@@ -18,6 +18,7 @@ import { mapActions } from "vuex";
 import UserDataField from "@/components/Home/UserDataField";
 import GendeRadioButton from "@/components/Home/GendeRadioButton.vue";
 import UiButton from "@/components/ui-kit/UiButton.vue";
+import AppContainer from "@/components/AppContainer.vue";
 
 export default {
   name: "Home",
@@ -25,6 +26,7 @@ export default {
     UserDataField,
     GendeRadioButton,
     UiButton,
+    AppContainer,
   },
   data() {
     return {

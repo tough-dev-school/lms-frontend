@@ -15,7 +15,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 1400px;
+  max-width: 1197px;
   margin: auto;
 }
 </style>

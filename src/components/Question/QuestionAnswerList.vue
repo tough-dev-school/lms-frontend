@@ -1,5 +1,5 @@
 <template>
-  <ul v-if="answers" class="answer-list">
+  <ul v-if="answers" class="answer-list" :class="{ 'answer-list--child': isChild }">
     <li v-for="answer in answers" :key="answer.slug" :class="{ 'answer-list__item--child': isChild }" class="answer-list__item">
       <QuestionAnswer :answer="answer" :question="question" :is-child="isChild" />
     </li>
@@ -24,10 +24,13 @@ export default {
 <style scoped>
 .answer-list {
   margin-bottom: 16px;
-  padding-left: 16px;
+
+  &--child {
+    padding-left: 16px;
+  }
 }
 .answer-list__item {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 
   &--child {
     margin-bottom: 16px;
@@ -41,10 +44,13 @@ export default {
 @media (--after-mobile) {
   .answer-list {
     margin-bottom: 32px;
-    padding-left: 32px;
+
+    &--child {
+      padding-left: 32px;
+    }
   }
   .answer-list__item {
-    margin-bottom: 64px;
+    margin-bottom: 48px;
 
     &--child {
       margin-bottom: 32px;

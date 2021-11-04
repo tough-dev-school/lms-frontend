@@ -30,14 +30,6 @@ export default {
   h2,
   h3 {
     font-weight: bold;
-  }
-  h1 {
-    @mixin inter-title-one;
-  }
-  h2 {
-    @mixin inter-title-two;
-  }
-  h3 {
     @mixin inter-title-three;
   }
 

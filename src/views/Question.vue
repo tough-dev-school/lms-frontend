@@ -2,7 +2,7 @@
   <AppContainer>
     <div v-if="isLoaded && !error" class="question">
       <h1 class="question__title">Домашняя работа: {{ question.name }}</h1>
-      <AppTaskNumberLabel class="question__task-number" text="ЗАДАНИЕ 5" />
+      <AppTaskNumberLabel class="question__task-number" text="Задание 5" />
       <AppContent :html="question.text" />
       <div v-if="answers.length" class="question__divider" />
       <div v-if="answers.length" class="question__answer-list">
@@ -84,6 +84,10 @@ export default {
 </script>
 
 <style scoped>
+.question {
+  width: 100%;
+  max-width: 868px;
+}
 .question__title {
   @mixin inter-title-one;
   margin-bottom: 8px;
@@ -93,6 +97,7 @@ export default {
 }
 .question__subtitle {
   @mixin inter-title-two;
+  margin-bottom: 24px;
 }
 .question__divider {
   width: 100%;
