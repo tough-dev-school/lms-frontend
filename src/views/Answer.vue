@@ -4,7 +4,7 @@
       <div class="answer__row">
         <div class="answer__column answer__column--content">
           <h1 class="answer__title">{{ question.name }}</h1>
-          <AppTaskNumberLabel class="question__task-number" text="ЗАДАНИЕ 5" />
+          <AppTaskNumberLabel class="question__task-number" text="Задание 5" />
           <div class="answer__user-row">
             <p>ответ пользователя</p>
             <AppUserName :user="answer.author" />
@@ -25,6 +25,7 @@
             :question="question"
             :disabled="isLoading"
             only-send-button
+            is-show-user-info
             class="answer__answer-editor"
             @submit="submit"
           />
@@ -200,16 +201,18 @@ export default {
   padding: 24px 16px 32px 16px;
   background-color: var(--feedback-bcg);
 }
-@media (--after-mobile) {
+@media (--desktop) {
   .answer__column {
     &--content {
-      width: 60%;
+      width: 70%;
+      max-width: 772px;
       margin-right: 32px;
     }
     &--feedback {
       display: flex;
-      width: 40%;
+      width: 30%;
       max-width: 340px;
+      min-width: 250px;
     }
   }
 }

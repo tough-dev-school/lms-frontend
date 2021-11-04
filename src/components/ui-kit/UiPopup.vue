@@ -113,7 +113,7 @@ export default {
   }
 }
 
-@media (--after-mobile) {
+@media (--desktop) {
   .popup-overlay__content {
     height: initial;
     max-height: initial;

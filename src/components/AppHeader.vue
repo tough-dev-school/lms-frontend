@@ -1,9 +1,7 @@
 <template>
   <AppContainer class="app-header" tag="header">
     <section class="app-header__container">
-      <AppHeaderUser class="app-header__user-block" :user="user" /> (
-      <UiLink class="app-header__logout-link" href="#" @click.prevent="logout">Выйти</UiLink>
-      )
+      <AppHeaderUser class="app-header__user-block" :user="user" />
     </section>
   </AppContainer>
 </template>
@@ -12,13 +10,11 @@ import { mapMutations, mapState } from "vuex";
 
 import AppHeaderUser from "@/components/AppHeaderUser.vue";
 import AppContainer from "@/components/AppContainer.vue";
-import UiLink from "@/components/ui-kit/UiLink.vue";
 
 export default {
   components: {
     AppContainer,
     AppHeaderUser,
-    UiLink,
   },
   computed: mapState("auth", ["user"]),
   methods: {
@@ -47,8 +43,5 @@ export default {
 }
 .app-header__user-block {
   margin-right: 16px;
-}
-.app-header__logout-link {
-  margin: 0;
 }
 </style>

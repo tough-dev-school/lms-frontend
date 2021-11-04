@@ -1,6 +1,6 @@
 <template>
   <form class="answer-editor" @submit.prevent="submit">
-    <div class="answer-editor__author-wapper">
+    <div v-if="isShowUserInfo" class="answer-editor__author-wapper">
       <AppUserAvatar :user="user" color="secondary" class="answer-editor__avatar" />
       <AppUserName :user="user" color="secondary" font="inter" />
     </div>
@@ -53,6 +53,7 @@ export default {
   props: {
     disabled: { type: Boolean, default: false },
     onlySendButton: { type: Boolean, default: false },
+    isShowUserInfo: { type: Boolean, default: false },
     parent: {
       required: false,
       default: null,

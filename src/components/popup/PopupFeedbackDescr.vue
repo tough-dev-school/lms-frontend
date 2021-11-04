@@ -47,4 +47,12 @@ export default {
 .feedback-popup__buttons {
   margin-top: auto;
 }
+
+@media (--after-mobile) {
+  .feedback-popup__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}
 </style>
