@@ -54,12 +54,13 @@ export default {
   width: 100%;
   min-width: 100px;
   padding: 12px;
-  padding-bottom: 16px;
   background: var(--background);
   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
   border-radius: 2px;
 }
 .header-user__logout-link {
+  width: 100%;
+  height: 26px;
   margin: 0;
 }
 
