@@ -11,7 +11,7 @@ export default {
 <style scoped>
 .task-number {
   @mixin robot-text-one;
-  padding: 4px 8px;
+  padding: 1px 8px;
   width: fit-content;
   color: var(--background);
   background: var(--basic);
