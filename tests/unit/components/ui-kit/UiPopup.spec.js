@@ -22,7 +22,7 @@ describe("UiPopup", () => {
     createComponent();
     const overlay = findOverlay();
 
-    expect(overlay).toBe(undefined);
+    expect(overlay).toBeUndefined();
   });
 
   it("is exists when after open invoke", async () => {
@@ -34,8 +34,8 @@ describe("UiPopup", () => {
     expect(findOverlay().exists()).toBe(true);
   });
 
-  const ESC_KEY_CODE = 27;
   it("closed by ESC press", async () => {
+    const ESC_KEY_CODE = 27;
     createComponent();
     openPopup();
     await nextTick();
@@ -47,7 +47,7 @@ describe("UiPopup", () => {
     document.dispatchEvent(event);
     await nextTick();
 
-    expect(findOverlay()).toBe(undefined);
+    expect(findOverlay()).toBeUndefined();
   });
 
   it("closed by button close click", async () => {
@@ -57,7 +57,7 @@ describe("UiPopup", () => {
 
     await findButtonClose().trigger("click");
 
-    expect(findOverlay()).toBe(undefined);
+    expect(findOverlay()).toBeUndefined();
   });
 
   it("closed by overlay click", async () => {
@@ -65,11 +65,9 @@ describe("UiPopup", () => {
     openPopup();
     await nextTick();
 
-    const overlay = findOverlay();
-    overlay.trigger("click");
-    await nextTick();
+    await findOverlay().trigger("click");
 
-    expect(findOverlay()).toBe(undefined);
+    expect(findOverlay()).toBeUndefined();
   });
 
   it("removes attached event listener when destroyed", async () => {

@@ -15,27 +15,21 @@ describe("UiInput", () => {
     wrapper.destroy();
   });
 
-  const INPUT_ID = "email";
   it("Has valid connection between input and label if we pass native id", () => {
+    const INPUT_ID = "email";
     const propsData = { nativeProps: { id: INPUT_ID } };
     createComponent({ propsData, attachTo: document.body });
 
-    const label = wrapper.find(`[for='${INPUT_ID}']`);
-    expect(label.exists()).toBe(true);
-
-    const input = wrapper.find(`[id='${INPUT_ID}']`);
-    expect(input.exists()).toBe(true);
+    expect(wrapper.html()).toMatch(`for="${INPUT_ID}"`);
+    expect(wrapper.html()).toMatch(`id="${INPUT_ID}"`);
   });
 
-  const PART_OF_DEFAULT_ID = "input-";
   it("Has valid connection between input and label if we don't pass native input id", async () => {
+    const PART_OF_DEFAULT_ID = "input-";
     createComponent({ attachTo: document.body });
 
-    const label = wrapper.find(`[for*='${PART_OF_DEFAULT_ID}']`);
-    expect(label.exists()).toBe(true);
-
-    const input = wrapper.find(`[id*='${PART_OF_DEFAULT_ID}']`);
-    expect(input.exists()).toBe(true);
+    expect(wrapper.html()).toMatch(`for="${PART_OF_DEFAULT_ID}`);
+    expect(wrapper.html()).toMatch(`id="${PART_OF_DEFAULT_ID}`);
   });
 
   it("Has autofocus after mount", () => {
