@@ -8,10 +8,23 @@ describe("UiPopup", () => {
 
   const findOverlay = () => wrapper.findAll("div").wrappers.at(0);
   const findButtonClose = () => wrapper.find("[aria-label='закрыть']");
+  const findButtonByText = (text) => wrapper.findAll("button").wrappers.find((w) => w.text() === text);
+
   const openPopup = () => wrapper.vm.open();
 
   const createComponent = () => {
-    wrapper = shallowMount(UiPopup, { attachTo: document.body });
+    wrapper = shallowMount(UiPopup, {
+      scopedSlots: {
+        default(props) {
+          return (
+            <div>
+              <button onClick={props.close}>закрыть</button>
+              <button onClick={props.confirm}>ок</button>
+            </div>
+          );
+        },
+      },
+    });
   };
 
   afterEach(() => {
@@ -70,6 +83,26 @@ describe("UiPopup", () => {
     expect(findOverlay()).toBeUndefined();
   });
 
+  it("closed from scoped slot close callback", async () => {
+    createComponent();
+    openPopup();
+    await nextTick();
+
+    await findButtonByText("закрыть").trigger("click");
+
+    expect(findOverlay()).toBeUndefined();
+  });
+
+  it("closed from scoped slot confirm callback", async () => {
+    createComponent();
+    openPopup();
+    await nextTick();
+
+    await findButtonByText("ок").trigger("click");
+
+    expect(findOverlay()).toBeUndefined();
+  });
+
   it("removes attached event listener when destroyed", async () => {
     jest.spyOn(document, "addEventListener");
     jest.spyOn(document, "removeEventListener");
@@ -84,5 +117,27 @@ describe("UiPopup", () => {
     await findButtonClose().trigger("click");
 
     expect(document.removeEventListener).toHaveBeenCalledWith("keydown", keyDownListener);
+  });
+
+  it("promise result after confirm modal", async () => {
+    createComponent();
+    const promise = openPopup();
+    await nextTick();
+
+    findButtonByText("закрыть").trigger("click");
+    const result = await promise;
+
+    expect(result).toBe(false);
+  });
+
+  it("promise result after close modal", async () => {
+    createComponent();
+    const promise = openPopup();
+    await nextTick();
+
+    findButtonByText("ок").trigger("click");
+    const result = await promise;
+
+    expect(result).toBe(true);
   });
 });
