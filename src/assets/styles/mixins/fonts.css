@@ -14,7 +14,7 @@
 }
 @define-mixin inter-title-two {
   @mixin inter-title-default;
-  margin-top: 25px;
+  margin-top: 28px;
   margin-bottom: 10px;
   font-size: calc(25 / var(--default-font-size-px) * 1rem);
   line-height: calc(31 / var(--default-font-size-px) * 1rem);
@@ -22,7 +22,7 @@
 }
 @define-mixin inter-title-three {
   @mixin inter-title-default;
-  margin-top: 20px;
+  margin-top: 28px;
   margin-bottom: 3px;
   font-size: calc(15 / var(--default-font-size-px) * 1rem);
   line-height: calc(21 / var(--default-font-size-px) * 1rem);
