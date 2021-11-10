@@ -3,6 +3,12 @@ import { nextTick } from "vue";
 
 import UiPopup from "@/components/ui-kit/UiPopup.vue";
 
+const ESC_KEY_CODE = 27;
+const MOCK_BUTTON_TEXT = {
+  OK: "OK",
+  CANCEL: "CANCEL",
+};
+
 describe("UiPopup", () => {
   let wrapper;
 
@@ -18,8 +24,8 @@ describe("UiPopup", () => {
         default(props) {
           return (
             <div>
-              <button onClick={props.close}>закрыть</button>
-              <button onClick={props.confirm}>ок</button>
+              <button onClick={props.close}>{MOCK_BUTTON_TEXT.CANCEL}</button>
+              <button onClick={props.confirm}>{MOCK_BUTTON_TEXT.OK}</button>
             </div>
           );
         },
@@ -48,7 +54,6 @@ describe("UiPopup", () => {
   });
 
   it("closed by ESC press", async () => {
-    const ESC_KEY_CODE = 27;
     createComponent();
     openPopup();
     await nextTick();
@@ -63,44 +68,64 @@ describe("UiPopup", () => {
     expect(findOverlay()).toBeUndefined();
   });
 
-  it("closed by button close click", async () => {
+  it.each`
+    description                       | finder
+    ${"button close click"}           | ${findButtonClose}
+    ${"overlay click"}                | ${findOverlay}
+    ${"scoped slot close callback"}   | ${() => findButtonByText(MOCK_BUTTON_TEXT.CANCEL)}
+    ${"scoped slot confirm callback"} | ${() => findButtonByText(MOCK_BUTTON_TEXT.OK)}
+  `("closed by $description", async ({ finder }) => {
     createComponent();
     openPopup();
     await nextTick();
 
-    await findButtonClose().trigger("click");
+    const element = finder();
+    await element.trigger("click");
 
     expect(findOverlay()).toBeUndefined();
   });
 
-  it("closed by overlay click", async () => {
+  it.each`
+    description                     | finder
+    ${"button close click"}         | ${findButtonClose}
+    ${"overlay click"}              | ${findOverlay}
+    ${"scoped slot close callback"} | ${() => findButtonByText(MOCK_BUTTON_TEXT.CANCEL)}
+  `("promise result after closed by $description", async ({ finder }) => {
     createComponent();
-    openPopup();
+    const promise = openPopup();
     await nextTick();
 
-    await findOverlay().trigger("click");
+    const element = finder();
+    element.trigger("click");
+    const result = await promise;
 
-    expect(findOverlay()).toBeUndefined();
+    expect(result).toBe(false);
   });
 
-  it("closed from scoped slot close callback", async () => {
+  it("promise result after closed by ESC press", async () => {
     createComponent();
-    openPopup();
+    const promise = openPopup();
     await nextTick();
 
-    await findButtonByText("закрыть").trigger("click");
+    const event = new KeyboardEvent("keydown", {
+      keyCode: ESC_KEY_CODE,
+    });
 
-    expect(findOverlay()).toBeUndefined();
+    document.dispatchEvent(event);
+    const result = await promise;
+
+    expect(result).toBe(false);
   });
 
-  it("closed from scoped slot confirm callback", async () => {
+  it("promise result after confirm modal", async () => {
     createComponent();
-    openPopup();
+    const promise = openPopup();
     await nextTick();
 
-    await findButtonByText("ок").trigger("click");
+    findButtonByText(MOCK_BUTTON_TEXT.OK).trigger("click");
+    const result = await promise;
 
-    expect(findOverlay()).toBeUndefined();
+    expect(result).toBe(true);
   });
 
   it("removes attached event listener when destroyed", async () => {
@@ -117,27 +142,5 @@ describe("UiPopup", () => {
     await findButtonClose().trigger("click");
 
     expect(document.removeEventListener).toHaveBeenCalledWith("keydown", keyDownListener);
-  });
-
-  it("promise result after confirm modal", async () => {
-    createComponent();
-    const promise = openPopup();
-    await nextTick();
-
-    findButtonByText("закрыть").trigger("click");
-    const result = await promise;
-
-    expect(result).toBe(false);
-  });
-
-  it("promise result after close modal", async () => {
-    createComponent();
-    const promise = openPopup();
-    await nextTick();
-
-    findButtonByText("ок").trigger("click");
-    const result = await promise;
-
-    expect(result).toBe(true);
   });
 });
