@@ -1,7 +1,7 @@
 <template>
   <AppContainer class="app-header" tag="header">
     <section class="app-header__container">
-      <AppHeaderUser class="app-header__user-block" :user="user" />
+      <AppHeaderUser class="app-header__user-block" :user="user" @logout="logout" />
     </section>
   </AppContainer>
 </template>
