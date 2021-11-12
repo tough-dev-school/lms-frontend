@@ -1,47 +1,50 @@
 import { shallowMount } from "@vue/test-utils";
+
 import UiInput from "@/components/ui-kit/UiInput.vue";
 
-const mount = (options) => shallowMount(UiInput, options);
-
 describe("UiInput", () => {
-  let propsData;
+  let wrapper;
 
-  beforeEach(() => {
-    propsData = {
-      nativeProps: {
-        id: "email",
-        value: "a@a.com",
-        type: "text",
-      },
-      isInvalid: true,
-      bottomText: "inputButtonText",
-      hasAutofocus: true,
-      label: "awesome label",
-    };
+  const findInput = () => wrapper.find("input");
+
+  const createComponent = (options) => {
+    wrapper = shallowMount(UiInput, options);
+  };
+
+  afterEach(() => {
+    wrapper.destroy();
   });
 
-  it("Has valid id for label if we pass native input id", () => {
-    const wrapper = mount({ propsData });
-    expect(wrapper.vm.labelFor).toBe("email");
+  it("Has valid connection between input and label if we pass native id", () => {
+    const INPUT_ID = "email";
+    const propsData = { nativeProps: { id: INPUT_ID } };
+    createComponent({ propsData, attachTo: document.body });
+
+    expect(wrapper.html()).toMatch(`for="${INPUT_ID}"`);
+    expect(wrapper.html()).toMatch(`id="${INPUT_ID}"`);
   });
 
-  it("Has id value for label if we don't pass native input id", () => {
-    const newProps = { ...propsData, nativeProps: {} };
-    const wrapper = mount({ propsData: newProps });
-    expect(wrapper.vm.labelFor).toBeTruthy();
+  it("Has valid connection between input and label if we don't pass native input id", async () => {
+    const PART_OF_DEFAULT_ID = "input-";
+    createComponent({ attachTo: document.body });
+
+    expect(wrapper.html()).toMatch(`for="${PART_OF_DEFAULT_ID}`);
+    expect(wrapper.html()).toMatch(`id="${PART_OF_DEFAULT_ID}`);
   });
 
   it("Has autofocus after mount", () => {
-    const wrapper = mount({ propsData, attachTo: document.body });
-    const input = wrapper.find("input").element;
-    expect(document.activeElement).toBe(input);
-    document.activeElement.blur();
+    const propsData = { hasAutofocus: true };
+    createComponent({ propsData, attachTo: document.body });
+    const input = findInput();
+
+    expect(document.activeElement).toBe(input.element);
   });
 
   it("Has no autofocus after mount", () => {
-    const newProps = { ...propsData, hasAutofocus: false };
-    const wrapper = mount({ newProps, attachTo: document.body });
-    const input = wrapper.find("input").element;
-    expect(document.activeElement).not.toBe(input);
+    const propsData = { hasAutofocus: false };
+    createComponent({ propsData, attachTo: document.body });
+    const input = findInput();
+
+    expect(document.activeElement).not.toBe(input.element);
   });
 });

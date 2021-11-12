@@ -1,7 +1,7 @@
 <template>
   <div v-if="isOpen" class="popup-overlay" @click="handleClose">
     <section class="popup-overlay__content" @click.stop>
-      <button class="popup-overlay__button-close" @click="handleClose" />
+      <button class="popup-overlay__button-close" aria-label="закрыть" @click="handleClose" />
       <slot :close="handleClose" :confirm="handleConfirm" />
     </section>
   </div>
