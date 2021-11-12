@@ -3,10 +3,10 @@
     <AppUserAvatar :user="user" />
     <div class="header-user__container">
       <AppUserName :user="user" />
-      <p v-if="email" class="header-user__email">{{ email }}</p>
+      <p v-if="email" class="header-user__email" data-test-id="user-email">{{ email }}</p>
     </div>
     <div class="header-user__menu">
-      <UiLink class="header-user__logout-link" href="#" @click.prevent="logout">Выйти</UiLink>
+      <UiLink class="header-user__logout-link" href="#" @click.prevent="handleLogout">Выйти</UiLink>
     </div>
   </div>
 </template>
@@ -27,6 +27,11 @@ export default {
   computed: {
     email() {
       return this.user?.email;
+    },
+  },
+  methods: {
+    handleLogout() {
+      this.$emit("logout");
     },
   },
 };
