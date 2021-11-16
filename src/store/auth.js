@@ -19,7 +19,8 @@ export default {
   },
   actions: {
     async REQUEST_PASSWORDLESS_TOKEN(_, { email }) {
-      return axios.get(`/api/v2/auth/passwordless-token/request/${email}/`);
+      const lowercased = email.toLowerCase();
+      return axios.get(`/api/v2/auth/passwordless-token/request/${lowercased}/`);
     },
     async EXCHANGE_PASSWORDLESS_TOKEN_TO_JWT({ commit, dispatch }, { passwordlessToken }) {
       const response = await axios.get(`/api/v2/auth/passwordless-token/${passwordlessToken}`);
@@ -35,6 +36,7 @@ export default {
       await dispatch("FETCH_USER");
     },
     async LOGIN_WITH_CREDENTIALS({ commit, dispatch }, credentials) {
+      credentials.username = credentials.username.toLowerCase();
       const response = await axios.post("/api/v2/auth/token/", credentials);
 
       commit("SET_TOKEN", response.data.token);
