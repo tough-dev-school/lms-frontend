@@ -1,11 +1,11 @@
 import { shallowMount } from "@vue/test-utils";
 
-import UiButton, { ColorType, Size } from "@/components/ui-kit/UiButton.vue";
+import UiButton from "@/components/ui-kit/UiButton.vue";
 
 const SLOT_CONTENT = "<p>test slot text</p>";
 const DEFAULT_PROPS = {
-  size: Size.Big,
-  colorType: ColorType.Primary,
+  size: "big",
+  colorType: "primary",
 };
 
 describe("UiButton", () => {

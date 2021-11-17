@@ -10,11 +10,11 @@
   </component>
 </template>
 <script>
-export const Size = {
+const Size = {
   Big: "big",
   Small: "small",
 };
-export const ColorType = {
+const ColorType = {
   Primary: "primary",
   White: "white",
 };
