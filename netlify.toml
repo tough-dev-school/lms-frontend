@@ -1,24 +1,6 @@
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Strict-Transport-Security = '''
-	  max-age=63072000;
-	  includeSubDomains;
-	  preload'''
-
 [[redirects]]
   from = "/api/*"
   to = "https://education-backend.herokuapp.com/api/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/static/*"
-  to = "https://education-backend.herokuapp.com/static/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/admin/*"
-  to = "https://education-backend.herokuapp.com/admin/:splat"
   status = 200
 
 [[redirects]]
@@ -26,12 +8,3 @@
   to = "/lms/index.html"
   status = 200
 
-[[redirects]]
-  from = "/robots.txt"
-  to = "/lms/robots.txt"
-  status = 200
-
-[[redirects]]
-  from = "*"
-  to = "https://project1749814.tilda.ws/:splat"
-  status = 200
