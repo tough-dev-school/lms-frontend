@@ -4,7 +4,7 @@
   status = 200
 
 [[redirects]]
-  from = "/lms/*"
-  to = "/lms/index.html"
+  from = "*"
+  to = "/index.html"
   status = 200
 
