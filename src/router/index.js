@@ -17,8 +17,7 @@ const routes = [
     name: "Single question page",
     component: () => import(/* webpackChunkName: "questions" */ "@/views/Question.vue"),
   },
-  {
-    path: "/homework/answers/:id",
+  { path: "/homework/answers/:id",
     name: "Single answer page",
     component: () => import(/* webpackChunkName: "answers" */ "@/views/Answer.vue"),
   },
@@ -58,6 +57,11 @@ const routes = [
     path: "/auth/as/:id",
     name: "LoginAs",
     component: () => import(/* webpackChunkName: "loginAs" */ "@/views/LoginAs.vue"),
+  },
+  {
+    path: "/notion/:page",
+    name: "notion",
+    component: () => import(/* webpackChunkName: "loginAs" */ "@/views/Notion.vue"),
   },
 ];
 
