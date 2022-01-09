@@ -1,22 +1,30 @@
 <template>
-  <NotionRenderer class="notion-renderer" :block-map="blockMap" :map-page-url="mapPageUrl" :page-link-options="pageLinkOptions" full-page />
+  <div class="notion-page">
+    <NotionRenderer
+      v-if="isLoaded"
+      class="notion-page__data"
+      :block-map="blocks"
+      :map-page-url="mapPageUrl"
+      :page-link-options="pageLinkOptions"
+      full-page
+    />
+    <Spinner v-else class="notion-page__spinner" />
+  </div>
 </template>
 <script>
 import { NotionRenderer } from "vue-notion";
+import Spinner from "@/components/Spinner";
 
 import axios from "@/api/backend.js";
-
-async function fetchNotionBlocks(pageId) {
-  const response = await axios.get(`/api/v2/notion/materials/${pageId}/`);
-  return response.data;
-}
 
 export default {
   components: {
     NotionRenderer,
+    Spinner,
   },
   data: () => ({
     blockMap: null,
+    isLoaded: false,
     pageLinkOptions: {
       component: "router-link",
       href: "to",
@@ -24,16 +32,22 @@ export default {
   }),
   watch: {
     async $route(to) {
-      this.blockMap = await fetchNotionBlocks(to.params.page);
+      this.fetchNotionBlocks(to.params.page);
     },
   },
   async created() {
-    this.blockMap = await fetchNotionBlocks(this.$route.params.page);
+    this.fetchNotionBlocks(this.$route.params.page);
   },
 
   methods: {
     mapPageUrl(pageId) {
       return `/notion/${pageId}/`;
+    },
+    async fetchNotionBlocks(pageId) {
+      this.isLoaded = false;
+      const response = await axios.get(`/api/v2/notion/materials/${pageId}/`);
+      this.blocks = response.data;
+      this.isLoaded = true;
     },
   },
 };
@@ -41,8 +55,20 @@ export default {
 
 <style src="vue-notion/src/styles.css" />
 
-<style scoped>
-.notion-renderer {
-  margin: auto;
+<style lang="postcss" scoped>
+.notion-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  &__data {
+    margin: auto;
+  }
+
+  &__spinner {
+    position: relative;
+    top: -5rem;
+  }
 }
 </style>
