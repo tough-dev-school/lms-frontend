@@ -2,7 +2,14 @@
   <NotionRenderer class="notion-renderer" :block-map="blockMap" :map-page-url="mapPageUrl" :page-link-options="pageLinkOptions" full-page />
 </template>
 <script>
-import { NotionRenderer, getPageBlocks } from "vue-notion";
+import { NotionRenderer } from "vue-notion";
+
+import axios from "@/api/backend.js";
+
+async function fetchNotionBlocks(pageId) {
+  const response = await axios.get(`/api/v2/notion/${pageId}/`);
+  return response.data;
+}
 
 export default {
   components: {
@@ -17,11 +24,11 @@ export default {
   }),
   watch: {
     async $route(to) {
-      this.blockMap = await getPageBlocks(to.params.page);
+      this.blockMap = await fetchNotionBlocks(to.params.page);
     },
   },
   async created() {
-    this.blockMap = await getPageBlocks(this.$route.params.page);
+    this.blockMap = await fetchNotionBlocks(this.$route.params.page);
   },
 
   methods: {

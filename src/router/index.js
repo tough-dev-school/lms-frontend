@@ -60,7 +60,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "loginAs" */ "@/views/LoginAs.vue"),
   },
   {
-    path: "/notion/:page",
+    path: "/materials/:page",
     name: "notion",
     component: () => import(/* webpackChunkName: "loginAs" */ "@/views/Notion.vue"),
   },
