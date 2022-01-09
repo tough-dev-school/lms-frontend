@@ -7,7 +7,7 @@ import { NotionRenderer } from "vue-notion";
 import axios from "@/api/backend.js";
 
 async function fetchNotionBlocks(pageId) {
-  const response = await axios.get(`/api/v2/notion/${pageId}/`);
+  const response = await axios.get(`/api/v2/notion/materials/${pageId}/`);
   return response.data;
 }
 
