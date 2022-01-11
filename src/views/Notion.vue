@@ -41,7 +41,7 @@ export default {
 
   methods: {
     mapPageUrl(pageId) {
-      return `/notion/${pageId}/`;
+      return `/materials/${pageId}/`;
     },
     async fetchNotionBlocks(pageId) {
       this.isLoaded = false;
