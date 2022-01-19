@@ -62,7 +62,12 @@ const routes = [
   {
     path: "/materials/:page",
     name: "notion",
-    component: () => import(/* webpackChunkName: "loginAs" */ "@/views/Notion.vue"),
+    component: () => import(/* webpackChunkName: "notion" */ "@/views/Notion.vue"),
+  },
+  {
+    path: "/certificates/",
+    name: "certificates",
+    component: () => import(/* webpackChunkName: "certificates */ "@/views/Certificates.vue"),
   },
 ];
 
