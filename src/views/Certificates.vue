@@ -4,27 +4,40 @@
     <div v-else class="certificates__list">
       <h1>Мои сертификаты</h1>
       <ol>
-        <li v-for="(certificate, key) in certificates" :key="key">
-          <a :href="certificate.url" target="_blank">{{ certificate.course.name }} [{{ certificate.language }}]</a>
+        <li v-for="(certificate, key) in signleLanguageCertificates" :key="key">
+          <UiLink :href="certificate.url" target="_blank">{{ certificate.course.name }}</UiLink>
         </li>
       </ol>
+      <p>
+        См. также:
+        <UiLink href="https://youtu.be/MBgwkpGwHeE" class="certificates__linkedin">Как добавить дипломы в linkedin</UiLink>
+      </p>
     </div>
   </div>
 </template>
 <script>
 import Spinner from "@/components/Spinner";
+import UiLink from "@/components/ui-kit/UiLink";
 
 import axios from "@/api/backend.js";
 
 export default {
   components: {
     Spinner,
+    UiLink,
   },
   data() {
     return {
       isLoaded: false,
       certificates: [],
     };
+  },
+  computed: {
+    signleLanguageCertificates() {
+      return this.certificates.filter((certificate, index) => {
+        return this.certificates.findIndex((i) => i.course.name === certificate.course.name) === index;
+      });
+    },
   },
 
   async created() {
@@ -35,3 +48,10 @@ export default {
   },
 };
 </script>
+<style lang="postcss" scoped>
+.certificates {
+  &__linkedin {
+    opacity: 0.8;
+  }
+}
+</style>
