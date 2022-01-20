@@ -70,7 +70,7 @@ export default {
     },
     async submit() {
       this.isSending = true;
-      const { email } = this;
+      const email = this.email.trim();
       try {
         this.$router.push({ name: "LoginPasswordlessSuccess", query: { email } });
         await this.REQUEST_PASSWORDLESS_TOKEN({ email });
