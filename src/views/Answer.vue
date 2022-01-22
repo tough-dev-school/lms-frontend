@@ -4,7 +4,6 @@
       <div class="answer__row">
         <div class="answer__column answer__column--content">
           <h1 class="answer__title">{{ question.name }}</h1>
-          <AppTaskNumberLabel class="question__task-number" text="Задание 5" />
           <div class="answer__user-row">
             <p>ответ пользователя</p>
             <AppUserName :user="answer.author" />
@@ -53,7 +52,6 @@ import AppHTTPError from "@/components/AppHTTPError.vue";
 import AppCollapsible from "@/components/AppCollapsible.vue";
 import AppUserName from "@/components/AppUserName.vue";
 import AppAnswer from "@/components/homework/AppAnswer.vue";
-import AppTaskNumberLabel from "@/components/AppTaskNumberLabel.vue";
 import AppAnswerEditor from "@/components/homework/AppAnswerEditor.vue";
 import AnswerDiscussion from "@/components/Answer/AnswerDiscussion.vue";
 import AppContainer from "@/components/AppContainer.vue";
@@ -69,7 +67,6 @@ const COLLAPSE_BUTTON_TITLE = {
 export default {
   components: {
     AppHowToFeedbackText,
-    AppTaskNumberLabel,
     AppContent,
     AppCollapsible,
     AppHTTPError,
@@ -165,9 +162,6 @@ export default {
 .answer__title {
   @mixin inter-title-one;
   margin-bottom: 8px;
-}
-.answer__task-number {
-  margin-bottom: 32px;
 }
 .answer__user-row {
   @mixin robot-text-two;
