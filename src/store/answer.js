@@ -7,10 +7,6 @@ export default {
     answer: null,
   }),
   actions: {
-    RELOAD_CURRENT_ANSWER({ dispatch, state }) {
-      const id = state.answer.slug;
-      return dispatch("FETCH_ANSWER", { id });
-    },
     async FETCH_ANSWER({ dispatch, commit }, { id }) {
       const result = await axios.get(`/api/v2/homework/answers/${id}/`);
       const { question } = result.data;
@@ -26,8 +22,9 @@ export default {
       await axios.post(`/api/v2/homework/answers/`, answer);
       await dispatch("FETCH_ANSWER", { id: state.answer.slug });
     },
-    DELETE_ANSWER(_, { id }) {
-      return axios.delete(`/api/v2/homework/answers/${id}/`);
+    async DELETE_ANSWER({ dispatch, state }, { slug }) {
+      await axios.delete(`/api/v2/homework/answers/${slug}/`);
+      return dispatch("FETCH_ANSWER", { id: state.answer.slug });
     },
   },
   mutations: {

@@ -47,6 +47,10 @@ export default {
     async POST_ANSWER(_, { answer }) {
       await axios.post(`/api/v2/homework/answers/`, answer);
     },
+    async DELETE_ANSWER({ dispatch, state }, { slug }) {
+      await axios.delete(`/api/v2/homework/answers/${slug}/`);
+      return dispatch("FETCH_ANSWERS", { question: state.question.slug });
+    },
   },
   mutations: {
     SET_QUESTION(state, question) {

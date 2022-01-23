@@ -1,7 +1,14 @@
 <template>
   <ul class="answer-list">
     <li class="answer-list__item">
-      <AnswerSingleAnswer v-for="answer in answers" :key="answer.slug" :answer="answer" :question="question" class="answer-list__answer" />
+      <AnswerSingleAnswer
+        v-for="answer in answers"
+        :key="answer.slug"
+        :answer="answer"
+        :question="question"
+        class="answer-list__answer"
+        v-on="$listeners"
+      />
     </li>
   </ul>
 </template>

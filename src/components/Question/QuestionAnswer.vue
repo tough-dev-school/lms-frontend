@@ -1,6 +1,6 @@
 <template>
   <div :id="label" class="answer">
-    <AppAnswer :answer="answer" :is-child="isChild" />
+    <AppAnswer :answer="answer" :is-child="isChild" v-on="$listeners" />
     <div :class="{ 'answer__wrapper--answering': isAnswering }" class="answer__wrapper">
       <UiButtonAsText :disabled="isAnswering" class="answer__button-answer" @click="isAnswering = !isAnswering">Ответить</UiButtonAsText>
       <AppDate :date="answer.created" />
@@ -51,7 +51,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .answer__wrapper {
   display: flex;
   margin-bottom: 32px;

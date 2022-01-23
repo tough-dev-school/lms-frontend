@@ -5,7 +5,7 @@
         <div class="answer__column answer__column--content">
           <h1 class="answer__title">{{ question.name }}</h1>
           <div class="answer__user-row">
-            <p>ответ пользователя</p>
+            <p>Ответ от</p>
             <AppUserName :user="answer.author" />
           </div>
           <AppCollapsible :title="title" @closed="handleClosed" @opened="handleOpened">
@@ -17,7 +17,7 @@
       <div class="answer__row">
         <div class="answer__column answer__column--content">
           <div class="answer__divider" />
-          <AppAnswer :answer="answer" :question="question" class="answer__answer" />
+          <AppAnswer ref="initialAnswer" :answer="answer" :question="question" class="answer__answer" />
           <AppAnswerEditor
             ref="editor"
             :parent="answer"
@@ -28,7 +28,7 @@
             class="answer__answer-editor"
             @submit="submit"
           />
-          <AnswerDiscussion ref="discussion" :answer="answer" :question="question" />
+          <AnswerDiscussion ref="discussion" :answer="answer" :question="question" @deleted="deleted" />
         </div>
         <div class="answer__column answer__column--feedback">
           <div class="answer__feedback-text">
@@ -113,7 +113,7 @@ export default {
     this.isLoaded = true;
   },
   methods: {
-    ...mapActions("answer", ["FETCH_ANSWER", "POST_ANSWER"]),
+    ...mapActions("answer", ["FETCH_ANSWER", "POST_ANSWER", "DELETE_ANSWER"]),
     async submit({ text, parent }) {
       const answer = { text, parent, question: this.question.slug };
       this.isLoading = true;
@@ -139,10 +139,14 @@ export default {
     openPopup() {
       this.$refs.popupFeedbackDescr.open();
     },
+    async deleted(answer) {
+      await this.DELETE_ANSWER(answer);
+      this.$scrollTo(this.$refs.initialAnswer);
+    },
   },
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .answer__row {
   display: flex;
   justify-content: space-between;
@@ -171,7 +175,7 @@ export default {
 
   p:first-child {
     margin: 0;
-    margin-right: 8px;
+    margin-right: 0.3rem;
     line-height: 1;
   }
 }
