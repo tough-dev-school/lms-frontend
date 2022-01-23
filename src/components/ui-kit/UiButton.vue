@@ -35,7 +35,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .ui-button {
   @mixin robot-text-two;
   display: inline-block;
@@ -56,7 +56,6 @@ export default {
   &--small {
     min-width: 154px;
     min-height: 40px;
-    padding: 6px 10px 4px 10px;
   }
 
   &--primary {
