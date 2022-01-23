@@ -44,7 +44,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .answer__author-wapper {
   display: flex;
   flex-wrap: wrap;
@@ -52,6 +52,6 @@ export default {
   margin-bottom: 8px;
 }
 .answer__user-name {
-  margin-right: 16px;
+  margin-right: 0.6rem;
 }
 </style>

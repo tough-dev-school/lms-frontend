@@ -1,6 +1,6 @@
 <template>
   <a v-if="isDeletable" href="#" class="app-answer-delete-button" @click.prevent="del">
-    <Icon class="app-answer-delete-button__icon" name="trash-alt" />
+    <Icon class="app-answer-delete-button__icon" scale="0.8" name="trash-alt" />
   </a>
 </template>
 <script>
@@ -39,10 +39,15 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .app-answer-delete-button {
+  position: relative;
+  top: -0.05rem;
   &__icon {
-    opacity: 0.6;
+    opacity: 0.4;
+    &:hover {
+      opacity: 0.8;
+    }
   }
 }
 </style>
