@@ -17,7 +17,7 @@
       <div class="answer__row">
         <div class="answer__column answer__column--content">
           <div class="answer__divider" />
-          <AppAnswer :answer="answer" :question="question" class="answer__answer" />
+          <AppAnswer ref="initialAnswer" :answer="answer" :question="question" class="answer__answer" />
           <AppAnswerEditor
             ref="editor"
             :parent="answer"
@@ -28,7 +28,7 @@
             class="answer__answer-editor"
             @submit="submit"
           />
-          <AnswerDiscussion ref="discussion" :answer="answer" :question="question" @deleted="DELETE_ANSWER" />
+          <AnswerDiscussion ref="discussion" :answer="answer" :question="question" @deleted="deleted" />
         </div>
         <div class="answer__column answer__column--feedback">
           <div class="answer__feedback-text">
@@ -139,6 +139,10 @@ export default {
     openPopup() {
       this.$refs.popupFeedbackDescr.open();
     },
+    async deleted(answer) {
+      await this.DELETE_ANSWER(answer);
+      this.$scrollTo(this.$refs.initialAnswer);
+    },
   },
 };
 </script>
@@ -171,7 +175,7 @@ export default {
 
   p:first-child {
     margin: 0;
-    margin-right: .3rem;
+    margin-right: 0.3rem;
     line-height: 1;
   }
 }
