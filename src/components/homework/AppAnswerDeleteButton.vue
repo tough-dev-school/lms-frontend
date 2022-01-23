@@ -5,7 +5,7 @@
 </template>
 <script>
 import dayjs from "dayjs";
-import { mapActions, mapState } from "vuex";
+import { mapState } from "vuex";
 import "vue-awesome/icons/trash-alt";
 
 export default {
@@ -27,14 +27,11 @@ export default {
     },
   },
   methods: {
-    ...mapActions("answer", ["DELETE_ANSWER"]),
     async del() {
       if (!confirm("Удаляем?")) {
         return;
       }
-      const id = this.answer.slug;
-      await this.DELETE_ANSWER({ id });
-      this.$emit("deleted");
+      this.$emit("deleted", this.answer);
     },
   },
 };

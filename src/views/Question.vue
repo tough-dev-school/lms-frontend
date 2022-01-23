@@ -6,7 +6,7 @@
       <div v-if="answers.length" class="question__divider" />
       <div v-if="answers.length" class="question__answer-list">
         <h2 class="question__subtitle">{{ answersTitle }}</h2>
-        <QuestionAnswerList :question="question" :answers="answers" />
+        <QuestionAnswerList :question="question" :answers="answers" @deleted="DELETE_ANSWER" />
       </div>
       <QuestionPostAnswer :question="question" only-send-button />
     </div>
@@ -66,7 +66,7 @@ export default {
     this.isLoaded = true;
   },
   methods: {
-    ...mapActions("question", ["FETCH_QUESTION", "FETCH_ANSWERS", "FETCH_PARTICULAR_ANSWER"]),
+    ...mapActions("question", ["FETCH_QUESTION", "FETCH_ANSWERS", "FETCH_PARTICULAR_ANSWER", "DELETE_ANSWER"]),
     async scrollToLoadedAnswer() {
       if (this.particularAnswerId) {
         if (!this.particularAnswerIsLoaded) {
@@ -80,7 +80,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 .question {
   width: 100%;
   max-width: 868px;

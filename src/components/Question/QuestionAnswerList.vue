@@ -1,7 +1,7 @@
 <template>
   <ul v-if="answers" class="answer-list" :class="{ 'answer-list--child': isChild }">
     <li v-for="answer in answers" :key="answer.slug" :class="{ 'answer-list__item--child': isChild }" class="answer-list__item">
-      <QuestionAnswer :answer="answer" :question="question" :is-child="isChild" />
+      <QuestionAnswer :answer="answer" :question="question" :is-child="isChild" v-on="$listeners" />
     </li>
   </ul>
 </template>
@@ -21,7 +21,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .answer-list {
   margin-bottom: 16px;
 

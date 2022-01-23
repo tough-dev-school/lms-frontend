@@ -1,13 +1,17 @@
 <template>
   <div class="single-answer">
-    <AppAnswer :answer="answer" @deleted="RELOAD_CURRENT_ANSWER" />
-    <AnswerList v-if="answer.descendants" :answers="answer.descendants" :question="question" class="single-answer__children" />
+    <AppAnswer :answer="answer" v-on="$listeners" />
+    <AnswerList
+      v-if="answer.descendants"
+      :answers="answer.descendants"
+      :question="question"
+      class="single-answer__children"
+      v-on="$listeners"
+    />
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 import AppAnswer from "@/components/homework/AppAnswer.vue";
 
 export default {
@@ -19,6 +23,5 @@ export default {
     answer: { type: Object, required: true },
     question: { type: Object, required: true },
   },
-  methods: mapActions("answer", ["RELOAD_CURRENT_ANSWER"]),
 };
 </script>

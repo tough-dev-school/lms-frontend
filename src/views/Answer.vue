@@ -5,7 +5,7 @@
         <div class="answer__column answer__column--content">
           <h1 class="answer__title">{{ question.name }}</h1>
           <div class="answer__user-row">
-            <p>ответ пользователя</p>
+            <p>Ответ от</p>
             <AppUserName :user="answer.author" />
           </div>
           <AppCollapsible :title="title" @closed="handleClosed" @opened="handleOpened">
@@ -28,7 +28,7 @@
             class="answer__answer-editor"
             @submit="submit"
           />
-          <AnswerDiscussion ref="discussion" :answer="answer" :question="question" />
+          <AnswerDiscussion ref="discussion" :answer="answer" :question="question" @deleted="DELETE_ANSWER" />
         </div>
         <div class="answer__column answer__column--feedback">
           <div class="answer__feedback-text">
@@ -113,7 +113,7 @@ export default {
     this.isLoaded = true;
   },
   methods: {
-    ...mapActions("answer", ["FETCH_ANSWER", "POST_ANSWER"]),
+    ...mapActions("answer", ["FETCH_ANSWER", "POST_ANSWER", "DELETE_ANSWER"]),
     async submit({ text, parent }) {
       const answer = { text, parent, question: this.question.slug };
       this.isLoading = true;
@@ -142,7 +142,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .answer__row {
   display: flex;
   justify-content: space-between;
@@ -171,7 +171,7 @@ export default {
 
   p:first-child {
     margin: 0;
-    margin-right: 8px;
+    margin-right: .3rem;
     line-height: 1;
   }
 }

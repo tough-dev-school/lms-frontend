@@ -3,7 +3,7 @@
     <div class="answer__author-wapper">
       <AppUserAvatar v-if="!isChild" :user="answer.author" :color="currentColor" class="answer-editor__avatar" />
       <AppUserName :user="answer.author" :color="currentColor" class="answer__user-name" font="inter" />
-      <AppAnswerDeleteButton :answer="answer" @deleted="$emit('deleted')" />
+      <AppAnswerDeleteButton :answer="answer" v-on="$listeners" />
     </div>
     <div class="answer__text">
       <AppContent :html="answer.text" />
