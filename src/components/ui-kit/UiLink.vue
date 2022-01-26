@@ -23,9 +23,9 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .ui-link {
-  @mixin robot-text-two;
+  @mixin robot-text-default;
   color: var(--link);
   text-decoration: none;
 

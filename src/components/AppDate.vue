@@ -22,7 +22,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 .app-date {
   white-space: nowrap;
   @mixin robot-text-three;
