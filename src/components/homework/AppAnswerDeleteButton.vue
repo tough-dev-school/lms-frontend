@@ -38,8 +38,6 @@ export default {
 </script>
 <style lang="postcss" scoped>
 .app-answer-delete-button {
-  position: relative;
-  top: -0.05rem;
   &__icon {
     opacity: 0.4;
     &:hover {

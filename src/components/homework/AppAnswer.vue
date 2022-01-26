@@ -3,7 +3,7 @@
     <div class="answer__author-wapper">
       <AppUserAvatar v-if="!isChild" :user="answer.author" :color="currentColor" class="answer-editor__avatar" />
       <AppUserName :user="answer.author" :color="currentColor" class="answer__user-name" />
-      <UiLink :to="answerUrl">
+      <UiLink :to="answerUrl" class="answer__date-link">
         <AppDate :date="answer.created" class="answer__date" />
       </UiLink>
       <AppAnswerDeleteButton :answer="answer" @deleted="deleted" />
@@ -83,6 +83,9 @@ export default {
   &__user-name {
     margin-right: 0.6rem;
     font-weight: bold;
+  }
+  &__date-link {
+    margin-right: 0.6rem;
   }
   &__date {
     &:hover {
