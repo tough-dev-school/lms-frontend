@@ -32,7 +32,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .header-user__circle {
   display: flex;
   align-items: center;
@@ -51,11 +51,9 @@ export default {
   }
 }
 .header-user__abbreviation {
-  @mixin robot-text-two;
-  margin: 0;
+  @mixin robot-text-default;
+  font-size: 12px;
   color: var(--background);
 }
 
-@media (--after-mobile) {
-}
 </style>

@@ -82,6 +82,7 @@ export default {
   }
   &__user-name {
     margin-right: 0.6rem;
+    font-weight: bold;
   }
   &__date {
     &:hover {
