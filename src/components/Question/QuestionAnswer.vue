@@ -3,7 +3,6 @@
     <AppAnswer :answer="answer" :is-child="isChild" v-on="$listeners" />
     <div :class="{ 'answer__wrapper--answering': isAnswering }" class="answer__wrapper">
       <UiButtonAsText :disabled="isAnswering" class="answer__button-answer" @click="isAnswering = !isAnswering">Ответить</UiButtonAsText>
-      <AppDate :date="answer.created" />
     </div>
 
     <QuestionPostAnswer
@@ -22,14 +21,12 @@
 
 <script>
 import AppAnswer from "@/components/homework/AppAnswer.vue";
-import AppDate from "@/components/AppDate.vue";
 import UiButtonAsText from "@/components/ui-kit/UiButtonAsText.vue";
 import QuestionPostAnswer from "@/components/Question/QuestionPostAnswer.vue";
 
 export default {
   components: {
     AppAnswer,
-    AppDate,
     QuestionAnswerList: () => import("@/components/Question/QuestionAnswerList.vue"),
     QuestionPostAnswer,
     UiButtonAsText,

@@ -14,12 +14,12 @@ const routes = [
   },
   {
     path: "/homework/questions/:id",
-    name: "Single question page",
+    name: "Single question",
     component: () => import(/* webpackChunkName: "questions" */ "@/views/Question.vue"),
   },
   {
     path: "/homework/answers/:id",
-    name: "Single answer page",
+    name: "Single answer",
     component: () => import(/* webpackChunkName: "answers" */ "@/views/Answer.vue"),
   },
   {

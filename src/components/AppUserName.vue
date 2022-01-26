@@ -26,7 +26,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .user-name {
   &--font-inter {
     @mixin inter-title-three;
