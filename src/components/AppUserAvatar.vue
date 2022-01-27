@@ -55,5 +55,4 @@ export default {
   font-size: 12px;
   color: var(--background);
 }
-
 </style>
