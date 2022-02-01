@@ -36,8 +36,7 @@
           </div>
         </div>
       </div>
-      <PopupFeedbackDescr ref="popupFeedbackDescr" />
-      <UiMobileQuestionButton @click="openPopup" />
+      <PopupFeedbackDescr />
     </template>
 
     <h2 v-else-if="error" class="answer__error">Упс, что-то пошло не так <AppHTTPError :exception="error" /></h2>
@@ -56,7 +55,6 @@ import AppAnswerEditor from "@/components/homework/AppAnswerEditor.vue";
 import AnswerDiscussion from "@/components/Answer/AnswerDiscussion.vue";
 import AppContainer from "@/components/AppContainer.vue";
 import PopupFeedbackDescr from "@/components/popup/PopupFeedbackDescr.vue";
-import UiMobileQuestionButton from "@/components/ui-kit/UiMobileQuestionButton.vue";
 import AppHowToFeedbackText from "@/components/AppHowToFeedbackText.vue";
 
 const COLLAPSE_BUTTON_TITLE = {
@@ -76,7 +74,6 @@ export default {
     AnswerDiscussion,
     AppContainer,
     PopupFeedbackDescr,
-    UiMobileQuestionButton,
   },
   data() {
     return {
@@ -135,9 +132,6 @@ export default {
     },
     handleClosed() {
       this.title = COLLAPSE_BUTTON_TITLE.readTask;
-    },
-    openPopup() {
-      this.$refs.popupFeedbackDescr.open();
     },
     async deleted(answer) {
       await this.DELETE_ANSWER(answer);

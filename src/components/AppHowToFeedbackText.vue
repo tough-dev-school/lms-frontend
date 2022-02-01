@@ -36,7 +36,7 @@
     </ul>
   </div>
 </template>
-<style scoped>
+<style lang="postcss" scoped>
 .how-to-feedback {
   display: flex;
   flex-direction: column;
