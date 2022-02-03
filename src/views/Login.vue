@@ -29,7 +29,7 @@ export default {
     },
     error() {
       const ERRORS = {
-        invalidToken: "Кажется, вы перешли по устравшей ссылке. Попробуйте заново",
+        invalidToken: "Кажется, вы перешли по устаревшей ссылке. Попробуйте заново",
       };
       const { error } = this.$route.query;
       return error && error in ERRORS ? ERRORS[error] : null;
