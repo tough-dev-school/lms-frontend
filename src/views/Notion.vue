@@ -54,6 +54,13 @@ export default {
 </script>
 
 <style src="vue-notion/src/styles.css" />
+<style lang="postcss">
+.notion {
+  .notion-code {
+    max-width: 95vw;
+  }
+}
+</style>
 
 <style lang="postcss" scoped>
 .notion-page {
