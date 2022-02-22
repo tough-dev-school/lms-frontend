@@ -33,7 +33,7 @@
     "postcss-mixins": "6.2.3",
     "postcss-nested": "4.2.3",
     "prettier": "2.5.1",
-    "richtypo": "4.1.9",
+    "richtypo": "3.0.0",
     "richtypo-rules-ru": "4.0.9",
     "secure-ls": "1.2.6",
     "simplemde": "1.11.2",
