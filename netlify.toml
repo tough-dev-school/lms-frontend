@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/api/*"
-  to = "https://education-backend.herokuapp.com/api/:splat"
+  to = "https://app.tough-dev.school/api/:splat"
   status = 200
 
 [[redirects]]
