@@ -1,11 +1,11 @@
 <template>
-  <div class="header-user">
+  <div class="header-user" @click="menuIsActive = !menuIsActive">
     <AppUserAvatar :user="user" />
     <div class="header-user__container">
       <AppUserName :user="user" />
       <p v-if="email" class="header-user__email" data-test-id="user-email">{{ email }}</p>
     </div>
-    <div class="header-user__menu">
+    <div class="header-user__menu" :class="{ 'header-user__menu--active': menuIsActive }">
       <UiLink
         v-for="course in purchasedCourses"
         :key="course.id"
@@ -34,6 +34,11 @@ export default {
   props: {
     user: { type: Object, default: () => ({}) },
   },
+  data() {
+    return {
+      menuIsActive: false,
+    };
+  },
   computed: {
     email() {
       return this.user?.email;
@@ -52,12 +57,6 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
-
-  &:hover {
-    .header-user__menu {
-      display: flex;
-    }
-  }
 
   &__link {
     width: 100%;
@@ -81,6 +80,9 @@ export default {
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
     border-radius: 2px;
     flex-direction: column;
+    &--active {
+      display: flex;
+    }
   }
 }
 
