@@ -11,7 +11,7 @@
         :key="course.id"
         class="header-user__link"
         :to="{ name: 'material', params: { page: course.home_page_slug } }"
-        >{{ course.name }}</UiLink
+        >{{ getShortCourseName(course.name) }}</UiLink
       >
       <UiLink class="header-user__link" to="/profile">Профиль</UiLink>
       <UiLink class="header-user__link" href="#" @click.prevent="handleLogout">Выйти</UiLink>
@@ -49,6 +49,9 @@ export default {
     handleLogout() {
       this.$emit("logout");
     },
+    getShortCourseName(longCourseName) {
+      return longCourseName.replace(/\(.*\)$/, ""); // flex scope, sorry
+    },
   },
 };
 </script>
@@ -60,7 +63,8 @@ export default {
 
   &__link {
     width: 100%;
-    height: 26px;
+    height: 32px;
+    font-size: 18px;
     margin: 0;
   }
   &__container {
@@ -100,8 +104,8 @@ export default {
       line-height: 1;
     }
     &__link {
-      font-size: 18px;
-      height: 32px;
+      font-size: 16px;
+      height: 26px;
     }
   }
 }
