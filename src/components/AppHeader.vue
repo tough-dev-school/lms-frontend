@@ -29,19 +29,20 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .app-header {
   display: flex;
   width: 100%;
-}
-.app-header__container {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 100%;
-  padding: 10px;
-}
-.app-header__user-block {
-  margin-right: 16px;
+  position: relative;
+  &__container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+  }
+  &__user-block {
+    margin-right: 16px;
+  }
 }
 </style>

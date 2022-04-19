@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 import AppHeader from "@/components/AppHeader.vue";
 
@@ -20,16 +20,9 @@ export default {
     ...mapGetters("auth", ["isAuthenticated"]),
     ...mapState("auth", ["user"]),
   },
-  created() {
-    // drop it after a week or two (f213)
-    if (this.user && !("uuid" in this.user)) {
-      this.FETCH_USER();
-    }
-  },
-  methods: mapActions("auth", ["FETCH_USER"]),
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .container {
   display: flex;
   padding-left: 4%;
