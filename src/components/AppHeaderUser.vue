@@ -6,6 +6,7 @@
       <p v-if="email" class="header-user__email" data-test-id="user-email">{{ email }}</p>
     </div>
     <div class="header-user__menu">
+      <UiLink class="header-user__profile-link" to="/profile">Профиль</UiLink>
       <UiLink class="header-user__logout-link" href="#" @click.prevent="handleLogout">Выйти</UiLink>
     </div>
   </div>
@@ -36,7 +37,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .header-user {
   position: relative;
   display: flex;
@@ -46,6 +47,13 @@ export default {
     .header-user__menu {
       display: flex;
     }
+  }
+
+  &__profile-link,
+  &__logout-link {
+    width: 100%;
+    height: 26px;
+    margin: 0;
   }
 }
 .header-user__container {
@@ -62,11 +70,7 @@ export default {
   background: var(--background);
   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
   border-radius: 2px;
-}
-.header-user__logout-link {
-  width: 100%;
-  height: 26px;
-  margin: 0;
+  flex-direction: column;
 }
 
 @media (--after-mobile) {
