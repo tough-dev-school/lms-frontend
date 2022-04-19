@@ -5,6 +5,7 @@ export default {
   namespaced: true,
   state: () => ({
     user: null,
+    purchaseList: [],
     token: null,
     redirectAfterLogin: null,
   }),
@@ -16,6 +17,7 @@ export default {
       const { exp } = jwtDecode(state.token);
       return exp > Math.ceil(Date.now() / 1000);
     },
+    purchasedCourses: (state) => state.purchaseList.filter((course) => course.home_page_slug !== undefined && course.home_page_slug),
   },
   actions: {
     async REQUEST_PASSWORDLESS_TOKEN(_, { email }) {
@@ -44,14 +46,18 @@ export default {
       await dispatch("FETCH_USER");
     },
     async FETCH_USER({ commit }) {
-      const response = await axios.get(`/api/v2/users/me/`);
+      const [profile, purchaseList] = await Promise.all([axios.get("/api/v2/users/me/"), axios.get("/api/v2/studies/purchased/")]);
 
-      commit("SET_USER", response.data);
+      commit("SET_USER", profile.data);
+      commit("SET_PURCHASE_LIST", purchaseList.data.results);
     },
   },
   mutations: {
     SET_USER(state, user) {
       state.user = user;
+    },
+    SET_PURCHASE_LIST(state, purchaseList) {
+      state.purchaseList = purchaseList;
     },
     SET_TOKEN(state, token) {
       state.token = token;

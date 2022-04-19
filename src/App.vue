@@ -21,15 +21,12 @@ export default {
     ...mapState("auth", ["user"]),
   },
   created() {
-    // drop it after a week or two (f213)
-    if (this.user && !("uuid" in this.user)) {
-      this.FETCH_USER();
-    }
+    this.FETCH_USER();
   },
   methods: mapActions("auth", ["FETCH_USER"]),
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .container {
   display: flex;
   padding-left: 4%;
