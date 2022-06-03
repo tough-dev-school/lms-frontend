@@ -6,6 +6,8 @@
       <UserDataField label="Фамилия" name="last_name" />
       <UserDataField label="Имя (на английском)" name="first_name_en" />
       <UserDataField label="Фамилия (на английском)" name="last_name_en" />
+      <SocialUsernameField label="Ник на GitHub" name="github_username" />
+      <SocialUsernameField label="Ник на LinkedIn" name="linkedin_username" />
       <GendeRadioButton class="home__gender" />
       <UiButton :disabled="isUpdating" is-mobile-full-width size="big" color-type="primary">Обновить</UiButton>
     </form>
@@ -15,18 +17,20 @@
 <script>
 import { mapActions } from "vuex";
 
-import UserDataField from "@/components/Home/UserDataField";
-import GendeRadioButton from "@/components/Home/GendeRadioButton.vue";
+import UserDataField from "@/components/Profile/UserDataField";
+import SocialUsernameField from "@/components/Profile/SocialUsernameField";
+import GendeRadioButton from "@/components/Profile/GendeRadioButton.vue";
 import UiButton from "@/components/ui-kit/UiButton.vue";
 import AppContainer from "@/components/AppContainer.vue";
 
 export default {
-  name: "Home",
+  name: "Profile",
   components: {
-    UserDataField,
-    GendeRadioButton,
-    UiButton,
     AppContainer,
+    GendeRadioButton,
+    SocialUsernameField,
+    UiButton,
+    UserDataField,
   },
   data() {
     return {
@@ -48,7 +52,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .home__title {
   @mixin inter-title-one;
 }
