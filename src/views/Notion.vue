@@ -79,3 +79,11 @@ export default {
   }
 }
 </style>
+
+<style lang="postcss">
+.notion-page {
+  .notion-text {
+    padding: 8px 2px;
+  }
+}
+</style>
