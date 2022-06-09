@@ -3,5 +3,5 @@ module.exports = {
     port: 3000,
     proxy: "http://localhost:8000",
   },
-  transpileDependencies: [/\bvue-awesome\b/],
+  transpileDependencies: ["vue-awesome", "vue-notion"],
 };
