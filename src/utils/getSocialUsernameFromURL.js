@@ -1,6 +1,11 @@
 export default (urlWithUsername) => {
-  const { pathname } = new URL(urlWithUsername);
-  const parts = pathname.split("/").filter((i) => i.length && i !== "/");
+  let path;
+  try {
+    path = new URL(urlWithUsername).pathname;
+  } catch {
+    path = urlWithUsername;
+  }
+  const parts = path.split("/").filter((i) => i.length && i !== "/");
 
   return parts.at(-1);
 };

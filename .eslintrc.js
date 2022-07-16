@@ -17,11 +17,23 @@ module.exports = {
 
   overrides: [
     {
-      files: ["**/__tests__/*.{j,t}s?(x)", "**/tests/unit/**/*.spec.{j,t}s?(x)"],
+      files: [
+        '**/__tests__/*.{j,t}s?(x)',
+        '**/tests/unit/**/*.spec.{j,t}s?(x)'
+      ],
       env: {
-        jest: true,
-      },
+        jest: true
+      }
     },
+    {
+      files: [
+        '**/__tests__/*.{j,t}s?(x)',
+        '**/tests/unit/**/*.spec.{j,t}s?(x)'
+      ],
+      env: {
+        jest: true
+      }
+    }
   ],
 
   extends: ["plugin:vue/essential", "plugin:vue/recommended", "eslint:recommended", "@vue/prettier", "plugin:prettier/recommended"],
