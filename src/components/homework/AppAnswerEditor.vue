@@ -9,7 +9,8 @@
       ref="editor"
       v-model="text"
       :disabled="disabled"
-      :save-data-to="answerIdForSavingUserInput"
+      :save-data-to="userInputLocator"
+      :initial="text"
       @submit="submit"
     />
     <ul class="answer-editor__button-list">
@@ -25,7 +26,14 @@
         </UiButton>
       </li>
       <li v-if="!onlySendButton">
-        <UiButton :disabled="disabled" type="button" size="small" color-type="white" class="login-form__button-enter" @click="handleCancel">
+        <UiButton
+          :disabled="disabled"
+          type="button"
+          size="small"
+          color-type="white"
+          class="login-form__button-enter"
+          @click="$emit('cancel')"
+        >
           Отмена
         </UiButton>
       </li>
@@ -64,27 +72,36 @@ export default {
       default: null,
       validator: objectOrNullValidator,
     },
+    initialAnswer: {
+      required: false,
+      default: null,
+      validator: objectOrNullValidator,
+    },
   },
   data() {
     return {
-      text: null,
+      text: this.initialAnswer ? this.initialAnswer.src : null,
     };
   },
   computed: {
     ...mapState("auth", ["user"]),
-    answerIdForSavingUserInput() {
-      return `answer-${this.question.slug}-${this.parent?.slug}`;
+    userInputLocator() {
+      return `answer-${this.question.slug}-${this.parent?.slug}-${this.initialAnswer?.slug}`;
     },
     buttonSendDisabled() {
-      return this.disabled || !this.text;
+      return this.disabled || !this.text || this.text == this.initialAnswer?.src;
+    },
+    updated() {
+      return {
+        text: this.text,
+        parent: this.parent?.slug || null,
+        slug: this.initialAnswer?.slug || null,
+      };
     },
   },
   methods: {
     async submit() {
-      const { text } = this;
-      const parent = this.parent ? this.parent.slug : null;
-
-      this.$emit("submit", { text, parent });
+      this.$emit("submit", this.updated);
     },
     focus() {
       this.$refs.editor.focus();
@@ -92,30 +109,32 @@ export default {
     clear() {
       this.$refs.editor.clear();
     },
-    handleCancel() {
-      this.$emit("cancel");
-    },
   },
 };
 </script>
 
-<style scoped>
-.answer-editor__author-wapper {
-  display: flex;
-  align-items: center;
-  margin-bottom: 16px;
-}
-.answer-editor__avatar {
-  margin-right: 8px;
-}
-.answer-editor__button-list {
-  display: flex;
-  padding-top: 16px;
+<style lang="postcss" scoped>
+.answer-editor {
+  &__author-wapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
 
-  li {
-    width: 100%;
+  &__avatar {
+    margin-right: 8px;
+  }
+
+  &__button-list {
+    display: flex;
+    padding-top: 16px;
+
+    li {
+      width: 100%;
+    }
   }
 }
+
 @media (--after-mobile) {
   .answer-editor__button-list {
     li {

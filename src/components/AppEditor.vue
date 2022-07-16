@@ -12,6 +12,11 @@ export default {
       required: true,
       validator: (prop) => typeof prop === "string" || prop === null,
     },
+    initial: {
+      required: false,
+      type: String,
+      default: "",
+    },
   },
   data() {
     return {
@@ -43,7 +48,8 @@ export default {
         }
       },
     });
-    this.$emit("input", this.simplemde.value()); // emit input to make sure all stuf is updated after initial loading
+    /*this.simplemde.value(this.initial);*/
+    this.$emit("input", this.simplemde.value()); // emit input to make sure all stuff is updated after initial loading
   },
   methods: {
     submit() {
@@ -51,7 +57,7 @@ export default {
     },
     clear() {
       this.simplemde.clearAutosavedValue();
-      this.simplemde.value("");
+      this.simplemde.value(this.initial);
     },
     focus() {
       this.simplemde.codemirror.focus();

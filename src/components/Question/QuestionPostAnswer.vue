@@ -6,7 +6,7 @@
     :disabled="isLoading"
     :only-send-button="onlySendButton"
     @submit="submit"
-    @cancel="handleCancel"
+    @cancel="$emit('cancel')"
   />
 </template>
 
@@ -52,9 +52,6 @@ export default {
     },
     focus() {
       this.$refs.editor.focus();
-    },
-    handleCancel() {
-      this.$emit("cancel");
     },
   },
 };

@@ -1,4 +1,5 @@
 import axios from "@/api/backend.js";
+import Vue from "vue";
 
 export default {
   namespaced: true,
@@ -19,8 +20,12 @@ export default {
       commit("SET_QUESTION", response.data);
     },
     async POST_ANSWER({ dispatch, state }, answer) {
-      await axios.post(`/api/v2/homework/answers/`, answer);
+      await axios.post("/api/v2/homework/answers/", answer);
       await dispatch("FETCH_ANSWER", { id: state.answer.slug });
+    },
+    async UPDATE_ANSWER({ dispatch, commit }, { slug, text }) {
+      const response = await axios.patch(`/api/v2/homework/answers/${slug}/`, { text });
+      commit("UPDATE_ANSWER", response.data);
     },
     async DELETE_ANSWER({ dispatch, state }, { slug }) {
       await axios.delete(`/api/v2/homework/answers/${slug}/`);
@@ -33,6 +38,14 @@ export default {
     },
     SET_QUESTION(state, question) {
       state.question = question;
+    },
+    UPDATE_ANSWER(state, updated) {
+      console.log(state.answer.descendants);
+      state.answer.descendants.forEach((descendant, i) => {
+        if (descendant.slug == updated.slug) {
+          Vue.set(state.answer.descendants, i, updated);
+        }
+      });
     },
   },
 };

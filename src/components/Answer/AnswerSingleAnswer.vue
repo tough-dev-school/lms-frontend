@@ -1,6 +1,6 @@
 <template>
   <div class="single-answer">
-    <AppAnswer :answer="answer" v-on="$listeners" />
+    <AppAnswer :answer="answer" :question="question" v-on="$listeners" />
     <AnswerList
       v-if="answer.descendants"
       :answers="answer.descendants"

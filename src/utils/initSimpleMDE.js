@@ -26,8 +26,7 @@ export default ({ element, uniqueId, onChange, onKeyDown }) => {
       "preview",
     ],
     previewRender: (markdown, preview) => {
-      // сука, как же я ненавижу свою жизнь
-      const formData = new FormData();
+      const formData = new FormData(); // backend accepts only form-encoded data
       formData.append("content", markdown);
       axios.post("/api/v2/markdownx/markdownify/", formData).then((result) => (preview.innerHTML = result.data));
     },
