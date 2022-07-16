@@ -1,6 +1,6 @@
 <template>
   <div class="certificates">
-    <Spinner v-if="!isLoaded" />
+    <AppSpinner v-if="!isLoaded" />
     <div v-else class="certificates__list">
       <h1>Мои сертификаты</h1>
       <ol>
@@ -16,14 +16,14 @@
   </div>
 </template>
 <script>
-import Spinner from "@/components/Spinner";
+import AppSpinner from "@/components/AppSpinner";
 import UiLink from "@/components/ui-kit/UiLink";
 
 import axios from "@/api/backend.js";
 
 export default {
   components: {
-    Spinner,
+    AppSpinner,
     UiLink,
   },
   data() {

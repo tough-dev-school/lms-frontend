@@ -8,19 +8,19 @@
       :page-link-options="pageLinkOptions"
       full-page
     />
-    <Spinner v-else class="notion-page__spinner" />
+    <AppSpinner v-else class="notion-page__spinner" />
   </div>
 </template>
 <script>
 import { NotionRenderer } from "vue-notion";
-import Spinner from "@/components/Spinner";
+import AppSpinner from "@/components/AppSpinner";
 
 import axios from "@/api/backend.js";
 
 export default {
   components: {
     NotionRenderer,
-    Spinner,
+    AppSpinner,
   },
   data: () => ({
     blockMap: null,
