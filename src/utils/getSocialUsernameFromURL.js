@@ -1,6 +1,10 @@
-const url = require("url");
 export default (urlWithUsername) => {
-  const path = url.parse(urlWithUsername).pathname;
+  let path;
+  try {
+    path = new URL(urlWithUsername).pathname;
+  } catch {
+    path = urlWithUsername;
+  }
   const parts = path.split("/").filter((i) => i.length && i !== "/");
 
   return parts.at(-1);

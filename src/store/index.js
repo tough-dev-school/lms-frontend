@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
-import * as Cookies from "js-cookie";
+import Cookies from "js-cookie";
 
 import SecureLS from "secure-ls";
 const localStorage = new SecureLS({ isCompression: false });

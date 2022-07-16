@@ -24,7 +24,6 @@ import UiButton from "@/components/ui-kit/UiButton.vue";
 import AppContainer from "@/components/AppContainer.vue";
 
 export default {
-  name: "Profile",
   components: {
     AppContainer,
     GendeRadioButton,
