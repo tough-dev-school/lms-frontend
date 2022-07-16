@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "@/views/Home.vue";
+import Home from "@/views/HomeView.vue";
 
 import store from "@/store";
 
@@ -15,17 +15,17 @@ const routes = [
   {
     path: "/profile",
     name: "Profile",
-    component: () => import(/* webpackChunkName: "profile" */ "@/views/Profile.vue"),
+    component: () => import(/* webpackChunkName: "profile" */ "@/views/ProfileView.vue"),
   },
   {
     path: "/homework/questions/:id",
     name: "Single question",
-    component: () => import(/* webpackChunkName: "questions" */ "@/views/Question.vue"),
+    component: () => import(/* webpackChunkName: "questions" */ "@/views/QuestionView.vue"),
   },
   {
     path: "/homework/answers/:id",
     name: "Single answer",
-    component: () => import(/* webpackChunkName: "answers" */ "@/views/Answer.vue"),
+    component: () => import(/* webpackChunkName: "answers" */ "@/views/AnswerView.vue"),
   },
   {
     path: "/about",
@@ -33,12 +33,12 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ "@/views/About.vue"),
+    component: () => import(/* webpackChunkName: "about" */ "@/views/AboutView.vue"),
   },
   {
     path: "/login",
     name: "Login",
-    component: () => import(/* webpackChunkName: "login" */ "@/views/Login.vue"),
+    component: () => import(/* webpackChunkName: "login" */ "@/views/LoginView.vue"),
     meta: {
       public: true,
     },
@@ -46,7 +46,7 @@ const routes = [
   {
     path: "/mail-sent",
     name: "LoginPasswordlessSuccess",
-    component: () => import(/* webpackChunkName: "loginPasswordlessSuccess" */ "@/views/LoginPasswordlessSuccess.vue"),
+    component: () => import(/* webpackChunkName: "loginPasswordlessSuccess" */ "@/views/LoginPasswordlessSuccessView.vue"),
     meta: {
       public: true,
     },
@@ -54,7 +54,7 @@ const routes = [
   {
     path: "/auth/passwordless/:token",
     name: "Passwordless Login second step",
-    component: () => import(/* webpackChunkName: "login" */ "@/views/LoginSecondStep.vue"),
+    component: () => import(/* webpackChunkName: "login" */ "@/views/LoginSecondStepView.vue"),
     meta: {
       public: true,
     },
@@ -62,17 +62,17 @@ const routes = [
   {
     path: "/auth/as/:id",
     name: "LoginAs",
-    component: () => import(/* webpackChunkName: "loginAs" */ "@/views/LoginAs.vue"),
+    component: () => import(/* webpackChunkName: "loginAs" */ "@/views/LoginAsView.vue"),
   },
   {
     path: "/materials/:page",
     name: "material",
-    component: () => import(/* webpackChunkName: "notion" */ "@/views/Notion.vue"),
+    component: () => import(/* webpackChunkName: "notion" */ "@/views/NotionView.vue"),
   },
   {
     path: "/certificates/",
     name: "certificates",
-    component: () => import(/* webpackChunkName: "certificates" */ "@/views/Certificates.vue"),
+    component: () => import(/* webpackChunkName: "certificates" */ "@/views/CertificatesView.vue"),
   },
 ];
 
