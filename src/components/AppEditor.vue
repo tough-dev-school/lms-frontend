@@ -34,7 +34,7 @@ export default {
   },
   mounted() {
     this.simplemde = initSimpleMDE({
-      element: this.$refs.input,
+      element: this.$refs.textarea,
       uniqueId: this.saveDataTo,
       onChange: () => (this.text = this.simplemde.value()),
       onKeyDown: (_, { code, ctrlKey, metaKey }) => {
