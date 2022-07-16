@@ -6,8 +6,10 @@
       <UiLink :to="answerUrl" class="answer__date-link">
         <AppDate :date="answer.created" class="answer__date" />
       </UiLink>
-      <Icon class="answer__edit-button" scale="0.8" name="edit" @click.prevent="isEditing = !isEditing" />
-      <AppAnswerDeleteButton class="answer__delete-button" :answer="answer" @deleted="deleted" />
+      <div v-if="isEditable" class="answer__edit">
+        <Icon class="answer__edit-button" scale="0.8" name="edit" @click.prevent="isEditing = !isEditing" />
+        <Icon class="answer__delete-button" scale="0.8" name="trash-alt" @click.prevent="deleted" />
+      </div>
     </div>
     <div v-if="!isEditing" class="answer__text">
       <AppContent :html="answer.text" />
@@ -19,24 +21,25 @@
 </template>
 
 <script>
+import dayjs from "dayjs";
+
 import { mapState } from "vuex";
 
 import AppAnswerEditor from "@/components/homework/AppAnswerEditor.vue";
 import AppContent from "@/components/AppContent.vue";
 import AppDate from "@/components/AppDate.vue";
-import AppAnswerDeleteButton from "@/components/homework/AppAnswerDeleteButton.vue";
 import AppUserAvatar from "@/components/AppUserAvatar";
 import AppUserName from "@/components/AppUserName";
 import UiLink from "@/components/ui-kit/UiLink";
 
 import "vue-awesome/icons/edit";
+import "vue-awesome/icons/trash-alt";
 
 export default {
   components: {
     AppAnswerEditor,
     AppContent,
     AppDate,
-    AppAnswerDeleteButton,
     AppUserAvatar,
     AppUserName,
     UiLink,
@@ -54,6 +57,13 @@ export default {
   },
   computed: {
     ...mapState("auth", ["user"]),
+    isEditable() {
+      if (this.answer.author.uuid !== this.user.uuid) {
+        return false;
+      }
+      const created = dayjs(this.answer.created);
+      return created.isAfter(dayjs().subtract(30, "minute"));
+    },
     label() {
       return `${this.answer.slug}`;
     },
@@ -71,9 +81,12 @@ export default {
     },
   },
   methods: {
-    deleted(answer) {
+    deleted() {
+      if (!confirm("Удаляем?")) {
+        return;
+      }
       this.isDeleted = true;
-      this.$emit("deleted", answer);
+      this.$emit("deleted", this.answer);
     },
     updated(answer) {
       this.isEditing = false;
@@ -106,18 +119,17 @@ export default {
       color: var(--link-hover);
     }
   }
-  &__edit-button {
+  &__edit-button,
+  &__delete-button {
     cursor: pointer;
     opacity: 0.4;
+    margin-left: 0.5rem;
     position: relative;
     top: 0.05rem;
     &:hover {
-      opacity: 0.8;
+      opacity: 0.6;
+      fill: var(--link-hover);
     }
-  }
-  &__edit-button,
-  &__delete-button {
-    margin-left: 0.5rem;
   }
   &__delete-button {
     position: relative;
