@@ -29,7 +29,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .answer-discussion__title {
   @mixin inter-title-two;
 }

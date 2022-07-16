@@ -18,16 +18,6 @@
         <div class="answer__column answer__column--content">
           <div class="answer__divider" />
           <AppAnswer ref="firstAnswer" :answer="answer" :question="question" class="answer__answer" />
-          <AppAnswerEditor
-            ref="editor"
-            :parent="answer"
-            :question="question"
-            :disabled="isLoading"
-            only-send-button
-            is-show-user-info
-            class="answer__answer-editor"
-            @submit="submit"
-          />
           <AnswerDiscussion ref="discussion" :answer="answer" :question="question" @deleted="deleted" @updated="updated" />
         </div>
         <div class="answer__column answer__column--feedback">
