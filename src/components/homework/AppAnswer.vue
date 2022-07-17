@@ -1,5 +1,5 @@
 <template>
-  <div :id="label" class="answer" :class="{ 'answer--deleted': isDeleted }">
+  <div :id="answer.slug" class="answer" :class="{ 'answer--deleted': isDeleted }">
     <div class="answer__author-wapper">
       <AppUserAvatar v-if="!isChild" :user="answer.author" :color="currentColor" class="answer-editor__avatar" />
       <AppUserName :user="answer.author" :color="currentColor" class="answer__user-name" />
@@ -7,15 +7,15 @@
         <AppDate :date="answer.created" class="answer__date" />
       </UiLink>
       <div v-if="isEditable" class="answer__edit">
-        <Icon class="answer__edit-button" scale="0.8" name="edit" @click.prevent="isEditing = !isEditing" />
-        <Icon class="answer__delete-button" scale="0.8" name="trash-alt" @click.prevent="deleted" />
+        <AppIcon class="answer__edit-button" scale="0.8" name="edit" @click.prevent="isEditing = !isEditing" />
+        <AppIcon class="answer__delete-button" scale="0.8" name="trash-alt" @click.prevent="deleted" />
       </div>
     </div>
     <div v-if="!isEditing" class="answer__text">
       <AppContent :html="answer.text" />
     </div>
     <div v-else class="answer__editor">
-      <AppAnswerEditor :initial-answer="answer" :question="question" @cancel="isEditing = false" @submit="updated" />
+      <AppAnswerEditor :initial-answer="answer" :question="question" @cancel="isEditing = false" @submit="updateAnswer" />
     </div>
   </div>
 </template>
@@ -23,7 +23,7 @@
 <script>
 import dayjs from "dayjs";
 
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 import AppAnswerEditor from "@/components/homework/AppAnswerEditor.vue";
 import AppContent from "@/components/AppContent.vue";
@@ -58,20 +58,13 @@ export default {
   computed: {
     ...mapState("auth", ["user"]),
     isEditable() {
-      if (this.answer.author.uuid !== this.user.uuid) {
-        return false;
-      }
-      const created = dayjs(this.answer.created);
-      return created.isAfter(dayjs().subtract(30, "minute"));
+      return this.belongsToCurrentUser && dayjs(this.answer.created).isAfter(dayjs().subtract(10, "minute"));
     },
-    label() {
-      return `${this.answer.slug}`;
-    },
-    isUserComment() {
+    belongsToCurrentUser() {
       return this.user.uuid === this.answer.author.uuid;
     },
     currentColor() {
-      return this.isUserComment ? "secondary" : "primary";
+      return this.belongsToCurrentUser ? "secondary" : "primary";
     },
     answerUrl() {
       return {
@@ -81,16 +74,17 @@ export default {
     },
   },
   methods: {
-    deleted() {
+    ...mapActions("answer", ["DELETE_ANSWER", "UPDATE_ANSWER"]),
+    async deleted() {
       if (!confirm("Удаляем?")) {
         return;
       }
+      await this.DELETE_ANSWER(this.answer);
       this.isDeleted = true;
-      this.$emit("deleted", this.answer);
     },
-    updated(answer) {
+    async updateAnswer(answer) {
+      await this.UPDATE_ANSWER(answer);
       this.isEditing = false;
-      this.$emit("updated", answer);
     },
   },
 };

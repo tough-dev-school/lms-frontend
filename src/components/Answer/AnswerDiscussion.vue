@@ -1,7 +1,7 @@
 <template>
   <div v-if="answer.descendants.length" class="answer-discussion">
     <h2 class="answer-discussion__title">{{ title }}</h2>
-    <AnswerList :answers="answer.descendants" :question="question" v-on="$listeners" />
+    <AnswerList :answers="answer.descendants" :question="question" />
     <div ref="bottom"></div>
   </div>
 </template>

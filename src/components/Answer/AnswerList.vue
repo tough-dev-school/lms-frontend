@@ -2,13 +2,7 @@
   <ul class="answer-list">
     <li v-for="answer in answers" :key="answer.slug" class="answer-list__item">
       <AppAnswer :answer="answer" :question="question" v-on="$listeners" />
-      <AnswerList
-        v-if="answer.descendants"
-        :answers="answer.descendants"
-        :question="question"
-        class="single-answer__children"
-        v-on="$listeners"
-      />
+      <AnswerList v-if="answer.descendants" :answers="answer.descendants" :question="question" class="single-answer__children" />
     </li>
   </ul>
 </template>
@@ -26,12 +20,13 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .answer-list {
   display: flex;
   flex-direction: column;
-}
-.answer-list__item {
-  margin-bottom: 32px;
+
+  &__item {
+    margin-bottom: 32px;
+  }
 }
 </style>
