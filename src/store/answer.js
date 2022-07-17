@@ -40,7 +40,6 @@ export default {
       state.question = question;
     },
     UPDATE_ANSWER(state, updated) {
-      console.log(state.answer.descendants);
       state.answer.descendants.forEach((descendant, i) => {
         if (descendant.slug == updated.slug) {
           Vue.set(state.answer.descendants, i, updated);
