@@ -8,7 +8,7 @@ export default ({ element, uniqueId, onChange, onKeyDown }) => {
     autosave: {
       enabled: true,
       uniqueId,
-      delay: 500,
+      delay: 3000,
     },
     status: false,
     toolbar: [

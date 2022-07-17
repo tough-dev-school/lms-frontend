@@ -6,6 +6,7 @@ export default {
   state: () => ({
     question: null,
     answer: null,
+    answerWaitingForAPI: null,
   }),
   actions: {
     async FETCH_ANSWER({ dispatch, commit }, { id }) {
@@ -23,16 +24,25 @@ export default {
       await axios.post("/api/v2/homework/answers/", answer);
       await dispatch("FETCH_ANSWER", { id: state.answer.slug });
     },
-    async UPDATE_ANSWER({ commit }, { slug, text }) {
+    async UPDATE_ANSWER({ commit }, answer) {
+      commit("SET_ANSWER_WAITING_FOR_API", answer);
+      const { slug, text } = answer;
       const response = await axios.patch(`/api/v2/homework/answers/${slug}/`, { text });
       commit("UPDATE_ANSWER", response.data);
+      commit("SET_ANSWER_WAITING_FOR_API", null);
     },
-    async DELETE_ANSWER({ dispatch, state }, { slug }) {
+    async DELETE_ANSWER({ dispatch, commit, state }, answer) {
+      commit("SET_ANSWER_WAITING_FOR_API", answer);
+      const { slug } = answer;
       await axios.delete(`/api/v2/homework/answers/${slug}/`);
-      return dispatch("FETCH_ANSWER", { id: state.answer.slug });
+      await dispatch("FETCH_ANSWER", { id: state.answer.slug });
+      commit("SET_ANSWER_WAITING_FOR_API", null);
     },
   },
   mutations: {
+    SET_ANSWER_WAITING_FOR_API(state, answer) {
+      state.answerWaitingForAPI = answer;
+    },
     SET_ANSWER(state, answer) {
       state.answer = answer;
     },

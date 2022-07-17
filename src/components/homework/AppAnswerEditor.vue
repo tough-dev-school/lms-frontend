@@ -4,25 +4,17 @@
       <AppUserAvatar :user="user" color="secondary" class="answer-editor__avatar" />
       <AppUserName :user="user" color="secondary" font="inter" />
     </div>
-    <AppEditor
-      id="answer-text"
-      ref="editor"
-      v-model="text"
-      :disabled="disabled"
-      :save-data-to="userInputLocator"
-      :initial="text"
-      @submit="submit"
-    />
+    <AppEditor ref="editor" v-model="text" :disabled="disabled" :save-data-to="userInputLocator" :initial="text" @submit="submit" />
     <ul class="answer-editor__button-list">
       <li>
         <UiButton
-          :disabled="buttonSendDisabled"
+          :disabled="submitButtonDisabled"
           :is-mobile-full-width="onlySendButton"
           size="small"
           color-type="primary"
           class="login-form__button-enter"
         >
-          Отправить
+          {{ submitButtonCaption }}
         </UiButton>
       </li>
       <li v-if="!onlySendButton">
@@ -34,7 +26,7 @@
           class="login-form__button-enter"
           @click="$emit('cancel')"
         >
-          Отмена
+          {{ cancelButtonCaption }}
         </UiButton>
       </li>
     </ul>
@@ -62,6 +54,8 @@ export default {
     disabled: { type: Boolean, default: false },
     onlySendButton: { type: Boolean, default: false },
     isShowUserInfo: { type: Boolean, default: false },
+    submitButtonCaption: { type: String, default: "Отправить" },
+    cancelButtonCaption: { type: String, default: "Отменить" },
     parent: {
       required: false,
       default: null,
@@ -85,23 +79,30 @@ export default {
   },
   computed: {
     ...mapState("auth", ["user"]),
+    ...mapState("answer", ["answerWaitingForAPI"]),
     userInputLocator() {
       return `answer-${this.question.slug}-${this.parent?.slug}-${this.initialAnswer?.slug}`;
     },
-    buttonSendDisabled() {
-      return this.disabled || !this.text || this.text == this.initialAnswer?.src;
+    submitButtonDisabled() {
+      return this.isWaitingForAPI || this.disabled || !this.text || this.text == this.initialAnswer?.src;
     },
-    updated() {
+    newAnswer() {
       return {
         text: this.text,
         parent: this.parent?.slug || null,
         slug: this.initialAnswer?.slug || null,
       };
     },
+    isWaitingForAPI() {
+      if (!this.initialAnswer || !this.answerWaitingForAPI) {
+        return false;
+      }
+      return this.initialAnswer.slug == this.answerWaitingForAPI.slug;
+    },
   },
   methods: {
     async submit() {
-      this.$emit("submit", this.updated);
+      this.$emit("submit", this.newAnswer);
     },
     focus() {
       this.$refs.editor.focus();

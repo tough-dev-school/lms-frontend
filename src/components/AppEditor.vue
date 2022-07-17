@@ -57,7 +57,7 @@ export default {
     },
     clear() {
       this.simplemde.clearAutosavedValue();
-      this.simplemde.value(this.initial);
+      this.simplemde.value("");
     },
     focus() {
       this.simplemde.codemirror.focus();
