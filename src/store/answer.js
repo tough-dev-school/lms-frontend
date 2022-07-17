@@ -23,7 +23,7 @@ export default {
       await axios.post("/api/v2/homework/answers/", answer);
       await dispatch("FETCH_ANSWER", { id: state.answer.slug });
     },
-    async UPDATE_ANSWER({ dispatch, commit }, { slug, text }) {
+    async UPDATE_ANSWER({ commit }, { slug, text }) {
       const response = await axios.patch(`/api/v2/homework/answers/${slug}/`, { text });
       commit("UPDATE_ANSWER", response.data);
     },
