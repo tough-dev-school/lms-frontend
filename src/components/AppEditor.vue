@@ -48,7 +48,6 @@ export default {
         }
       },
     });
-    /*this.simplemde.value(this.initial);*/
     this.$emit("input", this.simplemde.value()); // emit input to make sure all stuff is updated after initial loading
   },
   methods: {

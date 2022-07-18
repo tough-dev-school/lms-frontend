@@ -15,7 +15,13 @@
       <AppContent :html="answer.text" />
     </div>
     <div v-else class="answer__editor">
-      <AppAnswerEditor :initial-answer="answer" :question="question" @cancel="isEditing = false" @submit="updateAnswer" />
+      <AppAnswerEditor
+        submit-button-caption="Сохранить"
+        :initial-answer="answer"
+        :question="question"
+        @cancel="isEditing = false"
+        @submit="updateAnswer"
+      />
     </div>
   </div>
 </template>
