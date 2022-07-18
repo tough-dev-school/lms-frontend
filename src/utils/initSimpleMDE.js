@@ -8,7 +8,7 @@ export default ({ element, uniqueId, onChange, onKeyDown }) => {
     autosave: {
       enabled: true,
       uniqueId,
-      delay: 500,
+      delay: 3000,
     },
     status: false,
     toolbar: [
@@ -26,8 +26,7 @@ export default ({ element, uniqueId, onChange, onKeyDown }) => {
       "preview",
     ],
     previewRender: (markdown, preview) => {
-      // сука, как же я ненавижу свою жизнь
-      const formData = new FormData();
+      const formData = new FormData(); // backend accepts only form-encoded data
       formData.append("content", markdown);
       axios.post("/api/v2/markdownx/markdownify/", formData).then((result) => (preview.innerHTML = result.data));
     },

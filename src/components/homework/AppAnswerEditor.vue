@@ -4,29 +4,29 @@
       <AppUserAvatar :user="user" color="secondary" class="answer-editor__avatar" />
       <AppUserName :user="user" color="secondary" font="inter" />
     </div>
-    <AppEditor
-      id="answer-text"
-      ref="editor"
-      v-model="text"
-      :disabled="disabled"
-      :save-data-to="answerIdForSavingUserInput"
-      @submit="submit"
-    />
+    <AppEditor ref="editor" v-model="text" :disabled="disabled" :save-data-to="userInputLocator" :initial="text" @submit="submit" />
     <ul class="answer-editor__button-list">
       <li>
         <UiButton
-          :disabled="buttonSendDisabled"
+          :disabled="submitButtonDisabled"
           :is-mobile-full-width="onlySendButton"
           size="small"
           color-type="primary"
           class="login-form__button-enter"
         >
-          Отправить
+          {{ submitButtonCaption }}
         </UiButton>
       </li>
       <li v-if="!onlySendButton">
-        <UiButton :disabled="disabled" type="button" size="small" color-type="white" class="login-form__button-enter" @click="handleCancel">
-          Отмена
+        <UiButton
+          :disabled="disabled"
+          type="button"
+          size="small"
+          color-type="white"
+          class="login-form__button-enter"
+          @click="$emit('cancel')"
+        >
+          {{ cancelButtonCaption }}
         </UiButton>
       </li>
     </ul>
@@ -54,6 +54,8 @@ export default {
     disabled: { type: Boolean, default: false },
     onlySendButton: { type: Boolean, default: false },
     isShowUserInfo: { type: Boolean, default: false },
+    submitButtonCaption: { type: String, default: "Отправить" },
+    cancelButtonCaption: { type: String, default: "Отменить" },
     parent: {
       required: false,
       default: null,
@@ -64,27 +66,43 @@ export default {
       default: null,
       validator: objectOrNullValidator,
     },
+    initialAnswer: {
+      required: false,
+      default: null,
+      validator: objectOrNullValidator,
+    },
   },
   data() {
     return {
-      text: null,
+      text: this.initialAnswer ? this.initialAnswer.src : null,
     };
   },
   computed: {
     ...mapState("auth", ["user"]),
-    answerIdForSavingUserInput() {
-      return `answer-${this.question.slug}-${this.parent?.slug}`;
+    ...mapState("answer", ["answerWaitingForAPI"]),
+    userInputLocator() {
+      return `answer-${this.question.slug}-${this.parent?.slug}-${this.initialAnswer?.slug}`;
     },
-    buttonSendDisabled() {
-      return this.disabled || !this.text;
+    submitButtonDisabled() {
+      return this.isWaitingForAPI || this.disabled || !this.text || this.text == this.initialAnswer?.src;
+    },
+    newAnswer() {
+      return {
+        text: this.text,
+        parent: this.parent?.slug || null,
+        slug: this.initialAnswer?.slug || null,
+      };
+    },
+    isWaitingForAPI() {
+      if (!this.initialAnswer || !this.answerWaitingForAPI) {
+        return false;
+      }
+      return this.initialAnswer.slug == this.answerWaitingForAPI.slug;
     },
   },
   methods: {
     async submit() {
-      const { text } = this;
-      const parent = this.parent ? this.parent.slug : null;
-
-      this.$emit("submit", { text, parent });
+      this.$emit("submit", this.newAnswer);
     },
     focus() {
       this.$refs.editor.focus();
@@ -92,30 +110,32 @@ export default {
     clear() {
       this.$refs.editor.clear();
     },
-    handleCancel() {
-      this.$emit("cancel");
-    },
   },
 };
 </script>
 
-<style scoped>
-.answer-editor__author-wapper {
-  display: flex;
-  align-items: center;
-  margin-bottom: 16px;
-}
-.answer-editor__avatar {
-  margin-right: 8px;
-}
-.answer-editor__button-list {
-  display: flex;
-  padding-top: 16px;
+<style lang="postcss" scoped>
+.answer-editor {
+  &__author-wapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
 
-  li {
-    width: 100%;
+  &__avatar {
+    margin-right: 8px;
+  }
+
+  &__button-list {
+    display: flex;
+    padding-top: 16px;
+
+    li {
+      width: 100%;
+    }
   }
 }
+
 @media (--after-mobile) {
   .answer-editor__button-list {
     li {

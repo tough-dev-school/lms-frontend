@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import AnswerList from "@/components/Answer/AnswerList.vue";
+import AnswerList from "@/components/homework/AnswerList.vue";
 
 export default {
   components: { AnswerList },
@@ -29,7 +29,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="postcss" scoped>
 .answer-discussion__title {
   @mixin inter-title-two;
 }

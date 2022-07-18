@@ -6,7 +6,7 @@
     :disabled="isLoading"
     :only-send-button="onlySendButton"
     @submit="submit"
-    @cancel="handleCancel"
+    @cancel="$emit('cancel')"
   />
 </template>
 
@@ -36,7 +36,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions("question", ["POST_ANSWER", "FETCH_ANSWERS"]),
+    ...mapActions("question", ["POST_ANSWER"]),
     async submit({ text, parent }) {
       const question = this.question.slug;
 
@@ -44,17 +44,12 @@ export default {
       await this.POST_ANSWER({
         answer: { text, parent, question },
       });
-      await this.FETCH_ANSWERS({ question });
-
       this.isLoading = false;
       this.$refs.editor.clear();
       this.$emit("submitted");
     },
     focus() {
       this.$refs.editor.focus();
-    },
-    handleCancel() {
-      this.$emit("cancel");
     },
   },
 };

@@ -17,7 +17,7 @@
       <div class="answer__row">
         <div class="answer__column answer__column--content">
           <div class="answer__divider" />
-          <AppAnswer ref="initialAnswer" :answer="answer" :question="question" class="answer__answer" />
+          <AppAnswer ref="firstAnswer" :answer="answer" :question="question" class="answer__answer" />
           <AppAnswerEditor
             ref="editor"
             :parent="answer"
@@ -28,7 +28,7 @@
             class="answer__answer-editor"
             @submit="submit"
           />
-          <AnswerDiscussion ref="discussion" :answer="answer" :question="question" @deleted="deleted" />
+          <AnswerDiscussion ref="discussion" :answer="answer" :question="question" @deleted="DELETE_ANSWER" />
         </div>
         <div class="answer__column answer__column--feedback">
           <div class="answer__feedback-text">
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 
 import AppContent from "@/components/AppContent.vue";
 import AppHTTPError from "@/components/AppHTTPError.vue";
@@ -99,7 +99,7 @@ export default {
       }
     },
   },
-  async created() {
+  async mounted() {
     const { id } = this.$route.params;
     this.error = null;
     try {
@@ -110,7 +110,8 @@ export default {
     this.isLoaded = true;
   },
   methods: {
-    ...mapActions("answer", ["FETCH_ANSWER", "POST_ANSWER", "DELETE_ANSWER"]),
+    ...mapActions("answer", ["FETCH_ANSWER", "POST_ANSWER"]),
+    ...mapMutations("answer", ["DELETE_ANSWER", "UPDATE_ANSWER"]),
     async submit({ text, parent }) {
       const answer = { text, parent, question: this.question.slug };
       this.isLoading = true;
@@ -132,10 +133,6 @@ export default {
     },
     handleClosed() {
       this.title = COLLAPSE_BUTTON_TITLE.readTask;
-    },
-    async deleted(answer) {
-      await this.DELETE_ANSWER(answer);
-      this.$scrollTo(this.$refs.initialAnswer);
     },
   },
 };

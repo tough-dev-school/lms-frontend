@@ -35,8 +35,13 @@ export default {
 
       commit("SET_QUESTION", response.data);
     },
-    async FETCH_ANSWERS({ commit }, { question }) {
-      const response = await axios.get(`/api/v2/homework/answers/?question=${question}&page_size=203`);
+    async FETCH_ANSWERS({ commit }, filters) {
+      const response = await axios.get("/api/v2/homework/answers/", {
+        params: {
+          page_size: 203,
+          ...filters,
+        },
+      });
 
       commit("SET_ANSWERS", response.data.results);
     },

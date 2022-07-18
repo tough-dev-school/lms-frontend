@@ -6,9 +6,9 @@
       <div v-if="answers.length" class="question__divider" />
       <div v-if="answers.length" class="question__answer-list">
         <h2 class="question__subtitle">{{ answersTitle }}</h2>
-        <QuestionAnswerList :question="question" :answers="answers" @deleted="DELETE_ANSWER" />
+        <AnswerList :question="question" :answers="answers" @deleted="fetchAnswers" @updated="fetchAnswers" />
       </div>
-      <QuestionPostAnswer :question="question" only-send-button />
+      <QuestionPostAnswer :question="question" only-send-button @submitted="fetchAnswers" />
     </div>
 
     <h2 v-else-if="error" class="question__subtitle">Упс, что-то пошло не так <AppHTTPError :exception="error" /></h2>
@@ -20,7 +20,7 @@ import { mapActions, mapGetters, mapState } from "vuex";
 import AppContent from "@/components/AppContent.vue";
 import AppHTTPError from "@/components/AppHTTPError.vue";
 import AppContainer from "@/components/AppContainer.vue";
-import QuestionAnswerList from "@/components/Question/QuestionAnswerList.vue";
+import AnswerList from "@/components/homework/AnswerList.vue";
 import QuestionPostAnswer from "@/components/Question/QuestionPostAnswer.vue";
 
 export default {
@@ -28,7 +28,7 @@ export default {
     AppContainer,
     AppContent,
     AppHTTPError,
-    QuestionAnswerList,
+    AnswerList,
     QuestionPostAnswer,
   },
   data() {
@@ -39,6 +39,7 @@ export default {
   },
   computed: {
     ...mapState("question", ["question", "answers"]),
+    ...mapState("auth", ["user"]),
     ...mapGetters("question", ["getAnswers", "filterAnswers"]),
     answersTitle() {
       return this.answers.length == 1 ? "Ваш ответ" : "Ответы";
@@ -52,13 +53,15 @@ export default {
       const { particularAnswerId } = this;
       return particularAnswerId && this.filterAnswers({ slug: particularAnswerId }).length == 1;
     },
+    questionId() {
+      return this.$route.params.id;
+    },
   },
 
   async created() {
-    const { id } = this.$route.params;
     this.error = null;
     try {
-      await Promise.all([this.FETCH_QUESTION({ id }), this.FETCH_ANSWERS({ question: id })]);
+      await Promise.all([this.FETCH_QUESTION({ id: this.questionId }), this.fetchAnswers()]);
       this.scrollToLoadedAnswer();
     } catch (e) {
       this.error = e;
@@ -66,7 +69,10 @@ export default {
     this.isLoaded = true;
   },
   methods: {
-    ...mapActions("question", ["FETCH_QUESTION", "FETCH_ANSWERS", "FETCH_PARTICULAR_ANSWER", "DELETE_ANSWER"]),
+    ...mapActions("question", ["FETCH_QUESTION", "FETCH_ANSWERS", "FETCH_PARTICULAR_ANSWER"]),
+    async fetchAnswers() {
+      return this.FETCH_ANSWERS({ question: this.questionId, author: this.user.uuid });
+    },
     async scrollToLoadedAnswer() {
       if (this.particularAnswerId) {
         if (!this.particularAnswerIsLoaded) {

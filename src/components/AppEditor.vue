@@ -12,6 +12,11 @@ export default {
       required: true,
       validator: (prop) => typeof prop === "string" || prop === null,
     },
+    initial: {
+      required: false,
+      type: String,
+      default: "",
+    },
   },
   data() {
     return {
@@ -34,7 +39,7 @@ export default {
   },
   mounted() {
     this.simplemde = initSimpleMDE({
-      element: this.$refs.input,
+      element: this.$refs.textarea,
       uniqueId: this.saveDataTo,
       onChange: () => (this.text = this.simplemde.value()),
       onKeyDown: (_, { code, ctrlKey, metaKey }) => {
@@ -43,7 +48,7 @@ export default {
         }
       },
     });
-    this.$emit("input", this.simplemde.value()); // emit input to make sure all stuf is updated after initial loading
+    this.$emit("input", this.simplemde.value()); // emit input to make sure all stuff is updated after initial loading
   },
   methods: {
     submit() {
