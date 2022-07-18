@@ -99,7 +99,7 @@ export default {
       }
     },
   },
-  async created() {
+  async mounted() {
     const { id } = this.$route.params;
     this.error = null;
     try {

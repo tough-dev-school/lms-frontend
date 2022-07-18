@@ -20,7 +20,7 @@ import { mapActions, mapGetters, mapState } from "vuex";
 import AppContent from "@/components/AppContent.vue";
 import AppHTTPError from "@/components/AppHTTPError.vue";
 import AppContainer from "@/components/AppContainer.vue";
-import AnswerList from "@/components/Answer/AnswerList.vue";
+import AnswerList from "@/components/homework/AnswerList.vue";
 import QuestionPostAnswer from "@/components/Question/QuestionPostAnswer.vue";
 
 export default {

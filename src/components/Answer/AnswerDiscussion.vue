@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import AnswerList from "@/components/Answer/AnswerList.vue";
+import AnswerList from "@/components/homework/AnswerList.vue";
 
 export default {
   components: { AnswerList },

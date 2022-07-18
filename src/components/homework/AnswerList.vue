@@ -18,7 +18,7 @@ import AppAnswer from "@/components/homework/AppAnswer.vue";
 export default {
   components: {
     AppAnswer,
-    AnswerList: () => import("@/components/Answer/AnswerList.vue"),
+    AnswerList: () => import("@/components/homework/AnswerList.vue"),
   },
   props: {
     answers: { type: Array, required: true },
