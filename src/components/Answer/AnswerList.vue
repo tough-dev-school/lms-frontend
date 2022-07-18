@@ -2,7 +2,13 @@
   <ul class="answer-list">
     <li v-for="answer in answers" :key="answer.slug" class="answer-list__item">
       <AppAnswer :answer="answer" :question="question" v-on="$listeners" />
-      <AnswerList v-if="answer.descendants" :answers="answer.descendants" :question="question" class="single-answer__children" />
+      <AnswerList
+        v-if="answer.descendants"
+        :answers="answer.descendants"
+        :question="question"
+        class="single-answer__children"
+        v-on="$listeners"
+      />
     </li>
   </ul>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div :id="label" class="answer">
-    <AppAnswer :answer="answer" :is-child="isChild" v-on="$listeners" />
+    <AppAnswer :answer="answer" :is-child="isChild" :question="question" v-on="$listeners" />
     <div :class="{ 'answer__wrapper--answering': isAnswering }" class="answer__wrapper">
       <UiButtonAsText :disabled="isAnswering" class="answer__button-answer" @click="isAnswering = !isAnswering">Ответить</UiButtonAsText>
     </div>

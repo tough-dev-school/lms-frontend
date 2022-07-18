@@ -79,12 +79,15 @@ export default {
       if (!confirm("Удаляем?")) {
         return;
       }
-      await this.DELETE_ANSWER(this.answer);
+      const { answer } = this;
+      await this.DELETE_ANSWER(answer);
       this.isDeleted = true;
+      this.$emit("deleted", answer);
     },
     async updateAnswer(answer) {
       await this.UPDATE_ANSWER(answer);
       this.isEditing = false;
+      this.$emit("updated");
     },
   },
 };

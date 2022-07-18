@@ -31,11 +31,10 @@ export default {
       commit("UPDATE_ANSWER", response.data);
       commit("SET_ANSWER_WAITING_FOR_API", null);
     },
-    async DELETE_ANSWER({ dispatch, commit, state }, answer) {
+    async DELETE_ANSWER({ commit }, answer) {
       commit("SET_ANSWER_WAITING_FOR_API", answer);
       const { slug } = answer;
       await axios.delete(`/api/v2/homework/answers/${slug}/`);
-      await dispatch("FETCH_ANSWER", { id: state.answer.slug });
       commit("SET_ANSWER_WAITING_FOR_API", null);
     },
   },
@@ -50,9 +49,22 @@ export default {
       state.question = question;
     },
     UPDATE_ANSWER(state, updated) {
+      if (!state.answer) {
+        return;
+      }
       state.answer.descendants.forEach((descendant, i) => {
         if (descendant.slug == updated.slug) {
           Vue.set(state.answer.descendants, i, updated);
+        }
+      });
+    },
+    DELETE_ANSWER(state, { slug }) {
+      if (!state.answer) {
+        return;
+      }
+      state.answer.descendants.forEach((descendant, i) => {
+        if (descendant.slug == slug) {
+          state.answer.descendants.splice(i, 1);
         }
       });
     },

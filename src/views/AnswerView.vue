@@ -28,7 +28,7 @@
             class="answer__answer-editor"
             @submit="submit"
           />
-          <AnswerDiscussion ref="discussion" :answer="answer" :question="question" />
+          <AnswerDiscussion ref="discussion" :answer="answer" :question="question" @deleted="DELETE_ANSWER" />
         </div>
         <div class="answer__column answer__column--feedback">
           <div class="answer__feedback-text">
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 
 import AppContent from "@/components/AppContent.vue";
 import AppHTTPError from "@/components/AppHTTPError.vue";
@@ -111,6 +111,7 @@ export default {
   },
   methods: {
     ...mapActions("answer", ["FETCH_ANSWER", "POST_ANSWER"]),
+    ...mapMutations("answer", ["DELETE_ANSWER", "UPDATE_ANSWER"]),
     async submit({ text, parent }) {
       const answer = { text, parent, question: this.question.slug };
       this.isLoading = true;
