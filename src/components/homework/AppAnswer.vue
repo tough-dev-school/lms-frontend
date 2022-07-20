@@ -64,7 +64,11 @@ export default {
   computed: {
     ...mapState("auth", ["user"]),
     isEditable() {
-      return this.belongsToCurrentUser && dayjs(this.answer.created).isAfter(dayjs().subtract(10, "minute"));
+      let { created, modified } = this.answer;
+
+      created = modified ? modified : created;
+
+      return this.belongsToCurrentUser && dayjs(created).isAfter(dayjs().subtract(30, "minute"));
     },
     belongsToCurrentUser() {
       return this.user.uuid === this.answer.author.uuid;
