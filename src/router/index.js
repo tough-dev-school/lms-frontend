@@ -23,6 +23,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "questions" */ "@/views/QuestionView.vue"),
   },
   {
+    path: "/homework/question-admin/:id",
+    name: "Single question admin",
+    component: () => import(/* webpackChunkName: "questions" */ "@/views/QuestionAdminView.vue"),
+  },
+  {
     path: "/homework/answers/:id",
     name: "Single answer",
     component: () => import(/* webpackChunkName: "answers" */ "@/views/AnswerView.vue"),
